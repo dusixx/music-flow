@@ -17,14 +17,12 @@
       "@utils": ["./src/app/shared/utils"],
       "@components/*": ["./src/app/shared/components/*"],
       "@components": ["./src/app/shared/components"],
-      "@services/*": ["./src/app/core/services/*"],
-      "@services": ["./src/app/core/services"],
-      "@features/*": ["./src/app/features/*"],
-      "@features": ["./src/app/pages"],
+      "@core/*": ["./src/app/core/*"],
+      "@core": ["./src/app/core"],
+      "@pages/*": ["./src/app/pages/*"],
+      "@pages": ["./src/app/pages"],
       "@assets/*": ["./src/assets/*"],
-      "@assets": ["./src/assets"],
-      "@models/*": ["./src/app/core/models/*"],
-      "@models": ["./src/app/core/models"]
+      "@assets": ["./src/assets"]
     }
   },
   "include": ["src/**/*.ts"],
