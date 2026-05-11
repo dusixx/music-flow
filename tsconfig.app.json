@@ -1,0 +1,32 @@
+/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
+/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./out-tsc/app",
+    "types": [],
+    "paths": {
+      "@public/*": ["./public/*"],
+      "@public": ["./public"],
+      "@app/*": ["./src/app/*"],
+      "@app": ["./src/app"],
+      "@shared/*": ["./src/app/shared/*"],
+      "@shared": ["./src/app/shared"],
+      "@utils/*": ["./src/app/shared/utils/*"],
+      "@utils": ["./src/app/shared/utils"],
+      "@components/*": ["./src/app/shared/components/*"],
+      "@components": ["./src/app/shared/components"],
+      "@services/*": ["./src/app/core/services/*"],
+      "@services": ["./src/app/core/services"],
+      "@features/*": ["./src/app/features/*"],
+      "@features": ["./src/app/pages"],
+      "@assets/*": ["./src/assets/*"],
+      "@assets": ["./src/assets"],
+      "@models/*": ["./src/app/core/models/*"],
+      "@models": ["./src/app/core/models"]
+    }
+  },
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/**/*.spec.ts"]
+}

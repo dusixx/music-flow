@@ -1,0 +1,55 @@
+/* You can add global styles to this file, and also import other style files */
+@use 'modern-normalize';
+
+:root {
+  --wrapper-max-width: 1440px;
+  --wrapper-min-width: 380px;
+  --color-black: rgb(23 24 28);
+  --color-black-10: rgb(23 24 28 / 10%);
+  --color-accent: rgb(33 109 208);
+  --color-blue: rgb(43 126 235);
+  --color-blue-light: rgb(196 221 255);
+  --color-white: rgb(255 255 255);
+  --color-orange: rgb(255 106 0);
+  --color-gray-light: rgb(237 237 237);
+  --color-gray: rgb(214 214 214);
+}
+
+html,
+body {
+  overflow-y: scroll;
+
+  height: 100%;
+
+  font-family: sans-serif;
+  color: var(--color-black);
+
+  background-color: var(--color-gray-light);
+}
+
+p,
+ul,
+h1,
+h2,
+h3 {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+input[type='search'] {
+  cursor: text;
+
+  &::-webkit-search-cancel-button {
+    cursor: pointer;
+  }
+}

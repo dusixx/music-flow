@@ -1,0 +1,22 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "prettier.configPath": ".prettierrc",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.formatDocument": "explicit",
+    "source.addMissingImports.ts": "explicit",
+    "source.sortImports": "explicit"
+  },
+  "css.validate": false,
+  "scss.validate": false,
+  "stylelint.validate": ["css", "scss"],
+  "[scss]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "js/ts.tsdk.path": "node_modules\\typescript\\lib",
+  "search.exclude": {
+    "**/node_modules": false,
+    "**/node_modules/**": true
+  }
+}
