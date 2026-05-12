@@ -1,3 +1,5 @@
+@use 'modern-normalize';
+
 // Include theming for Angular Material with `mat.theme()`.
 // This Sass mixin will define CSS variables that are used for styling Angular Material
 // components according to the Material 3 design spec.
@@ -37,51 +39,4 @@ body {
   // Angular Material's system-level CSS variables. Learn more about these
   // variables at https://material.angular.dev/guide/system-variables
   background-color: var(--mat-sys-surface);
-}
-
-/* You can add global styles to this file, and also import other style files */
-@use 'modern-normalize';
-
-:root {
-  --wrapper-max-width: 1440px;
-  --wrapper-min-width: 380px;
-}
-
-html,
-body {
-  overflow-y: scroll;
-
-  height: 100%;
-
-  font-family: sans-serif;
-  color: black;
-
-  background-color: white;
-}
-
-p,
-ul,
-h1,
-h2,
-h3 {
-  margin: 0;
-  padding: 0;
-}
-
-ul {
-  list-style: none;
-}
-
-img {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-input[type='search'] {
-  cursor: text;
-
-  &::-webkit-search-cancel-button {
-    cursor: pointer;
-  }
 }
