@@ -20,3 +20,9 @@ This project is part of the [Rolling Scopes School Angular course](https://rs.sc
 - Angular Material
 - Firebase (Authentication, Firestore)
 - Angular Testing Utilities (Jasmine / Karma)
+
+
+## 👥 Team Members
+- Ina — [inalitvinka](https://github.com/inalitvinka)
+- Andrew — [dusixx](https://github.com/dusixx)
+- Aleksei — [ngInit](https://github.com/nginit)
