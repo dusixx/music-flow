@@ -6,7 +6,7 @@ MusicFlow is a music streaming service clone that allows users to search for tra
 
 The application is built on top of the Jamendo API v3.0, which provides access to over 500,000+ freely licensed tracks, along with metadata for artists, albums, and audio streaming links.
 
-This project is part of the [Rolling Scopes School Angular course](https://rs.school/courses/angular). It was developed by a team of three over four sprints as a learning exercise focused on mastering Angular and modern frontend development practices.
+This project is part of the [Rolling Scopes School Angular course](https://rs.school/courses/angular). It was developed by a team of three over four sprints to practice Angular and modern frontend development principles.
 
 ## 🛠️ Technology Stack
 - Angular
