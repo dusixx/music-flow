@@ -1,0 +1,46 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  padding: 16px;
+
+  mat-nav-list {
+    display: flex;
+    flex-direction: row;
+    gap: 0 16px;
+    align-items: center;
+    justify-content: center;
+
+    width: 100%;
+    padding: 0;
+
+    @media screen and (width <= 420px) {
+      flex-direction: column;
+      gap: 16px 0;
+    }
+  }
+
+  a[mat-list-item] {
+    display: flex;
+    align-items: center;
+
+    width: fit-content;
+    height: 60px;
+    padding: 0 16px;
+  }
+
+  a[mat-list-item]:not(:nth-child(1)) {
+    text-transform: uppercase;
+  }
+
+  @include mat.list-overrides(
+    (
+      list-item-hover-state-layer-color: none,
+      list-item-label-text-font: var(--mat-sys-body-small-font),
+      list-item-label-text-size: var(--mat-sys-body-small-size),
+      list-item-label-text-weight: var(--mat-sys-body-small-weight),
+      list-item-label-text-line-height: var(--mat-sys-body-small-line-height),
+      list-item-label-text-tracking: var(--mat-sys-body-small-tracking),
+    )
+  );
+}
