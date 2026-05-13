@@ -1,0 +1,5 @@
+<mat-nav-list>
+  @for (footerLink of footerLinks; track $index) {
+    <a mat-list-item href="{{ footerLink.url }}" target="_blank">{{ footerLink.name }}</a>
+  }
+</mat-nav-list>
