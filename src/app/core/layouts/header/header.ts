@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, InputSignal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
@@ -11,8 +11,8 @@ import { MatButtonModule } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  private readonly router: Router = inject(Router);
-  readonly isAuthorized: InputSignal<boolean> = input.required<boolean>();
+  private readonly router = inject(Router);
+  readonly isAuthorized = input.required<boolean>();
 
   onHome(): void {
     void this.router.navigate(['']);
