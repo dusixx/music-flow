@@ -1,0 +1,20 @@
+<div class="card">
+  <img [src]="photo()" [alt]="name()" class="card-photo" />
+  <h3 class="card-name">{{ name() }}</h3>
+  <p class="card-role">{{ role() }}</p>
+  <p class="card-bio">{{ bio() }}</p>
+  <div class="card-tracks">
+    <h4 class="card-favtracks">Favorite tracks:</h4>
+    <ul>
+      @for (track of favtracks(); track track.id) {
+        <li class="card-track">
+          <span class="track-title">{{ track.title }}</span>
+          @if (track.artist) {
+            <span class="track-artist">{{ track.artist }}</span>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+  <a [href]="github()" target="_blank" rel="noopener noreferrer" class="card-link">GitHub</a>
+</div>
