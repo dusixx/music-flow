@@ -7,6 +7,5 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Footer {
-  private readonly copyrightYear = new Date().getFullYear();
-  readonly copyrightText = `© ${this.copyrightYear} MusicFlow. All Rights Reserved`;
+  protected readonly copyrightText = `© ${new Date().getFullYear()} MusicFlow. All Rights Reserved`;
 }
