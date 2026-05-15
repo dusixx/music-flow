@@ -29,6 +29,7 @@
               "includePaths": ["src/styles"]
             },
             "assets": [
+              "src/assets",
               {
                 "glob": "**/*",
                 "input": "public"
