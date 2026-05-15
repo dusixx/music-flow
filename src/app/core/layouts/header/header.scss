@@ -1,0 +1,71 @@
+@use '@angular/material' as mat;
+
+:host {
+  display: block;
+  width: 100%;
+  height: fit-content;
+  padding: 16px;
+
+  .header-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+
+    padding: 0 8px;
+  }
+
+  .header-logo-button {
+    cursor: pointer;
+
+    display: flex;
+    flex-direction: row;
+    column-gap: 8px;
+    align-items: center;
+
+    padding: 8px;
+    border: none;
+
+    font: var(--mat-sys-body-medium);
+
+    background: none;
+  }
+
+  .logo-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: 30px;
+    height: 30px;
+    border-radius: var(--mat-sys-corner-full);
+
+    background-color: #b3261e;
+  }
+
+  .header-buttons-container {
+    display: flex;
+    flex-direction: row;
+    column-gap: 16px;
+    align-items: center;
+  }
+
+  @include mat.button-overrides(
+    (
+      filled-container-color: white,
+      filled-container-height: 32px,
+      filled-label-text-transform: none,
+    )
+  );
+
+  button[matIconButton='tonal'] {
+    color: var(--mat-sys-on-tertiary-container);
+    background-color: var(--mat-sys-tertiary-container);
+  }
+
+  button[matButton] {
+    width: 72px;
+    font: var(--mat-sys-body-small);
+    white-space: nowrap;
+  }
+}
