@@ -1,4 +1,6 @@
 .about {
+  padding: 0 20px;
+
   &-title {
     margin-bottom: 3rem;
     font-size: 36px;
@@ -12,7 +14,6 @@
     justify-content: center;
 
     margin-bottom: 4.5rem;
-    padding: 0 20px;
   }
 
   &-credits {
