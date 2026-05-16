@@ -9,10 +9,4 @@ import { TeamMember } from '../../about.models';
 })
 export class TeamMemberCard {
   member = input.required<TeamMember>();
-  // name = input.required<string>();
-  // role = input.required<string>();
-  // bio = input.required<string>();
-  // photo = input.required<string>();
-  // github = input.required<string>();
-  // favtracks = input.required<FavTrack[]>();
 }

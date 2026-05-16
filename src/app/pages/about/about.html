@@ -4,14 +4,6 @@
   <div class="about-cards">
     @for (member of teamMembers; track member.github) {
       <player-team-member-card [member]="member" />
-      <!-- <player-team-member-card
-        [photo]="member.photo"
-        [name]="member.name"
-        [role]="member.role"
-        [bio]="member.bio"
-        [github]="member.github"
-        [favtracks]="member.favtracks"
-      /> -->
     }
   </div>
 
