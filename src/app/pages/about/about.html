@@ -2,15 +2,16 @@
   <h1 class="about-title">About Us</h1>
 
   <div class="about-cards">
-    @for (member of teamMembers; track member.name) {
-      <player-team-member-card
+    @for (member of teamMembers; track member.github) {
+      <player-team-member-card [member]="member" />
+      <!-- <player-team-member-card
         [photo]="member.photo"
         [name]="member.name"
         [role]="member.role"
         [bio]="member.bio"
         [github]="member.github"
         [favtracks]="member.favtracks"
-      />
+      /> -->
     }
   </div>
 

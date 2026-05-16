@@ -1,12 +1,12 @@
 <div class="card">
-  <img [src]="photo()" [alt]="name()" class="card-photo" />
-  <h3 class="card-name">{{ name() }}</h3>
-  <p class="card-role">{{ role() }}</p>
-  <p class="card-bio">{{ bio() }}</p>
+  <img [src]="member().photo" [alt]="member().name" class="card-photo" />
+  <h2 class="card-name">{{ member().name }}</h2>
+  <p class="card-role">{{ member().role }}</p>
+  <p class="card-bio">{{ member().bio }}</p>
   <div class="card-tracks">
-    <h4 class="card-favtracks">Favorite tracks:</h4>
+    <p class="card-favtracks">Favorite tracks:</p>
     <ul class="card-list">
-      @for (track of favtracks(); track track.id) {
+      @for (track of member().favtracks; track track.id) {
         <li class="card-track">
           <span class="card-track-title">{{ track.title }}</span>
           @if (track.artist) {
@@ -16,5 +16,5 @@
       }
     </ul>
   </div>
-  <a [href]="github()" target="_blank" rel="noopener noreferrer" class="card-link">GitHub</a>
+  <a [href]="member().github" target="_blank" rel="noopener noreferrer" class="card-link">GitHub</a>
 </div>
