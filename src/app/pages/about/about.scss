@@ -11,16 +11,21 @@
     gap: 2rem;
     justify-content: center;
 
-    margin-bottom: 3.3rem;
+    margin-bottom: 4.5rem;
     padding: 0 20px;
   }
-}
 
-.rss {
-  margin-bottom: 3rem;
-  text-align: center;
+  &-credits {
+    margin-bottom: 3rem;
+    text-align: center;
 
-  &-logo {
-    width: 70px;
+    &-mentor {
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    &-logo {
+      width: 70px;
+    }
   }
 }
