@@ -1,0 +1,16 @@
+<button #buttonRef [ngClass]="buttonClasses()">
+  @if (loading()) {
+    <div class="loader">
+      <img class="spinner" src="spinner.gif" alt="spinner" />
+    </div>
+  } @else {
+    @if (spriteHref()) {
+      <svg class="icon">
+        <use [attr.href]="spriteHref()"></use>
+      </svg>
+    }
+    @if (label()) {
+      <span class="label">{{ label() }}</span>
+    }
+  }
+</button>

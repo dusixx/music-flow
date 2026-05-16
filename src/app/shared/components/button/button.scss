@@ -1,0 +1,56 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+:host:has(.loading) {
+  pointer-events: none;
+}
+
+.base {
+  @extend %btn-base;
+}
+
+.primary {
+  @extend %btn-primary;
+}
+
+.secondary {
+  @extend %btn-secondary;
+}
+
+.disabled {
+  @include mix.non-interactive {
+    opacity: 0.4;
+  }
+}
+
+.btn {
+  --spinner-width: 20px;
+
+  &:not(:has(.label)) {
+    aspect-ratio: 1;
+    height: var(--button-height);
+    padding: 0;
+  }
+
+  &.small {
+    --button-height: 34px;
+    --button-font-size: 12px;
+    --button-padding-side: 18px;
+    --spinner-width: 18px;
+  }
+}
+
+.icon {
+  display: flex;
+  aspect-ratio: 1;
+  height: 40%;
+  fill: currentcolor;
+}
+
+.loading {
+  pointer-events: none;
+
+  .spinner {
+    width: var(--spinner-width);
+  }
+}
