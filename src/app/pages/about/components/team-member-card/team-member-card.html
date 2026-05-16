@@ -5,12 +5,12 @@
   <p class="card-bio">{{ bio() }}</p>
   <div class="card-tracks">
     <h4 class="card-favtracks">Favorite tracks:</h4>
-    <ul>
+    <ul class="card-list">
       @for (track of favtracks(); track track.id) {
         <li class="card-track">
-          <span class="track-title">{{ track.title }}</span>
+          <span class="card-track-title">{{ track.title }}</span>
           @if (track.artist) {
-            <span class="track-artist">{{ track.artist }}</span>
+            <span class="card-track-artist">{{ track.artist }}</span>
           }
         </li>
       }

@@ -1,9 +1,26 @@
 .about {
+  &-title {
+    margin-bottom: 3rem;
+    font-size: 36px;
+    text-align: center;
+  }
+
   &-cards {
     display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+
+    margin-bottom: 3.3rem;
+    padding: 0 20px;
   }
 }
 
-.rss-logo {
-  width: 70px;
+.rss {
+  margin-bottom: 3rem;
+  text-align: center;
+
+  &-logo {
+    width: 70px;
+  }
 }
