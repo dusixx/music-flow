@@ -4,8 +4,8 @@
 $focused-selector: ':not(.loading)';
 
 .btn {
-  --sprite-width: 16px;
-  --spinner-width: 20px;
+  --icon-size: 16px;
+  --spinner-size: 20px;
 
   position: relative;
 
@@ -47,7 +47,7 @@ $focused-selector: ':not(.loading)';
 
   & .icon {
     aspect-ratio: 1;
-    height: var(--sprite-width);
+    height: var(--icon-size);
     margin-right: 6px;
     fill: currentcolor;
   }
@@ -56,8 +56,8 @@ $focused-selector: ':not(.loading)';
     --button-height: 34px;
     --button-font-size: 12px;
     --button-padding-side: 18px;
-    --sprite-width: 14px;
-    --spinner-width: 18px;
+    --icon-size: 14px;
+    --spinner-size: 18px;
   }
 
   &.no-text {
@@ -80,7 +80,7 @@ $focused-selector: ':not(.loading)';
 
       display: block;
 
-      width: var(--spinner-width);
+      width: var(--spinner-size);
       margin: auto;
     }
 
