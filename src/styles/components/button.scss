@@ -39,12 +39,6 @@ $focused-selector: ':not(.loading)';
     }
   }
 
-  &:disabled {
-    @include mix.non-interactive {
-      opacity: 0.4;
-    }
-  }
-
   & .icon {
     aspect-ratio: 1;
     height: var(--icon-size);
