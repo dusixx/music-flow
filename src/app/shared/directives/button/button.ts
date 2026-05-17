@@ -53,7 +53,6 @@ export class Button implements AfterViewChecked {
           this.width.set(offsetWidth);
         });
         button.style.width = '';
-        return;
       } else if (currentWidth) {
         button.style.width = `${currentWidth}px`;
       }
