@@ -1,0 +1,22 @@
+@use '../mixins' as *;
+
+%wrapper {
+  position: relative;
+
+  overflow: hidden;
+
+  min-width: var(--wrapper-min-width);
+  max-width: var(--wrapper-max-width);
+  margin: 0 auto;
+  padding: 0 16px;
+}
+
+%link-base {
+  color: var(--color-white);
+  text-decoration: none;
+
+  @include main-transition('color');
+  @include focused {
+    color: var(--color-violet);
+  }
+}

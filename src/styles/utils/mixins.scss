@@ -1,0 +1,24 @@
+$transition-duration: 250ms;
+
+@mixin main-transition($props: 'all') {
+  transition-timing-function: ease;
+  transition-duration: $transition-duration;
+  transition-property: #{$props};
+}
+
+@mixin focused($target: '') {
+  &#{$target}:focus-visible {
+    @content;
+  }
+  @media (hover: hover) and (pointer: fine) {
+    &#{$target}:hover {
+      @content;
+    }
+  }
+}
+
+@mixin non-interactive() {
+  pointer-events: none;
+  user-select: none;
+  @content;
+}
