@@ -1,0 +1,50 @@
+@use '../mixins' as *;
+
+%btn-base {
+  --button-height: 46px;
+  --button-font-size: 14px;
+  --button-padding-side: 24px;
+  --button-border-radius: 9999px;
+
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: var(--button-height);
+  padding: 0 var(--button-padding-side);
+  border-style: none;
+  border-radius: var(--button-border-radius);
+
+  font-family: inherit;
+  font-size: var(--button-font-size);
+
+  background-color: transparent;
+
+  @include main-transition('background-color');
+
+  &:disabled {
+    @include non-interactive {
+      opacity: 0.6;
+    }
+  }
+}
+
+%btn-primary {
+  @extend %btn-base;
+
+  border: unset;
+  color: var(--color-black);
+  background-color: var(--color-white);
+
+  @include main-transition('background-color, color');
+}
+
+%btn-secondary {
+  @extend %btn-primary;
+
+  color: var(--color-white);
+  background-color: var(--color-violet);
+}

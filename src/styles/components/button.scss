@@ -1,0 +1,91 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+$focused-selector: ':not(.loading)';
+
+.btn {
+  --sprite-width: 16px;
+  --spinner-width: 20px;
+
+  position: relative;
+
+  .spinner {
+    display: none;
+  }
+
+  &.base {
+    @extend %btn-base;
+
+    @include mix.focused($focused-selector) {
+      background-color: var(--color-white-10);
+    }
+  }
+
+  &.primary {
+    @extend %btn-primary;
+
+    @include mix.focused($focused-selector) {
+      color: var(--color-white);
+      background-color: var(--color-violet);
+    }
+  }
+
+  &.secondary {
+    @extend %btn-secondary;
+
+    @include mix.focused($focused-selector) {
+      color: var(--color-black);
+      background-color: var(--color-white);
+    }
+  }
+
+  &:disabled {
+    @include mix.non-interactive {
+      opacity: 0.4;
+    }
+  }
+
+  & .icon {
+    aspect-ratio: 1;
+    height: var(--sprite-width);
+    margin-right: 6px;
+    fill: currentcolor;
+  }
+
+  &.small {
+    --button-height: 34px;
+    --button-font-size: 12px;
+    --button-padding-side: 18px;
+    --sprite-width: 14px;
+    --spinner-width: 18px;
+  }
+
+  &.no-text {
+    --button-padding-side: 0;
+
+    aspect-ratio: 1;
+
+    .icon {
+      margin: 0;
+    }
+  }
+
+  &.loading {
+    pointer-events: none;
+    color: transparent;
+
+    .spinner {
+      position: absolute;
+      inset: 0;
+
+      display: block;
+
+      width: var(--spinner-width);
+      margin: auto;
+    }
+
+    .icon {
+      display: none;
+    }
+  }
+}
