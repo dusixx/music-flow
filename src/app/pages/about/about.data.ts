@@ -10,18 +10,18 @@ export const TEAM_MEMBERS: TeamMember[] = [
     favtracks: [
       {
         id: 'track-1',
-        title: 'While We Sleep',
-        artist: 'Insomnium',
+        title: 'Lorem ipsum dolor',
+        artist: 'Sit amet',
       },
       {
         id: 'track-2',
-        title: 'Follow Your Heart',
-        artist: 'Scorpions',
+        title: 'Consectetur adipiscing',
+        artist: 'Elit sed',
       },
       {
         id: 'track-3',
-        title: 'Aerials',
-        artist: 'System of a Down',
+        title: 'Tempor incididunt',
+        artist: 'Ut labore',
       },
     ],
   },
@@ -35,18 +35,18 @@ export const TEAM_MEMBERS: TeamMember[] = [
     favtracks: [
       {
         id: 'track-1',
-        title: 'Pale Morning Star',
-        artist: 'Insomnium',
+        title: 'Lorem ipsum dolor',
+        artist: 'Sit amet',
       },
       {
         id: 'track-2',
-        title: 'A Reason To Fight',
-        artist: 'Disturbed',
+        title: 'Consectetur adipiscing',
+        artist: 'Elit sed',
       },
       {
         id: 'track-3',
-        title: 'Ya Ne Toy',
-        artist: "5'nizza",
+        title: 'Tempor incididunt',
+        artist: 'Ut labore',
       },
     ],
   },
@@ -60,18 +60,18 @@ export const TEAM_MEMBERS: TeamMember[] = [
     favtracks: [
       {
         id: 'track-1',
-        title: 'Through The Shadows',
-        artist: 'Insomnium',
+        title: 'Lorem ipsum dolor',
+        artist: 'Sit amet',
       },
       {
         id: 'track-2',
-        title: 'The Sound Of Silence',
-        artist: 'Disturbed',
+        title: 'Consectetur adipiscing',
+        artist: 'Elit sed',
       },
       {
         id: 'track-3',
-        title: 'Smells Like Teen Spirit',
-        artist: 'Nirvana',
+        title: 'Tempor incididunt',
+        artist: 'Ut labore',
       },
     ],
   },
