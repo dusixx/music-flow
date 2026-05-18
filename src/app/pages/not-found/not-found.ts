@@ -1,14 +1,15 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { HomeButton } from './components/home-button/home-button';
+import { Button } from '@app/shared/directives/button/button';
 
 @Component({
   selector: 'player-not-found',
-  imports: [HomeButton],
+  imports: [Button],
   templateUrl: './not-found.html',
   styleUrl: './not-found.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound {
-  title = '404';
-  message = 'The page you are looking for seems to have disappeared to the void';
+  protected pageTitle = '404';
+  protected buttonTitle = 'Go Home';
+  protected message = 'The page you are looking for seems to have disappeared to the void';
 }
