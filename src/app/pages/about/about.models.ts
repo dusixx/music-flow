@@ -10,5 +10,5 @@ export interface TeamMember {
   bio: string;
   photo: string;
   github: string;
-  favtracks: FavTrack[];
+  favTracks: FavTrack[];
 }

@@ -6,7 +6,7 @@
   <div class="card-tracks">
     <p class="card-favtracks">Favorite tracks:</p>
     <ul class="card-list">
-      @for (track of member().favtracks; track track.id) {
+      @for (track of member().favTracks; track track.id) {
         <li class="card-track">
           <span class="card-track-title">{{ track.title }}</span>
           @if (track.artist) {
