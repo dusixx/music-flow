@@ -10,7 +10,7 @@ import { RouterLink } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class NotFound {
-  protected pageTitle = '404';
-  protected buttonTitle = 'Go Home';
-  protected message = 'The page you are looking for seems to have disappeared to the void';
+  protected readonly pageTitle = '404';
+  protected readonly buttonTitle = 'Go Home';
+  protected readonly message = 'The page you are looking for seems to have disappeared to the void';
 }
