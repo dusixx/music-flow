@@ -1,5 +1,4 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { TeamMember } from './about.models';
 import { TEAM_MEMBERS } from './about.data';
 import { TeamMemberCard } from './components/team-member-card/team-member-card';
 
@@ -11,5 +10,5 @@ import { TeamMemberCard } from './components/team-member-card/team-member-card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class About {
-  protected readonly teamMembers: readonly TeamMember[] = TEAM_MEMBERS;
+  protected readonly teamMembers = TEAM_MEMBERS;
 }

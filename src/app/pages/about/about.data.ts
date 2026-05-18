@@ -75,4 +75,4 @@ export const TEAM_MEMBERS: TeamMember[] = [
       },
     ],
   },
-];
+] as const;
