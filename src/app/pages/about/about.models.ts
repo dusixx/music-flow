@@ -1,4 +1,4 @@
-export interface FavTrack {
+export interface FavoriteTrack {
   id: string;
   title: string;
   artist?: string;
@@ -10,5 +10,5 @@ export interface TeamMember {
   bio: string;
   photo: string;
   github: string;
-  favTracks: FavTrack[];
+  favoriteTracks: FavoriteTrack[];
 }
