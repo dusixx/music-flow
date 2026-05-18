@@ -11,5 +11,5 @@ import { TeamMemberCard } from './components/team-member-card/team-member-card';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class About {
-  readonly teamMembers: readonly TeamMember[] = TEAM_MEMBERS;
+  protected readonly teamMembers: readonly TeamMember[] = TEAM_MEMBERS;
 }
