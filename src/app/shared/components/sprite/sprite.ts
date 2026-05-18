@@ -10,5 +10,5 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 export class Sprite {
   href = input('');
   id = input('');
-  protected spritePath = 'images/icons.svg';
+  protected readonly spritePath = 'assets/icons/icons.svg';
 }
