@@ -1,0 +1,27 @@
+<section class="about">
+  <h1 class="about-title">About Us</h1>
+
+  <div class="about-cards">
+    @for (member of teamMembers; track member.github) {
+      <player-team-member-card [member]="member" />
+    }
+  </div>
+
+  <div class="about-credits">
+    <p>
+      Built by MusicFlowTeam with guidance from our mentor
+      <a
+        class="about-credits-mentor"
+        href="https://github.com/aliaksei-sl"
+        target="_blank"
+        rel="noopener noreferrer"
+        >Aliaksei Hancharevich
+      </a>
+      at
+    </p>
+
+    <a href="https://rs.school" target="_blank" rel="noopener noreferrer">
+      <img src="assets/logos/rss-logo.svg" alt="RS School" class="about-credits-logo" />
+    </a>
+  </div>
+</section>

@@ -1,0 +1,20 @@
+<article class="card">
+  <img [src]="member().photo" [alt]="member().name" class="card-photo" />
+  <h2 class="card-name">{{ member().name }}</h2>
+  <p class="card-role">{{ member().role }}</p>
+  <p class="card-bio">{{ member().bio }}</p>
+  <div class="card-tracks">
+    <p class="card-favtracks">Favorite tracks:</p>
+    <ul class="card-list">
+      @for (track of member().favoriteTracks; track track.id) {
+        <li class="card-track">
+          <span class="card-track-title">{{ track.title }}</span>
+          @if (track.artist) {
+            <span class="card-track-artist">{{ track.artist }}</span>
+          }
+        </li>
+      }
+    </ul>
+  </div>
+  <a [href]="member().github" target="_blank" rel="noopener noreferrer" class="card-link">GitHub</a>
+</article>
