@@ -1,17 +1,16 @@
 import {
-  AfterViewChecked,
+  afterEveryRender,
+  afterRenderEffect,
   Directive,
-  effect,
   ElementRef,
   inject,
   input,
-  signal,
+  Renderer2,
 } from '@angular/core';
+import { ButtonClass, SPINNER_SRC, SVG_NS } from './button.constants';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';
 type ButtonSize = 'small';
-
-const CLASS_NO_TEXT = 'no-text';
 
 @Directive({
   selector: 'button[playerButton]',
@@ -26,36 +25,81 @@ const CLASS_NO_TEXT = 'no-text';
     '[disabled]': 'disabled() || loading()',
   },
 })
-export class Button implements AfterViewChecked {
+export class Button {
   variant = input<ButtonVariant>('primary');
+  size = input<ButtonSize>();
   disabled = input(false);
   loading = input(false);
-  size = input<ButtonSize>();
+  icon = input('');
 
+  private renderer = inject(Renderer2);
   private element = inject<ElementRef<HTMLButtonElement>>(ElementRef);
-  private width = signal<number>(0);
+  private width = 0;
 
-  ngAfterViewChecked() {
-    const button = this.element.nativeElement;
-    const hasText = button.innerText.trim().length > 0;
-    button.classList.toggle(CLASS_NO_TEXT, !hasText);
-  }
+  private spinner!: HTMLImageElement;
+  private svg!: SVGSVGElement;
+  private use!: SVGUseElement;
 
   constructor() {
-    effect(() => {
-      const isLoading = this.loading();
-      const button = this.element.nativeElement;
-      const currentWidth = this.width();
+    this.createSpinner();
+    this.createSVGIcon();
 
+    afterEveryRender(() => {
+      this.toggleNoTextClass();
+    });
+    afterRenderEffect(() => {
+      const { renderer } = this;
+      const isLoading = this.loading();
+      const icon = this.icon();
+      const button = this.element.nativeElement;
+
+      if (icon) {
+        renderer.setAttribute(this.use, 'href', icon);
+        renderer.removeClass(button, ButtonClass.NoIcon);
+      } else {
+        renderer.removeAttribute(this.use, 'href');
+        renderer.addClass(button, ButtonClass.NoIcon);
+      }
       if (!isLoading) {
-        requestAnimationFrame(() => {
-          const offsetWidth = Number(button.getBoundingClientRect().width.toFixed(2));
-          this.width.set(offsetWidth);
-        });
+        this.width = Number(button.getBoundingClientRect().width.toFixed(2));
         button.style.width = '';
-      } else if (currentWidth) {
-        button.style.width = `${currentWidth}px`;
+      } else if (this.width) {
+        button.style.width = `${this.width}px`;
       }
     });
+  }
+
+  private createSpinner() {
+    const { renderer } = this;
+    const button = this.element.nativeElement;
+
+    this.spinner = this.renderer.createElement('img');
+    renderer.addClass(this.spinner, ButtonClass.Spinner);
+    renderer.setAttribute(this.spinner, 'src', SPINNER_SRC);
+    renderer.setAttribute(this.spinner, 'alt', 'spinner');
+    renderer.appendChild(button, this.spinner);
+  }
+
+  private createSVGIcon() {
+    const { renderer } = this;
+    const button = this.element.nativeElement;
+
+    this.svg = this.renderer.createElement('svg', SVG_NS);
+    renderer.addClass(this.svg, ButtonClass.Icon);
+
+    this.use = this.renderer.createElement('use', SVG_NS);
+
+    renderer.appendChild(this.svg, this.use);
+    renderer.appendChild(button, this.svg);
+  }
+
+  private toggleNoTextClass() {
+    const button = this.element.nativeElement;
+    const hasText = button.textContent.trim().length !== 0;
+    if (hasText) {
+      this.renderer.removeClass(button, ButtonClass.NoText);
+    } else {
+      this.renderer.addClass(button, ButtonClass.NoText);
+    }
   }
 }
