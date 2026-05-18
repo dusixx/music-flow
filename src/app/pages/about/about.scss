@@ -1,0 +1,32 @@
+.about {
+  padding: 0 16px;
+
+  &-title {
+    margin-bottom: 3rem;
+    font-size: 36px;
+    text-align: center;
+  }
+
+  &-cards {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+
+    margin-bottom: 4.5rem;
+  }
+
+  &-credits {
+    margin-bottom: 3rem;
+    text-align: center;
+
+    &-mentor {
+      text-decoration: none;
+      text-transform: uppercase;
+    }
+
+    &-logo {
+      width: 70px;
+    }
+  }
+}

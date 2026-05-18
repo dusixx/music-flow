@@ -1,0 +1,14 @@
+export interface FavoriteTrack {
+  id: string;
+  title: string;
+  artist?: string;
+}
+
+export interface TeamMember {
+  name: string;
+  role: string;
+  bio: string;
+  photo: string;
+  github: string;
+  favoriteTracks: FavoriteTrack[];
+}
