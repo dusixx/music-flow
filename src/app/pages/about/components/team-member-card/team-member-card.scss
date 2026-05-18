@@ -4,14 +4,14 @@
   gap: 10px;
 
   width: 100%;
-  max-width: 320px;
+  max-width: 340px;
   padding: 18px;
-  border: 1px solid rgb(79 55 138 / 10%);
+  border: 1px solid var(--color-violet-10);
   border-radius: 18px;
 
-  color: rgb(243 243 243);
+  color: var(--color-white);
 
-  background: linear-gradient(145deg, rgb(79 55 138 / 10%), rgb(79 55 138 / 20%));
+  background: linear-gradient(145deg, var(--color-violet-10), rgb(79 55 138 / 20%));
   backdrop-filter: blur(8px);
   box-shadow: 0 8px 24px rgb(0 0 0 / 40%);
 
@@ -22,7 +22,7 @@
   &-photo {
     width: 100%;
     height: 220px;
-    border: 1px solid rgb(79 55 138 / 10%);
+    border: 1px solid var(--color-violet-10);
     border-radius: 14px;
 
     object-fit: cover;
@@ -38,12 +38,12 @@
     margin: 0;
     font-size: 14px;
     font-weight: 500;
-    color: #9985cb;
+    color: rgb(158 158 255);
   }
 
   &-bio {
     margin: 0;
-    font-size: 13px;
+    font-size: 15px;
     line-height: 1.4;
   }
 
@@ -54,7 +54,7 @@
 
     margin-top: 6px;
     padding-top: 10px;
-    border-top: 1px solid rgb(243 243 243 / 10%);
+    border-top: 1px solid var(--color-white-10);
   }
 
   &-favtracks {
@@ -73,8 +73,6 @@
 
     margin: 0 0 6px;
     padding: 0;
-
-    list-style: none;
   }
 
   &-track {
@@ -86,15 +84,15 @@
     border: 1px solid rgb(79 55 138 / 25%);
     border-radius: 10px;
 
-    background: rgb(79 55 138 / 10%);
+    background: var(--color-violet-10);
 
     &-title {
-      font-size: 12px;
+      font-size: 14px;
       font-weight: 500;
     }
 
     &-artist {
-      font-size: 11px;
+      font-size: 12px;
     }
   }
 
