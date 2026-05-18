@@ -2,20 +2,19 @@
   display: flex;
   align-items: center;
 
-  padding: 10px;
-  padding-left: 12px;
+  padding: 10px 16px;
   border: unset;
   border-radius: 20px;
 
   font-family: inherit;
   font-size: 16px;
   font-weight: 400;
-  color: var(--color-black);
+  color: var(--color-white);
 
   appearance: unset;
-  background-color: var(--color-black);
+  background-color: var(--color-white-10);
   outline: none;
-  box-shadow: 0 0 0 1px var(--color-white-10);
+  box-shadow: 0 0 0 1px var(--color-white-20);
 
   &::placeholder {
     opacity: 0.6;
@@ -23,6 +22,6 @@
 
   &:focus-visible,
   &:focus {
-    box-shadow: 0 0 0 3px var(--color-violet-10);
+    box-shadow: 0 0 0 3px var(--color-white-20);
   }
 }
