@@ -25,10 +25,10 @@ I also temporarily turned off Husky pre-commit hooks using `git commit --no-veri
 **CI result:**
 
 **Failed run**
-![CI failed]()
+![CI failed](https://github.com/user-attachments/assets/cd5c5833-ca9e-4d7a-b58d-bbb766b9b0bd)
 
 **Successful run**
-![CI passed]()
+![CI passed](https://github.com/user-attachments/assets/4f0e59fb-2a31-4ea5-b369-8ca90f6695b2)
 
 ---
 
