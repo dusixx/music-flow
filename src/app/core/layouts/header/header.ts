@@ -16,7 +16,7 @@ export class Header {
   private readonly router = inject(Router);
 
   onHome() {
-    void this.router.navigate(['']);
+    void this.router.navigate(['/']);
   }
 
   goToLibrary() {
@@ -26,7 +26,7 @@ export class Header {
   onAuthToggle() {
     if (this.authService.isAuthenticated()) {
       this.authService.logout();
-      void this.router.navigate(['/discover']);
+      this.onHome();
       return;
     }
     this.authService.login();

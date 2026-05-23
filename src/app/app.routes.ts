@@ -5,11 +5,6 @@ import { authGuard } from '@core/guards/auth/auth-guard';
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'discover',
-    pathMatch: 'full',
-  },
-  {
-    path: 'discover',
     loadComponent: () => import('@pages/discover/discover').then((m) => m.Discover),
   },
   {
