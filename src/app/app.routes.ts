@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 import { guestGuard } from '@core/guards/guest/guest-guard';
+import { authGuard } from '@core/guards/auth/auth-guard';
 
 export const routes: Routes = [
   {
@@ -14,6 +15,7 @@ export const routes: Routes = [
   {
     path: 'library',
     loadComponent: () => import('@pages/library/library').then((m) => m.Library),
+    canActivate: [authGuard],
   },
   {
     path: 'about',
