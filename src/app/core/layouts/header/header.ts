@@ -1,7 +1,8 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { AuthService } from '@app/core/services/auth/auth';
 
 @Component({
   selector: 'player-header',
@@ -11,10 +12,26 @@ import { MatButton, MatIconButton } from '@angular/material/button';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  readonly isAuthorized = input.required<boolean>();
 
-  onHome(): void {
+  onHome() {
     void this.router.navigate(['']);
+  }
+
+  goToLibrary() {
+    void this.router.navigate(['/library']);
+  }
+
+  // onAuthToggle() {
+  //   this.authService.isAuthenticated() ? this.authService.logout() : this.authService.login();
+  // }
+  onAuthToggle() {
+    if (this.authService.isAuthenticated()) {
+      this.authService.logout();
+      void this.router.navigate(['/discover']);
+      return;
+    }
+    this.authService.login();
   }
 }
