@@ -1,20 +1,26 @@
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { Router, RouterLink } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 import { MatButton, MatIconButton } from '@angular/material/button';
+import { AuthService } from '@app/core/services/auth/auth';
 
 @Component({
   selector: 'player-header',
-  imports: [MatIcon, MatButton, MatIconButton],
+  imports: [RouterLink, MatIcon, MatButton, MatIconButton],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
+  readonly authService = inject(AuthService);
   private readonly router = inject(Router);
-  readonly isAuthorized = input.required<boolean>();
 
-  onHome(): void {
-    void this.router.navigate(['']);
+  onAuthToggle() {
+    if (this.authService.isAuthenticated()) {
+      this.authService.logout();
+      void this.router.navigate(['/']);
+      return;
+    }
+    this.authService.login();
   }
 }

@@ -1,20 +1,23 @@
 <div class="header-container">
-  <button (click)="onHome()" class="header-logo-button">
+  <button routerLink="/" class="header-logo-button">
     <div class="logo-icon-container">
       <mat-icon fontIcon="play_arrow_filled"></mat-icon>
     </div>
     <span>MusicFlow</span>
   </button>
-  @if (isAuthorized()) {
-    <button matIconButton="tonal" aria-label="User menu button">
-      <mat-icon>person</mat-icon>
+  <div class="header-buttons-container">
+    <button matButton [routerLink]="['/library']">Library</button>
+    <button matIconButton aria-label="Menu button">
+      <mat-icon>more_vert</mat-icon>
     </button>
-  } @else {
-    <div class="header-buttons-container">
-      <button matIconButton aria-label="Menu button">
-        <mat-icon>more_vert</mat-icon>
+    @if (authService.isAuthenticated()) {
+      <button matIconButton="tonal" aria-label="User menu button" (click)="onAuthToggle()">
+        <mat-icon>person</mat-icon>
       </button>
-      <button matButton="filled" aria-label="Sign In button">Sign In</button>
-    </div>
-  }
+    } @else {
+      <button matButton="filled" (click)="onAuthToggle()" aria-label="Sign In button">
+        Sign In
+      </button>
+    }
+  </div>
 </div>
