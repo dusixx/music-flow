@@ -4,6 +4,9 @@ import { Injectable, signal } from '@angular/core';
   providedIn: 'root',
 })
 export class AuthService {
+  constructor() {
+    console.log('AuthService created');
+  }
   private _isLoggedIn = signal(false);
   readonly isAuthenticated = this._isLoggedIn.asReadonly();
 
