@@ -23,9 +23,6 @@ export class Header {
     void this.router.navigate(['/library']);
   }
 
-  // onAuthToggle() {
-  //   this.authService.isAuthenticated() ? this.authService.logout() : this.authService.login();
-  // }
   onAuthToggle() {
     if (this.authService.isAuthenticated()) {
       this.authService.logout();
