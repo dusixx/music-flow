@@ -1,23 +1,22 @@
-<div class="header-container">
-  <button routerLink="/" class="header-logo-button">
-    <div class="logo-icon-container">
-      <mat-icon fontIcon="play_arrow_filled"></mat-icon>
+<header class="header">
+  <div class="wrapper">
+    <tui-textfield iconStart="@tui.search" class="search-bar">
+      <input [placeholder]="searchBarPlaceholder" tuiInput [(ngModel)]="searchQuery" />
+    </tui-textfield>
+    <div class="buttons">
+      @if (authService.isAuthenticated()) {
+        <button
+          playerButton
+          variant="secondary"
+          class="profile-btn"
+          size="small"
+          (click)="onAuthToggle()"
+        >
+          A
+        </button>
+      } @else {
+        <button playerButton size="small" (click)="onAuthToggle()">Login</button>
+      }
     </div>
-    <span>MusicFlow</span>
-  </button>
-  <div class="header-buttons-container">
-    <button matButton [routerLink]="['/library']">Library</button>
-    <button matIconButton aria-label="Menu button">
-      <mat-icon>more_vert</mat-icon>
-    </button>
-    @if (authService.isAuthenticated()) {
-      <button matIconButton="tonal" aria-label="User menu button" (click)="onAuthToggle()">
-        <mat-icon>person</mat-icon>
-      </button>
-    } @else {
-      <button matButton="filled" (click)="onAuthToggle()" aria-label="Sign In button">
-        Sign In
-      </button>
-    }
   </div>
-</div>
+</header>

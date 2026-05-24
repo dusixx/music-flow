@@ -7,6 +7,7 @@ import {
   input,
   Renderer2,
 } from '@angular/core';
+import { SPRITE_PATH } from '@app/core/constants';
 import { ButtonClass, SPINNER_SRC, SVG_NS } from './button.constants';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';
@@ -47,14 +48,22 @@ export class Button {
     afterEveryRender(() => {
       this.toggleNoTextClass();
     });
+    this.initRenderEffect();
+  }
+
+  private initRenderEffect() {
     afterRenderEffect(() => {
       const { renderer } = this;
       const isLoading = this.loading();
       const icon = this.icon();
       const button = this.element.nativeElement;
 
+      const originWidth = button.style.width;
+
       if (icon) {
-        renderer.setAttribute(this.use, 'href', icon);
+        const href = /[\\/]/.test(icon) ? icon : `${SPRITE_PATH}#${icon}`;
+
+        renderer.setAttribute(this.use, 'href', href);
         renderer.removeClass(button, ButtonClass.NoIcon);
       } else {
         renderer.removeAttribute(this.use, 'href');
@@ -62,8 +71,10 @@ export class Button {
       }
       if (!isLoading) {
         this.width = Number(button.getBoundingClientRect().width.toFixed(2));
-        button.style.width = '';
-      } else if (this.width) {
+        if (!originWidth) {
+          button.style.width = '';
+        }
+      } else if (this.width && !originWidth) {
         button.style.width = `${this.width}px`;
       }
     });
