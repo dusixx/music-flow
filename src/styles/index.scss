@@ -2,29 +2,27 @@
 @use './vars';
 @use '../app/shared/directives/button/button';
 
-@use '@angular/material' as mat;
-
 html {
   height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$cyan-palette,
-        tertiary: mat.$orange-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
 }
 
 body {
   height: 100%;
   margin: 0;
 
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface);
+  font-family: 'Nunito Sans', sans-serif;
+  color: var(--color-white);
 
   color-scheme: dark;
-  background-color: var(--mat-sys-surface);
+  background-color: var(--color-background);
+}
+
+.as-split-gutter {
+  z-index: 100 !important;
+  border-right: 1px solid var(--color-white-10);
+  background-color: transparent !important;
+}
+
+.as-split-gutter-icon {
+  display: none !important;
 }

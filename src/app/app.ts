@@ -1,9 +1,10 @@
+import { TuiRoot } from '@taiga-ui/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MainLayout } from '@core/layouts/main-layout/main-layout';
 
 @Component({
   selector: 'player-root',
-  imports: [MainLayout],
+  imports: [MainLayout, TuiRoot],
   templateUrl: './app.html',
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
