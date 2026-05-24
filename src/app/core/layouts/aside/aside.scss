@@ -1,0 +1,75 @@
+@use 'utils/mixins' as mix;
+
+:host {
+  padding: 16px;
+}
+
+.logo {
+  margin-bottom: 24px;
+}
+
+.nav-wrapper {
+  container-name: nav-wrapper;
+  container-type: inline-size;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 40px;
+}
+
+@container nav-wrapper (width < 100px) {
+  a.link {
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+  }
+
+  .nav {
+    align-items: center;
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+.link {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+
+  height: 40px;
+  padding: 0 12px;
+  border-radius: var(--border-radius);
+
+  font-size: 18px;
+  color: var(--color-white);
+  text-decoration: none;
+
+  background-color: transparent;
+
+  @include mix.main-transition('background-color');
+  @include mix.focused {
+    background-color: var(--color-white-10);
+  }
+
+  &.active {
+    background-color: var(--color-violet);
+  }
+
+  &.disabled {
+    @include mix.non-interactive {
+      opacity: 0.2;
+    }
+  }
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
