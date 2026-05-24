@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, model } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth';
@@ -13,7 +13,7 @@ import { TuiInput } from '@taiga-ui/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  searchQuery = model('');
+  protected searchQuery = '';
   protected readonly searchBarPlaceholder = 'Search for tracks...';
 
   readonly authService = inject(AuthService);
