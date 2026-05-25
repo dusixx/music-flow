@@ -1,6 +1,4 @@
 .about {
-  padding: 0 16px;
-
   &-title {
     margin-bottom: 3rem;
     font-size: 36px;
@@ -17,16 +15,17 @@
   }
 
   &-credits {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: center;
+
     margin-bottom: 3rem;
-    text-align: center;
 
-    &-mentor {
-      text-decoration: none;
-      text-transform: uppercase;
-    }
+    font-size: 1.1rem;
+  }
 
-    &-logo {
-      width: 70px;
-    }
+  &-logo {
+    width: 70px;
   }
 }
