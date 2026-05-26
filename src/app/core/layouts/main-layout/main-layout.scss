@@ -1,23 +1,5 @@
 :host {
   display: flex;
   min-width: var(--wrapper-min-width);
-}
-
-.main {
-  flex-grow: 1;
-  min-height: 100vh;
-  padding: 20px;
-  padding-top: calc(var(--header-height) + 20px);
-}
-
-.content {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.aside {
-  width: 100%;
-  min-height: 100vh;
+  height: 100vh;
 }
