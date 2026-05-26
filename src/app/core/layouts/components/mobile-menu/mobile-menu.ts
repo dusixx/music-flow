@@ -14,8 +14,8 @@ import { Button } from '@app/shared/directives/button/button';
   },
 })
 export class MobileMenu {
-  protected authService = inject(AuthService);
-  private destroyRef = inject(DestroyRef);
+  protected readonly authService = inject(AuthService);
+  private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
 
   open = model(false);

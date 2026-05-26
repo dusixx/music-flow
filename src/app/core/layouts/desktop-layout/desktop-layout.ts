@@ -26,9 +26,9 @@ export class DesktopLayout {
   protected readonly gutterSize = SidebarParams.GutterWidthPx;
   protected readonly gutterDblClickDuration = SidebarParams.GutterDblClickDuration;
   protected readonly sidebarMaxSize = SidebarParams.MaxWidthPx;
+  protected readonly sidebarMinSize = SidebarParams.MinWidthPx;
 
   protected sidebarCurrentSize = signal(SidebarParams.NormalWidthPx);
-  protected sidebarMinSize = signal(SidebarParams.MinWidthPx);
 
   constructor() {
     effect(() => {

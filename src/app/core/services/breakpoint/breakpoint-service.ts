@@ -6,7 +6,7 @@ type ScreenWidth = Exclude<Lowercase<keyof typeof Breakpoint>, 'wide'>;
 const MediaQuery = {
   Mobile: `(width <= ${Breakpoint.Mobile}px)`,
   Tablet: `(width > ${Breakpoint.Mobile}px) and (width <= ${Breakpoint.Tablet}px)`,
-  Desktop: `(width > ${Breakpoint.Tablet}px),`,
+  Desktop: `(width > ${Breakpoint.Tablet}px)`,
 };
 
 @Injectable({
