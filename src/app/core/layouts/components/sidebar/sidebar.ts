@@ -4,12 +4,12 @@ import { AuthService } from '@app/core/services/auth/auth';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 
 @Component({
-  selector: 'player-aside',
+  selector: 'player-sidebar',
   imports: [RouterLink, Sprite, RouterLinkActive],
-  templateUrl: './aside.html',
-  styleUrl: './aside.scss',
+  templateUrl: './sidebar.html',
+  styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Aside {
-  authService = inject(AuthService);
+export class Sidebar {
+  protected authService = inject(AuthService);
 }

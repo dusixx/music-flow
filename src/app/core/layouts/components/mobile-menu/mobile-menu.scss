@@ -1,0 +1,93 @@
+@use 'utils/mixins' as mix;
+
+$drawer-width: 280px;
+
+:host {
+  pointer-events: none;
+  position: fixed;
+  z-index: var(--mobile-menu-z-index);
+  inset: 0;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  background: var(--color-black-50);
+
+  @include mix.main-transition('visibility, opacity');
+  @include mix.hidden;
+
+  &--active {
+    @include mix.hidden(false) {
+      opacity: 1;
+    }
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(105%);
+
+  width: $drawer-width;
+  height: 100dvh;
+  padding: 12px;
+  border-right: 1px solid var(--color-white-10);
+
+  background: var(--mobile-menu-bg);
+
+  @include mix.main-transition('visibility, transform');
+  @include mix.hidden;
+
+  &--active {
+    @include mix.hidden(false) {
+      transform: translateX(0);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+
+  width: 100px;
+  padding: 6px;
+  border-radius: var(--border-radius);
+
+  font-size: 18px;
+  color: var(--color-text);
+  text-decoration: none;
+
+  @include mix.main-transition('background-color');
+  @include mix.focused {
+    color: var(--color-white-40);
+  }
+
+  &.active {
+    pointer-events: none;
+    cursor: default;
+    color: var(--color-white-40);
+  }
+}
+
+.splitter {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-white-10);
+}

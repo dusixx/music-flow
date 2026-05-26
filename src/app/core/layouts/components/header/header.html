@@ -1,0 +1,41 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<header class="header">
+  <div class="wrapper">
+    <tui-textfield iconStart="@tui.search" class="search-bar">
+      <input placeholder="Search for tracks..." tuiInput [(ngModel)]="searchQuery" />
+    </tui-textfield>
+    @if (breakpointService.screenWidth() === 'mobile') {
+      <button
+        #menuButton
+        playerButton
+        variant="base"
+        size="small"
+        icon="icon-menu-kebab-vert"
+        (click)="openMenu()"
+      ></button>
+    } @else {
+      @if (authService.isAuthenticated()) {
+        <button
+          playerButton
+          variant="secondary"
+          class="profile-btn"
+          size="small"
+          (click)="authService.logout()"
+        >
+          A
+        </button>
+      } @else {
+        <button
+          playerButton
+          size="small"
+          routerLinkActive
+          routerLink="/login"
+          #rla="routerLinkActive"
+          [disabled]="rla.isActive"
+        >
+          Login
+        </button>
+      }
+    }
+  </div>
+</header>

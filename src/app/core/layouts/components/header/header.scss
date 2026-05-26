@@ -1,17 +1,22 @@
-@use 'utils';
-@use '@taiga-ui/styles/utils' as mix;
+@use 'utils/vars' as *;
+@use 'utils/mixins' as mix;
+@use '@taiga-ui/styles/utils' as taiga;
 
 $link-size: 30px;
 
 :host {
-  position: absolute;
+  position: sticky;
+  z-index: var(--header-z-index);
+  top: 0;
 
   display: flex;
   align-items: center;
 
   width: 100%;
   height: var(--header-height);
-  border-bottom: 1px solid var(--color-white-10);
+  padding: 0 18px;
+
+  background-color: var(--tui-background-base);
 }
 
 .header {
@@ -24,14 +29,14 @@ $link-size: 30px;
   container-type: inline-size;
   display: flex;
   flex-grow: 1;
-  gap: 24px;
+  gap: 18px;
   align-items: center;
   justify-content: space-between;
-
-  padding: 0 24px;
 }
 
 .profile-btn {
+  flex-shrink: 0;
+
   width: var(--button-height);
   padding: 0;
 
@@ -42,11 +47,6 @@ $link-size: 30px;
   outline: 8px solid var(--color-white-10);
 }
 
-.buttons {
-  display: flex;
-  gap: 24px;
-}
-
 .nav {
   display: flex;
   gap: 8px;
@@ -54,43 +54,20 @@ $link-size: 30px;
   justify-content: center;
 }
 
-.link {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: $link-size;
-  height: $link-size;
-  border-radius: 50%;
-
-  color: var(--color-white);
-  text-decoration: none;
-
-  &.active {
-    background-color: var(--color-white-10);
-  }
-}
-
 .search-bar {
   --tui-background-base: var(--color-white-10);
 
-  @include mix.appearance-focus {
+  width: 500px;
+
+  @include taiga.appearance-focus {
     &::before {
       color: var(--color-white);
     }
   }
-
-  width: 30%;
 }
 
-@container header-wrapper (width < 1280px) {
+@container header-wrapper (width < #{$bp-tablet}) {
   .search-bar {
-    width: 70%;
-  }
-}
-
-@container header-wrapper (width < 768px) {
-  .search-bar {
-    width: 90%;
+    width: 100%;
   }
 }

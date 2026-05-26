@@ -1,1 +1,8 @@
 <p>login works!</p>
+<button
+  playerButton
+  (click)="onClick()"
+  [style.visibility]="authService.isAuthenticated() ? 'hidden' : 'visible'"
+>
+  Click to finish
+</button>

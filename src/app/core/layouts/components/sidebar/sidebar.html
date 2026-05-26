@@ -1,5 +1,5 @@
 <aside class="aside">
-  <div class="logo">LOGO</div>
+  <div class="logo">Logo</div>
   <div class="nav-wrapper">
     <nav class="nav">
       <a
@@ -10,7 +10,7 @@
         title="Home"
       >
         <player-sprite id="icon-home-smile" size="20px" />
-        <span class="label">Discover</span>
+        <span class="label">Home</span>
       </a>
       <a
         routerLink="/about"
@@ -26,18 +26,18 @@
         <player-sprite id="icon-search" size="20px" />
         <span class="label">Search</span>
       </a>
-      <a
-        routerLink="/library"
-        class="link"
-        routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: true }"
-        [class.disabled]="!authService.isAuthenticated()"
-        [attr.tabindex]="!authService.isAuthenticated() ? -1 : null"
-        title="Library"
-      >
-        <player-sprite id="icon-library" size="20px" />
-        <span class="label">Library</span>
-      </a>
+      @if (authService.isAuthenticated()) {
+        <a
+          routerLink="/library"
+          class="link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          title="Library"
+        >
+          <player-sprite id="icon-library" size="20px" />
+          <span class="label">Library</span>
+        </a>
+      }
     </nav>
   </div>
   <ng-content></ng-content>

@@ -1,25 +1,5 @@
-<as-split
-  direction="horizontal"
-  unit="pixel"
-  [gutterSize]="gutterSize"
-  (gutterDblClick)="toggleSidebar()"
-  [gutterDblClickDuration]="300"
-  (dragEnd)="onGutterDragEnd($event)"
->
-  <as-split-area
-    [size]="sidebarCurrentSize()"
-    [minSize]="sidebarMinSize()"
-    [maxSize]="sidebarMaxSize"
-    #sidebar
-  >
-    <player-aside class="aside">Extra content</player-aside>
-  </as-split-area>
-  <as-split-area>
-    <div class="content">
-      <player-header />
-      <main class="main">
-        <router-outlet />
-      </main>
-    </div>
-  </as-split-area>
-</as-split>
+@if (breakpointService.screenWidth() === 'mobile') {
+  <player-mobile-layout />
+} @else {
+  <player-desktop-layout />
+}

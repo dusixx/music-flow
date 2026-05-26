@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
-  selector: 'player-register',
+  selector: 'player-signup',
   imports: [],
-  templateUrl: './register.html',
-  styleUrl: './register.scss',
+  templateUrl: './signup.html',
+  styleUrl: './signup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class Register {}
+export class Signup {}
