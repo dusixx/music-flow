@@ -1,7 +1,7 @@
-$transition-duration: 250ms;
+@use 'vars' as *;
 
 @mixin main-transition($props: 'all') {
-  transition-timing-function: ease;
+  transition-timing-function: $transition-func;
   transition-duration: $transition-duration;
   transition-property: #{$props};
 }

@@ -1,24 +1,70 @@
 @use 'modern-normalize';
-@use './vars';
+@use './utils/vars' as *;
 @use '../app/shared/directives/button/button';
 
-html {
-  height: 100%;
-}
-
 body {
-  height: 100%;
+  overflow: hidden;
+
+  height: 100vh;
   margin: 0;
 
   font-family: 'Nunito Sans', sans-serif;
   color: var(--color-white);
 
   color-scheme: dark;
-  background-color: var(--color-background);
+  background-color: var(--color-bg);
+}
+
+%breakpoints {
+  --bp-mobile: #{$bp-mobile};
+  --bp-tablet: #{$bp-tablet};
+  --bp-desktop: #{$bp-desktop};
+  --bp-wide: #{$bp-wide};
+}
+
+%vars {
+  --wrapper-min-width: 380px;
+  --wrapper-max-width: 1440px;
+  --color-violet: #4f378a;
+  --color-violet-10: rgb(79 55 138 / 10%);
+  --color-black: #1c1b22;
+  --color-black-50: rgb(28 27 34 / 50%);
+  --color-black-10: rgb(28 27 34 / 10%);
+  --color-white: rgb(234 234 234);
+  --color-white-5: rgb(243 243 243 / 5%);
+  --color-white-10: rgb(243 243 243 / 10%);
+  --color-white-20: rgb(243 243 243 / 20%);
+  --color-white-40: rgb(243 243 243 / 40%);
+  --color-accent: #f573a0;
+  --color-bg: var(--color-black);
+  --header-height: 72px;
+  --border-radius: 20px;
+  --tui-radius-l: var(--border-radius);
+  --tui-height-l: 40px;
+  --tui-typography-family-text: 'Nunito Sans', sans-serif;
+  --gutter-z-index: 10;
+  --header-z-index: 100;
+  --mobile-menu-z-index: 1000;
+  --mobile-menu-bg: #15151a;
+  @extend %breakpoints;
+}
+
+:root,
+[tuiTheme='dark'] {
+  --tui-background-base: var(--color-black);
+  --tui-background-base-alt: var(--color-black);
+  --tui-background-elevation-1: var(--color-black);
+  --tui-background-elevation-2: var(--color-black);
+  --tui-text-primary: var(--color-white);
+  --tui-text-secondary: var(--color-white-40);
+  --tui-text-tertiary: var(--color-white-20);
+  --tui-border-normal: var(--color-white-20);
+  --tui-background-accent-1: var(--color-white-40);
+  @extend %vars;
 }
 
 .as-split-gutter {
-  z-index: 100 !important;
+  z-index: var(--gutter-z-index) !important;
   border-right: 1px solid var(--color-white-10);
   background-color: transparent !important;
 }
