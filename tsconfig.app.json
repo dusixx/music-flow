@@ -18,6 +18,8 @@
       "@components/*": ["./src/app/shared/components/*"],
       "@components": ["./src/app/shared/components"],
       "@core/*": ["./src/app/core/*"],
+      "@services": ["./src/app/core/services"],
+      "@services/*": ["./src/app/core/services/*"],
       "@core": ["./src/app/core"],
       "@pages/*": ["./src/app/pages/*"],
       "@pages": ["./src/app/pages"],
