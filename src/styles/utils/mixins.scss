@@ -22,3 +22,14 @@
   user-select: none;
   @content;
 }
+
+@mixin hidden($flag: true) {
+  @if $flag == true {
+    pointer-events: none;
+    visibility: hidden;
+  } @else if $flag == false {
+    pointer-events: all;
+    visibility: visible;
+  }
+  @content;
+}
