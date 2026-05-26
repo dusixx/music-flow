@@ -1,0 +1,14 @@
+:host {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+
+.main {
+  padding: 40px 20px;
+}
+
+.header {
+  flex-shrink: 0;
+}
