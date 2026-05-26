@@ -1,0 +1,24 @@
+<as-split
+  direction="horizontal"
+  unit="pixel"
+  [gutterSize]="gutterSize"
+  (gutterDblClick)="toggleSidebar()"
+  [gutterDblClickDuration]="gutterDblClickDuration"
+  (dragEnd)="onGutterDragEnd($event)"
+>
+  <as-split-area
+    [size]="sidebarCurrentSize()"
+    [minSize]="sidebarMinSize()"
+    [maxSize]="sidebarMaxSize"
+  >
+    <player-sidebar>Extra content</player-sidebar>
+  </as-split-area>
+  <as-split-area>
+    <div class="content">
+      <player-header />
+      <main class="main">
+        <router-outlet />
+      </main>
+    </div>
+  </as-split-area>
+</as-split>
