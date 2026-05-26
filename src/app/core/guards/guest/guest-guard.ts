@@ -1,11 +1,10 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
+import { AuthService } from '@app/core/services/auth/auth';
 
 export const guestGuard: CanActivateFn = () => {
   const router = inject(Router);
+  const authService = inject(AuthService);
 
-  // TODO: inject AuthService once it has been implemented
-  const isAuthenticated = localStorage.getItem('isAuthenticated');
-
-  return isAuthenticated ? router.parseUrl('/') : true;
+  return authService.isAuthenticated() ? router.parseUrl('/') : true;
 };
