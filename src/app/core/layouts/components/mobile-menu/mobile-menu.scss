@@ -1,0 +1,110 @@
+@use 'utils/vars' as *;
+@use 'utils/mixins' as mix;
+
+$drawer-width: 280px;
+$dur: $transition-duration;
+$func: $transition-func;
+$delay: $dur;
+
+@mixin transition($prop) {
+  transition:
+    #{$prop} $dur $func,
+    visibility 0s $func $delay;
+
+  &--active {
+    @content;
+
+    pointer-events: auto;
+    visibility: visible;
+    transition:
+      #{$prop} $dur $func,
+      visibility 0s;
+  }
+}
+
+:host {
+  pointer-events: none;
+  position: fixed;
+  z-index: var(--mobile-menu-z-index);
+  inset: 0;
+}
+
+.backdrop {
+  pointer-events: none;
+
+  position: fixed;
+  inset: 0;
+
+  visibility: hidden;
+  opacity: 0;
+  background: var(--color-black-50);
+
+  @include transition('opacity') {
+    opacity: 1;
+  }
+}
+
+.drawer {
+  pointer-events: none;
+
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(105%);
+
+  width: $drawer-width;
+  height: 100dvh;
+  padding: 12px;
+  border-right: 1px solid var(--color-white-10);
+
+  visibility: hidden;
+  background: var(--mobile-menu-bg);
+
+  @include transition('transform') {
+    transform: translateX(0);
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: 24px;
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+
+  width: 100px;
+  padding: 6px;
+  border-radius: var(--border-radius);
+
+  font-size: 18px;
+  color: var(--color-text);
+  text-decoration: none;
+
+  @include mix.main-transition('background-color');
+  @include mix.focused {
+    color: var(--color-white-40);
+  }
+
+  &.active {
+    pointer-events: none;
+    cursor: default;
+    color: var(--color-white-40);
+  }
+}
+
+.splitter {
+  width: 100%;
+  height: 2px;
+  background-color: var(--color-white-10);
+}
