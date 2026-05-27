@@ -13,8 +13,8 @@ import { SPRITE_PATH } from '@app/core/constants';
   },
 })
 export class Sprite {
-  href = input('');
-  id = input('');
+  iconUrl = input('');
+  iconId = input('');
   size = input('14px');
   color = input('currentColor');
   protected readonly spritePath = SPRITE_PATH;
