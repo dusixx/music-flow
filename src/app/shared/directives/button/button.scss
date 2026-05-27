@@ -18,7 +18,7 @@ $focused-selector: ':not(#{$loading-selector})';
     @extend %btn-base;
 
     @include mix.focused($focused-selector) {
-      background-color: var(--color-white-10);
+      background-color: var(--color-border);
     }
   }
 
@@ -27,7 +27,7 @@ $focused-selector: ':not(#{$loading-selector})';
 
     @include mix.focused($focused-selector) {
       color: var(--color-white);
-      background-color: var(--color-violet);
+      background-color: var(--color-accent);
     }
   }
 
@@ -35,8 +35,8 @@ $focused-selector: ':not(#{$loading-selector})';
     @extend %btn-secondary;
 
     @include mix.focused($focused-selector) {
-      color: var(--color-black);
-      background-color: var(--color-white);
+      color: var(--color-text-inverse);
+      background-color: var(--color-text);
     }
   }
 

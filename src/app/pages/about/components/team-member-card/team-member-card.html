@@ -4,7 +4,7 @@
   <p class="card-role">{{ member().role }}</p>
   <p class="card-bio">{{ member().bio }}</p>
   <div class="card-tracks">
-    <p class="card-favtracks">Favorite tracks:</p>
+    <p class="card-fav-tracks">Favorite tracks:</p>
     <ul class="card-list">
       @for (track of member().favoriteTracks; track track.id) {
         <li class="card-track">

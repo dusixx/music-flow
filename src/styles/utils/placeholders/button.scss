@@ -37,8 +37,8 @@
   @extend %btn-base;
 
   border: unset;
-  color: var(--color-black);
-  background-color: var(--color-white);
+  color: var(--color-text-inverse);
+  background-color: var(--color-text);
 
   @include main-transition('background-color, color');
 }
@@ -46,6 +46,6 @@
 %btn-secondary {
   @extend %btn-primary;
 
-  color: var(--color-white);
-  background-color: var(--color-violet);
+  color: var(--color-text);
+  background-color: var(--color-accent);
 }
