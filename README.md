@@ -1,7 +1,7 @@
-# MusicFlow 🎵
-
+# MusicFlow
 
 ## 📌 Description
+
 MusicFlow is a music streaming service clone that allows users to search for tracks and artists, listen to music, create playlists, and manage a favorites library.
 
 The application is built on top of the Jamendo API v3.0, which provides access to over 500,000+ freely licensed tracks, along with metadata for artists, albums, and audio streaming links.
@@ -9,39 +9,48 @@ The application is built on top of the Jamendo API v3.0, which provides access t
 This project is part of the [Rolling Scopes School Angular course](https://rs.school/courses/angular). It was developed by a team of three over four sprints to practice Angular and modern frontend development principles.
 
 ## 🛠️ Technology Stack
+
 - Angular
 - TypeScript
 - Angular Router
 - HttpClient
 - RxJS
-- Angular Signals
-- NgRx SignalStore (@ngrx/signals)
+- NgRx Signals
 - Reactive Forms
-- Angular Material
+- ESLint
+- Prettier
+- Stylelint
+- Husky
+- SCSS
+- Taiga UI
+- Vitest
 - Firebase (Authentication, Firestore)
-- Angular Testing Utilities (Jasmine / Karma)
+- Netlify (Deployment)
 
+## 👥 Team
 
-## 👥 Team Members
-- Ina — [inalitvinka](https://github.com/inalitvinka)
-- Andrew — [dusixx](https://github.com/dusixx)
-- Aleksei — [ngInit](https://github.com/nginit)
-
+| Name     | Role                           | GitHub                                       | Development Diary                                                                        |
+| -------- | ------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------- |
+| Ina      | Frontend Developer             | 🔗 [Profile](https://github.com/inalitvinka) | 🔗 [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
+| Andrew   | Team Lead / Frontend Developer | 🔗 [Profile](https://github.com/dusixx)      | 🔗 [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
+| Aliaksei | Mentor                         | 🔗 [Profile](https://github.com/aliaksei-sl) | N/A                                                                                      |
 
 ## 🚀 Local Setup
 
-### Prerequisites
+**Prerequisites**
+
 - Node.js (LTS v24 or higher)
 - npm
 
-### Installation
+**Installation**
+
 ```bash
 git clone https://github.com/dusixx/music-flow.git
 cd music-flow
 npm install
 ```
 
-### Running the project
+**Running the project**
 
 ```bash
 npm start
@@ -49,7 +58,7 @@ npm start
 
 Application will be available at: http://localhost:4200
 
-### Available Scripts
+**Available Scripts**
 
 - `npm start` — Run development server
 - `npm run build` — Build production version
@@ -64,6 +73,4 @@ Application will be available at: http://localhost:4200
 - `npm run watch` — Build in watch mode (development)
 - `npm run ng` — Angular CLI commands
 
-
-## 🌐 Deployment
-Deploy link will be added once available
+## 🌐 Deployment [MusicFlow](https://music-flow-team.netlify.app/)
