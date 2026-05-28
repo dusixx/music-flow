@@ -16,6 +16,6 @@ export class Login {
 
   onClick() {
     this.router.navigateByUrl('/');
-    this.authService.login();
+    this.authService.login('user1@example.com', 'Password123!');
   }
 }
