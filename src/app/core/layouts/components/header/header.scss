@@ -16,7 +16,7 @@ $link-size: 30px;
   height: var(--header-height);
   padding: 0 18px;
 
-  background-color: var(--tui-background-base);
+  background-color: var(--color-bg);
 }
 
 .header {
@@ -41,10 +41,10 @@ $link-size: 30px;
   padding: 0;
 
   font-weight: 500;
-  color: var(--color-black);
+  color: var(--color-text-inverse);
 
-  background-color: var(--color-accent);
-  outline: 8px solid var(--color-white-10);
+  background-color: var(--color-accent-secondary);
+  outline: 8px solid var(--color-border);
 }
 
 .nav {
@@ -55,13 +55,22 @@ $link-size: 30px;
 }
 
 .search-bar {
-  --tui-background-base: var(--color-white-10);
+  --tui-text-secondary: var(--color-text);
 
   width: 500px;
+  background-color: var(--color-surface);
 
+  ::placeholder {
+    color: var(--color-text-subtle);
+  }
+  @include taiga.appearance-hover {
+    background-color: var(--color-surface-secondary);
+  }
   @include taiga.appearance-focus {
+    background-color: var(--color-surface-secondary);
+
     &::before {
-      color: var(--color-white);
+      color: var(--color-text);
     }
   }
 }

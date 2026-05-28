@@ -1,6 +1,7 @@
 @use 'utils/mixins' as mix;
 
 $link-size: 40px;
+$nav-wrapper-breakpoint: 100px;
 
 :host {
   display: flex;
@@ -30,13 +31,13 @@ $link-size: 40px;
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 16px;
 
   width: 100%;
   margin-bottom: 40px;
 }
 
-@container nav-wrapper (width < 100px) {
+@container nav-wrapper (width < #{$nav-wrapper-breakpoint}) {
   a.link {
     justify-content: center;
     width: $link-size;
@@ -62,18 +63,18 @@ $link-size: 40px;
   border-radius: var(--border-radius);
 
   font-size: 18px;
-  color: var(--color-white);
+  color: var(--color-text);
   text-decoration: none;
 
   background-color: transparent;
 
   @include mix.main-transition('background-color');
   @include mix.focused {
-    background-color: var(--color-white-10);
+    background-color: var(--color-border);
   }
 
   &.active {
-    background-color: var(--color-violet);
+    background-color: var(--color-accent);
   }
 
   &.disabled {
