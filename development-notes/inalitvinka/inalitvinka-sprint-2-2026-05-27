@@ -25,7 +25,7 @@
 
 - `production branch` - это не просто настройка,
 - `Lock to stop auto-publishing` - это ловушка, хоть и выглядит как удачное решение проблемы,
-- а `deploy skipped` - это не ошибка, просто state of mind.
+- а `deploy skipped` - это не ошибка, просто способ существования деплоя.
 
 В какой-то момент Netlify начал выдавать 404, хотя локально всё продолжало работать.  
 Angular исправно создавал `_redirects` и складывал его в `dist/music-flow/browser`, как будто специально тестировал мою внимательность и проверял, насколько я всё ещё верю в себя как инженер.
@@ -57,6 +57,16 @@ Netlify молчал, но осуждающе пересобирал прод.
 - зачем нужен `_redirects` и где его искать,
 - что такое `deploy previews`,
 - и что `production branch` - это скорее состояние души, чем просто ветка.
+
+---
+
+### Artifacts
+
+**CI pipeline run:**
+![CI checks](https://github.com/user-attachments/assets/c6d9b17a-05df-4a84-b67a-b39408b308ce)
+
+**Successful deployment:**
+![Deploy success](https://github.com/user-attachments/assets/d2c8f992-20cb-4f07-9550-ed78445af657)
 
 ---
 
