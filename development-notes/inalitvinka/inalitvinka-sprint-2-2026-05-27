@@ -1,0 +1,83 @@
+# Sprint 2: Routing & Signals
+
+**Date: 2026-05-27**
+
+## CD Setup (GitHub Actions) or CI/CD and the Five Stages of Grief
+
+### What was done:
+
+Настроила CD pipeline на GitHub Actions для автоматического деплоя на Netlify
+
+---
+
+### Problems:
+
+Не так давно я узнала, что GitHub Actions и Netlify - это две независимые сущности, которые могут одновременно деплоить один и тот же проект, пока ты пытаешься понять, куда откатился прод.
+
+Всё началось с решения добавить CD pipeline.  
+Что могло пойти не так. К тому моменту деплой на Netlify уже существовал, а CI был настроен и работал как часы.
+
+Сначала я выяснила, что `push` и `pull_request` - это не 'примерно одно и то же', а два разных мира с разными `event contexts`.
+
+Потом пришло осознание, что `github.ref` живёт по собственным законам физики, а `refs/heads/dev` существует где-то в отдельной плоскости бытия.
+
+В процессе также стало ясно, что:
+
+- `production branch` - это не просто настройка,
+- `Lock to stop auto-publishing` - это ловушка, хоть и выглядит как удачное решение проблемы,
+- а `deploy skipped` - это не ошибка, просто способ существования деплоя.
+
+В какой-то момент Netlify начал выдавать 404, хотя локально всё продолжало работать.  
+Angular исправно создавал `_redirects` и складывал его в `dist/music-flow/browser`, как будто специально тестировал мою внимательность и проверял, насколько я всё ещё верю в себя как инженер.
+
+---
+
+### Solution:
+
+Я заметно продвинулась в понимании `event lifecycle` GitHub Actions и вдруг начала разговаривать с Netlify напрямую:
+
+- Кто просил тебя трогать production?
+- Почему ты опять задеплоил `main`?
+- Что значит 'Deployments are locked for production context'?
+
+Netlify молчал, но осуждающе пересобирал прод.
+
+Отдельным инсайтом стало, что workflow для PR должен существовать в base branch, иначе GitHub просто делает вид, что твоего CI не существует. YAML-файл есть, но если его нет в нужной ветке - checks просто не появляются.
+
+---
+
+### What I learned:
+
+Стала ли я ближе к DevOps - не уверена. 
+Но теперь точно знаю:
+
+- почему двойной деплой - это зло и вызывает конфликты,
+- разницу между событиями `push` и `pull_request` в GitHub Actions,
+- как работает `github.ref` и условия для веток,
+- зачем нужен `_redirects` и где его искать,
+- что такое `deploy previews`,
+- и что `production branch` - это скорее состояние души, чем просто ветка.
+
+---
+
+### Artifacts
+
+**CI pipeline run:**
+![CI checks](https://github.com/user-attachments/assets/c6d9b17a-05df-4a84-b67a-b39408b308ce)
+
+**Successful deployment:**
+![Deploy success](https://github.com/user-attachments/assets/d2c8f992-20cb-4f07-9550-ed78445af657)
+
+---
+
+### Current Plans:
+
+- study Firebase documentation
+- integrate Firebase into the application
+- replace the mock `AuthService` with a real backend
+
+---
+
+### Time spent:
+
+~ 4.5 hours
