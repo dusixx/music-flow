@@ -1,5 +1,11 @@
-import { Injectable, signal } from '@angular/core';
-import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
+import { Injectable, signal, computed } from '@angular/core';
+import {
+  getAuth,
+  onAuthStateChanged,
+  signInWithEmailAndPassword,
+  signOut,
+  User,
+} from 'firebase/auth';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { FirebaseError } from 'firebase/app';
 
@@ -8,18 +14,14 @@ import { FirebaseError } from 'firebase/app';
 })
 export class AuthService {
   private readonly auth = getAuth(firebaseApp);
-  private _isLoggedIn = signal(false);
-  readonly isAuthenticated = this._isLoggedIn.asReadonly();
+  private _user = signal<User | null>(null);
+  readonly user = this._user.asReadonly();
+  readonly isAuthenticated = computed(() => !!this._user());
 
   constructor() {
     onAuthStateChanged(this.auth, (user) => {
-      if (user) {
-        console.log('user is signed in');
-        this._isLoggedIn.set(true);
-      } else {
-        console.log('user is signed out');
-        this._isLoggedIn.set(false);
-      }
+      console.log(user);
+      this._user.set(user);
     });
   }
 
