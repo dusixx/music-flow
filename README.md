@@ -29,11 +29,11 @@ This project is part of the [Rolling Scopes School Angular course](https://rs.sc
 
 ## 👥 Team
 
-| Name     | Role                           | GitHub                                       | Development Diary                                                                        |
-| -------- | ------------------------------ | -------------------------------------------- | ---------------------------------------------------------------------------------------- |
-| Ina      | Frontend Developer             | 🔗 [Profile](https://github.com/inalitvinka) | 🔗 [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
-| Andrew   | Team Lead / Frontend Developer | 🔗 [Profile](https://github.com/dusixx)      | 🔗 [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
-| Aliaksei | Mentor                         | 🔗 [Profile](https://github.com/aliaksei-sl) | N/A                                                                                      |
+| Name     | Role                           | GitHub                                      | Development Diary                                                                       |
+| -------- | ------------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------- |
+| Ina      | Frontend Developer             | 🔗[Profile](https://github.com/inalitvinka) | 🔗[Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
+| Andrew   | Team Lead / Frontend Developer | 🔗[Profile](https://github.com/dusixx)      | 🔗[Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
+| Aliaksei | Mentor                         | 🔗[Profile](https://github.com/aliaksei-sl) | N/A                                                                                     |
 
 ## 🚀 Local Setup
 
@@ -73,4 +73,6 @@ Application will be available at: http://localhost:4200
 - `npm run watch` — Build in watch mode (development)
 - `npm run ng` — Angular CLI commands
 
-## 🌐 Deployment [MusicFlow](https://music-flow-team.netlify.app/)
+## 🌐 Deployment
+
+Explore the app: 🔗[MusicFlow](https://music-flow-team.netlify.app/)
