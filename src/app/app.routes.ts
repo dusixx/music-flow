@@ -1,6 +1,7 @@
 import { Routes } from '@angular/router';
 import { authGuard } from '@core/guards/auth/auth-guard';
 import { guestGuard } from '@core/guards/guest/guest-guard';
+import { REQUIRES_AUTH } from './shared/constants/requires-auth.const';
 
 export const routes: Routes = [
   {
@@ -11,6 +12,7 @@ export const routes: Routes = [
     path: 'library',
     loadComponent: () => import('@pages/library/library').then((m) => m.Library),
     canActivate: [authGuard],
+    data: { [REQUIRES_AUTH]: true },
   },
   {
     path: 'about',

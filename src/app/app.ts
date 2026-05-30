@@ -1,6 +1,7 @@
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { TuiRoot } from '@taiga-ui/core';
-import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MainLayout } from '@core/layouts/main-layout/main-layout';
+import { RedirectService } from '@core/services/redirect/redirect-service';
 
 @Component({
   selector: 'player-root',
@@ -9,4 +10,6 @@ import { MainLayout } from '@core/layouts/main-layout/main-layout';
   styleUrl: './app.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class App {}
+export class App {
+  private readonly redirectService = inject(RedirectService);
+}
