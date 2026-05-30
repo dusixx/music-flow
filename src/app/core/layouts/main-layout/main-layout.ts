@@ -2,6 +2,7 @@ import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { BreakpointService } from '@app/core/services/breakpoint/breakpoint-service';
 import { DesktopLayout } from '../desktop-layout/desktop-layout';
 import { MobileLayout } from '../mobile-layout/mobile-layout';
+import { AuthService } from '@app/core/services/auth/auth-service';
 
 @Component({
   selector: 'player-main-layout',
@@ -12,4 +13,5 @@ import { MobileLayout } from '../mobile-layout/mobile-layout';
 })
 export class MainLayout {
   protected breakpointService = inject(BreakpointService);
+  protected authService = inject(AuthService);
 }

@@ -1,5 +1,9 @@
-@if (breakpointService.screenWidth() === 'mobile') {
-  <player-mobile-layout />
+@if (authService.isCheckingAuth()) {
+  <main class="main"></main>
 } @else {
-  <player-desktop-layout />
+  @if (breakpointService.screenWidth() === 'mobile') {
+    <player-mobile-layout />
+  } @else {
+    <player-desktop-layout />
+  }
 }
