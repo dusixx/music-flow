@@ -1,0 +1,212 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+$bottom-shading-bg: linear-gradient(to bottom, transparent 40%, var(--color-overlay-tertiary));
+
+@mixin show-buttons($both: true) {
+  $selector: if(sass($both): '.fav-btn,.play-btn' ; else: '.play-btn');
+
+  #{$selector} {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+:host {
+  --track-card-max-width: 220px;
+  --track-card-max-height: 400px;
+  --color-bg-focused: var(--color-surface);
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-width: var(--track-card-max-width);
+  max-height: var(--track-card-max-height);
+  padding: var(--padding-m);
+  border-radius: var(--border-radius-s);
+
+  @include mix.main-transition('background-color');
+  @include mix.focused {
+    background-color: var(--color-bg-focused);
+
+    @include show-buttons;
+
+    .thumb::after,
+    .duration {
+      @include mix.hidden(false) {
+        opacity: 1;
+      }
+    }
+  }
+
+  &.playing {
+    @include show-buttons(false);
+
+    .duration {
+      @include mix.hidden(false) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+:host.compact {
+  --track-card-max-height: 48px;
+  --track-card-max-width: 100%;
+  --color-bg-focused: unset;
+
+  flex-direction: row;
+  padding: var(--padding-xs);
+  border-radius: var(--border-radius-xs);
+
+  .thumb {
+    --thumb-size: calc(var(--track-card-max-height) - var(--padding-xs) * 2);
+
+    height: var(--thumb-size);
+    border-radius: var(--border-radius-xs);
+  }
+
+  .buttons {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    justify-content: center;
+  }
+
+  .play-btn {
+    --button-icon-size: 16px;
+  }
+
+  .name,
+  .artist {
+    overflow: hidden;
+
+    padding: 2px 0;
+
+    font-size: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+}
+
+.thumb {
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-s);
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+
+    @include mix.main-transition('visibility, opacity');
+    @include mix.hidden {
+      opacity: 0;
+    }
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 10;
+  right: 12px;
+  bottom: 12px;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.fav-btn,
+.play-btn {
+  transform: translateY(50%);
+  opacity: 0;
+
+  @include mix.main-transition('transform, opacity, color, background-color');
+
+  box-shadow: var(--box-shadow);
+}
+
+.fav-btn {
+  --button-icon-size: 18px;
+  --color-button-bg-focus-primary: var(--color-accent);
+  --color-button-bg-primary: var(--color-accent);
+  --color-button-primary: var(--color-text);
+  --color-button-focus-primary: var(--color-button-primary);
+}
+
+.play-btn {
+  --button-icon-size: 18px;
+  --color-button-bg-focus-primary: var(--color-accent-secondary);
+  --color-button-bg-primary: var(--color-accent-secondary);
+  --color-button-primary: var(--color-text-inverse);
+  --color-button-focus-primary: var(--color-button-primary);
+}
+
+.desc {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+}
+
+.duration,
+.plays {
+  width: fit-content;
+  padding: var(--padding-xs) 6px;
+  border-radius: 8px;
+
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-text-muted);
+
+  background-color: var(--color-surface-secondary);
+}
+
+.duration {
+  color: var(--color-text-inverse);
+  background-color: var(--color-text-subtle);
+
+  @include mix.main-transition('visibility, opacity');
+  @include mix.hidden {
+    opacity: 0;
+  }
+}
+
+.name {
+  @extend %link-base;
+
+  padding: var(--padding-xs) 0;
+  text-transform: uppercase;
+  @include mix.focused {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+}
+
+.artist {
+  @extend %link-base;
+
+  padding: var(--padding-xs) 0;
+  color: var(--color-text-muted);
+  @include mix.focused {
+    color: var(--color-text);
+  }
+}
