@@ -5,8 +5,17 @@ $loading-selector: '.loading';
 $focused-selector: ':not(#{$loading-selector})';
 
 .btn {
-  --icon-size: 16px;
-  --spinner-size: 20px;
+  --button-icon-size: 16px;
+  --button-spinner-size: 20px;
+  --color-button-primary: var(--color-text-inverse);
+  --color-button-secondary: var(--color-text);
+  --color-button-bg-primary: var(--color-text);
+  --color-button-bg-secondary: var(--color-accent);
+  --color-button-bg-base: var(--color-border);
+  --color-button-focus-primary: var(--color-text);
+  --color-button-focus-secondary: var(--color-text-inverse);
+  --color-button-bg-focus-primary: var(--color-accent);
+  --color-button-bg-focus-secondary: var(--color-text);
 
   position: relative;
 
@@ -18,31 +27,37 @@ $focused-selector: ':not(#{$loading-selector})';
     @extend %btn-base;
 
     @include mix.focused($focused-selector) {
-      background-color: var(--color-border);
+      background-color: var(--color-button-bg-base);
     }
   }
 
   &.primary {
-    @extend %btn-primary;
+    @extend %btn-base;
+
+    color: var(--color-button-primary);
+    background-color: var(--color-button-bg-primary);
 
     @include mix.focused($focused-selector) {
-      color: var(--color-white);
-      background-color: var(--color-accent);
+      color: var(--color-button-focus-primary);
+      background-color: var(--color-button-bg-focus-primary);
     }
   }
 
   &.secondary {
-    @extend %btn-secondary;
+    @extend %btn-base;
+
+    color: var(--color-button-secondary);
+    background-color: var(--color-button-bg-secondary);
 
     @include mix.focused($focused-selector) {
-      color: var(--color-text-inverse);
-      background-color: var(--color-text);
+      color: var(--color-button-focus-secondary);
+      background-color: var(--color-button-bg-focus-secondary);
     }
   }
 
   & .btn-icon {
     aspect-ratio: 1;
-    height: var(--icon-size);
+    height: var(--button-icon-size);
     margin-right: 6px;
     fill: currentcolor;
   }
@@ -51,8 +66,8 @@ $focused-selector: ':not(#{$loading-selector})';
     --button-height: 34px;
     --button-font-size: 14px;
     --button-padding-side: 18px;
-    --icon-size: 14px;
-    --spinner-size: 18px;
+    --button-icon-size: 14px;
+    --button-spinner-size: 18px;
   }
 
   &.btn-no-icon {
@@ -81,7 +96,7 @@ $focused-selector: ':not(#{$loading-selector})';
 
       display: block;
 
-      width: var(--spinner-size);
+      width: var(--button-spinner-size);
       margin: auto;
     }
 
