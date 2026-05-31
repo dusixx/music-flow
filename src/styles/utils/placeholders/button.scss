@@ -16,6 +16,7 @@
 
   height: var(--button-height);
   padding: 0 var(--button-padding-side);
+  border: unset;
   border-style: none;
   border-radius: var(--button-border-radius);
 
@@ -24,28 +25,11 @@
 
   background-color: transparent;
 
-  @include main-transition('background-color');
+  @include main-transition('background-color, color');
 
   &:disabled {
     @include non-interactive {
       opacity: var(--button-disabled-opacity);
     }
   }
-}
-
-%btn-primary {
-  @extend %btn-base;
-
-  border: unset;
-  color: var(--color-text-inverse);
-  background-color: var(--color-text);
-
-  @include main-transition('background-color, color');
-}
-
-%btn-secondary {
-  @extend %btn-primary;
-
-  color: var(--color-text);
-  background-color: var(--color-accent);
 }
