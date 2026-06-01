@@ -6,7 +6,7 @@ import {
   signOut,
   User,
 } from 'firebase/auth';
-import { firebaseApp } from '@core/firebase/firebase.config';
+import { firebaseApp } from '@app/core/firebase/firebase.config';
 import { FirebaseError } from 'firebase/app';
 import { AuthState } from './auth.types';
 
