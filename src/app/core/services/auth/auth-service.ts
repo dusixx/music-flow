@@ -15,9 +15,12 @@ import { AuthState } from './auth.types';
 })
 export class AuthService {
   private readonly auth = getAuth(firebaseApp);
+
   private _user = signal<User | null>(null);
   readonly user = this._user.asReadonly();
-  readonly authState = signal<AuthState>('loading');
+
+  private _authState = signal<AuthState>('loading');
+  readonly authState = this._authState.asReadonly();
 
   readonly isCheckingAuth = computed(() => this.authState() === 'loading');
   readonly isAuthenticated = computed(() => this.authState() === 'auth');
@@ -26,9 +29,9 @@ export class AuthService {
     onAuthStateChanged(this.auth, (user) => {
       this._user.set(user);
       if (user) {
-        this.authState.set('auth');
+        this._authState.set('auth');
       } else {
-        this.authState.set('guest');
+        this._authState.set('guest');
       }
     });
   }
