@@ -1,39 +1,22 @@
 @let t = track();
-@let compact = variant() === 'compact';
 
-<div class="thumb">
-  <img class="image" [src]="t.image" [alt]="t.name" />
-  <div class="buttons">
-    @if (!compact) {
-      <button
-        playerButton
-        class="fav-btn"
-        aria-label="toggle favorite"
-        (click)="toggleFavorite.emit(t)"
-        [icon]="favorite() ? 'icon-heart' : 'icon-heart-outlined'"
-      ></button>
-    }
-    <button
-      playerButton
-      class="play-btn"
-      aria-label="toggle play"
-      [size]="compact ? 'small' : undefined"
-      (click)="togglePlay.emit(t)"
-      [icon]="playing() ? 'icon-pause' : 'icon-play'"
-    ></button>
-  </div>
-</div>
+<player-track-cover
+  [track]="t"
+  [isHovered]="isHovered()"
+  [isPlaying]="isPlaying()"
+  [isFavorite]="isFavorite()"
+  (playClicked)="playClicked.emit($event)"
+  (favoriteClicked)="favoriteClicked.emit($event)"
+/>
 <div class="desc">
   <a class="name" [routerLink]="['/album', t.album.id]">{{ t.name }}</a>
   <a class="artist" [routerLink]="['/artist', t.artist.id]">{{ t.artist.name }}</a>
-  @if (!compact) {
-    <div class="stats">
-      @if (track().plays) {
-        <span class="plays">{{ t.plays | compactNumber }}</span>
-      }
-      @if (track().duration) {
-        <span class="duration">{{ t.duration | duration }}</span>
-      }
-    </div>
-  }
+  <div class="stats">
+    @if (track().plays) {
+      <span class="plays">{{ t.plays | compactNumber }}</span>
+    }
+    @if (track().duration) {
+      <span class="duration">{{ t.duration | duration }}</span>
+    }
+  </div>
 </div>
