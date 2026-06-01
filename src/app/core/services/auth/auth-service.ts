@@ -5,6 +5,7 @@ import {
   signInWithEmailAndPassword,
   signOut,
   User,
+  createUserWithEmailAndPassword,
 } from 'firebase/auth';
 import { firebaseApp } from '@app/core/firebase/firebase.config';
 import { FirebaseError } from 'firebase/app';
@@ -49,6 +50,14 @@ export class AuthService {
       await signOut(this.auth);
     } catch (error) {
       this.handleError(error, 'logout');
+    }
+  }
+
+  async register(email: string, password: string) {
+    try {
+      await createUserWithEmailAndPassword(this.auth, email, password);
+    } catch (error) {
+      this.handleError(error, 'register');
     }
   }
 
