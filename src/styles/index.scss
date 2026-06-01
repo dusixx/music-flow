@@ -20,7 +20,7 @@ body {
   --color-text-subtle: rgb(234 234 234 / 30%);
   --color-text-inverse: var(--color-bg);
   --color-border: rgb(234 234 234 / 10%);
-  --color-border-strong: rgb(234 234 234 / 30%);
+  --color-border-strong: rgb(234 234 234 / 40%);
   --color-accent: #5f3bb2;
   --color-accent-secondary: #1ed760;
   --color-accent-tertiary: #b34263;
@@ -53,6 +53,7 @@ body {
   --gutter-z-index: 10;
   --header-z-index: 20;
   --mobile-menu-z-index: 1000;
+  --mobile-menu-width: 280px;
   --box-shadow: 0 8px 8px var(--color-shadow);
   --border: 1px solid var(--color-border);
 }
@@ -61,7 +62,7 @@ body {
 [tuiTheme='dark'] {
   --tui-duration: #{$transition-duration};
   --tui-radius-l: var(--border-radius);
-  --tui-height-l: 40px;
+  --tui-height-l: 42px;
   --tui-typography-family-text: 'Nunito Sans', sans-serif;
   --tui-background-base: var(--color-bg);
   --tui-text-primary: var(--color-text);
