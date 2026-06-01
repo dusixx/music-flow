@@ -40,11 +40,7 @@ export class AuthService {
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      } else {
-        console.error('login error:', error);
-      }
+      this.handleError(error, 'login');
     }
   }
 
@@ -52,11 +48,16 @@ export class AuthService {
     try {
       await signOut(this.auth);
     } catch (error) {
-      if (error instanceof FirebaseError) {
-        console.error(error.message);
-      } else {
-        console.error('logout error:', error);
-      }
+      this.handleError(error, 'logout');
+    }
+  }
+
+  // TEMP: local error handler until global ErrorHandlerService is implemented
+  private handleError(error: unknown, context: string) {
+    if (error instanceof FirebaseError) {
+      console.error(`[${context}] ${error.message}`);
+    } else {
+      console.error(`[${context}] unknown error`, error);
     }
   }
 }
