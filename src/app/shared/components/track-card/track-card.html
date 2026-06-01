@@ -12,10 +12,10 @@
   <a class="name" [routerLink]="['/album', t.album.id]">{{ t.name }}</a>
   <a class="artist" [routerLink]="['/artist', t.artist.id]">{{ t.artist.name }}</a>
   <div class="stats">
-    @if (track().plays) {
+    @if (t.plays) {
       <span class="plays">{{ t.plays | compactNumber }}</span>
     }
-    @if (track().duration) {
+    @if (t.duration) {
       <span class="duration">{{ t.duration | duration }}</span>
     }
   </div>

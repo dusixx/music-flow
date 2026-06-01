@@ -8,8 +8,8 @@ const SECS_PER_MIN = 60;
 })
 export class DurationPipe implements PipeTransform {
   transform(secs: string | number) {
-    const num = Number(secs);
-    if (Number.isNaN(num)) {
+    const num = Math.floor(Number(secs));
+    if (!num) {
       return '';
     }
     const hours = Math.floor(num / SECS_PER_HOUR);
