@@ -1,0 +1,115 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+$play-only: false;
+
+@mixin show-buttons($both: true) {
+  $selector: if(sass($both): '.fav-btn,.play-btn' ; else: '.play-btn');
+
+  #{$selector} {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@mixin always-show-buttons-no-hover {
+  @include mix.not-supports-hover {
+    .fav-btn,
+    .play-btn {
+      --button-height: var(--button-height-s);
+    }
+    @include show-buttons;
+  }
+}
+
+:host {
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-s);
+
+  @include mix.main-transition('background-color');
+
+  &.hovered {
+    @include show-buttons;
+  }
+
+  @include mix.hover {
+    @include show-buttons;
+  }
+
+  @include mix.focus-visible-within {
+    @include show-buttons;
+
+    .fav-btn,
+    .play-btn {
+      transition: none;
+    }
+  }
+
+  &.playing {
+    @include show-buttons($play-only);
+  }
+}
+
+:host.secondary {
+  border-radius: var(--border-radius-xs);
+
+  .buttons {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    justify-content: center;
+
+    @include mix.not-supports-hover {
+      @include mix.hidden;
+    }
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 10;
+  right: 8px;
+  bottom: 8px;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @include always-show-buttons-no-hover;
+}
+
+.fav-btn,
+.play-btn {
+  transform: translateY(25%) scale(1);
+  opacity: 0;
+
+  @include mix.main-transition('transform, opacity, filter');
+  @include mix.hover {
+    filter: brightness(1.05);
+  }
+
+  box-shadow: var(--box-shadow);
+}
+
+.fav-btn {
+  --color-button-bg-focus-primary: var(--color-accent);
+  --color-button-bg-primary: var(--color-accent);
+  --color-button-primary: var(--color-text);
+  --color-button-focus-primary: var(--color-button-primary);
+}
+
+.play-btn {
+  --color-button-bg-focus-primary: var(--color-accent-secondary);
+  --color-button-bg-primary: var(--color-accent-secondary);
+  --color-button-primary: var(--color-text-inverse);
+  --color-button-focus-primary: var(--color-button-primary);
+}
