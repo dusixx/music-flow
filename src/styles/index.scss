@@ -4,34 +4,33 @@
 
 body {
   overflow: hidden;
-
   height: 100vh;
   margin: 0;
-
-  color: var(--color-text);
-
   color-scheme: dark;
-  background-color: var(--color-bg);
 }
 
 %dark-palette {
   --color-bg: rgb(28 27 34);
   --color-bg-secondary: rgb(21 20 25);
-  --color-surface: rgb(36 36 42);
+  --color-surface: rgb(42 42 49);
   --color-surface-secondary: rgb(52 52 60);
-  --color-text: rgb(226 226 226);
+  --color-text: rgb(232 232 232);
+  --color-text-secondary: rgb(216 216 216);
   --color-text-muted: rgb(234 234 234 / 50%);
   --color-text-subtle: rgb(234 234 234 / 30%);
   --color-text-inverse: var(--color-bg);
   --color-border: rgb(234 234 234 / 10%);
-  --color-border-strong: rgb(234 234 234 / 50%);
-  --color-accent: #4f378a;
-  --color-accent-secondary: #f573a0;
-  --color-success: rgb(29 179 152);
+  --color-border-strong: rgb(234 234 234 / 40%);
+  --color-accent: #5f3bb2;
+  --color-accent-secondary: #1ed760;
+  --color-accent-tertiary: #b34263;
+  --color-success: #1ed760;
   --color-warning: #ffb4ab;
   --color-error: #810081;
   --color-info: rgb(106 103 255);
-  --color-overlay: rgb(28 27 34 / 50%);
+  --color-overlay: rgb(28 27 34 / 40%);
+  --color-overlay-secondary: rgb(28 27 34 / 80%);
+  --color-overlay-tertiary: rgb(28 27 34 / 20%);
   --color-shadow: rgb(0 0 0 / 30%);
 }
 
@@ -44,15 +43,26 @@ body {
   --wrapper-max-width: 1440px;
   --header-height: 72px;
   --border-radius: 20px;
+  --border-radius-m: 12px;
+  --border-radius-s: 8px;
+  --border-radius-xs: 4px;
+  --padding-xs: 4px;
+  --padding-s: 8px;
+  --padding-m: 12px;
+  --padding: 20px;
   --gutter-z-index: 10;
   --header-z-index: 20;
   --mobile-menu-z-index: 1000;
+  --mobile-menu-width: 280px;
+  --box-shadow: 0 8px 8px var(--color-shadow);
+  --border: 1px solid var(--color-border);
 }
 
 :root,
 [tuiTheme='dark'] {
+  --tui-duration: #{$transition-duration};
   --tui-radius-l: var(--border-radius);
-  --tui-height-l: 40px;
+  --tui-height-l: 42px;
   --tui-typography-family-text: 'Nunito Sans', sans-serif;
   --tui-background-base: var(--color-bg);
   --tui-text-primary: var(--color-text);

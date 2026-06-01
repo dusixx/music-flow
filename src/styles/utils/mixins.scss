@@ -6,14 +6,35 @@
   transition-property: #{$props};
 }
 
-@mixin focused($target: '') {
-  &#{$target}:focus-visible {
+@mixin supports-hover {
+  @media (hover: hover) and (pointer: fine) {
     @content;
   }
-  @media (hover: hover) and (pointer: fine) {
+}
+
+@mixin not-supports-hover() {
+  @media (hover: none), (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin hover($target: '') {
+  @include supports-hover {
     &#{$target}:hover {
       @content;
     }
+  }
+}
+
+@mixin focus-visible-within($target: '') {
+  &#{$target}:has(:focus-visible) {
+    @content;
+  }
+}
+
+@mixin focus-visible($target: '') {
+  &#{$target}:focus-visible {
+    @content;
   }
 }
 

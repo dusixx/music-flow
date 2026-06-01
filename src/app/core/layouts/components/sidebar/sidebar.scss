@@ -69,7 +69,11 @@ $nav-wrapper-breakpoint: 100px;
   background-color: transparent;
 
   @include mix.main-transition('background-color');
-  @include mix.focused {
+
+  @include mix.hover {
+    background-color: var(--color-border);
+  }
+  @include mix.focus-visible {
     background-color: var(--color-border);
   }
 

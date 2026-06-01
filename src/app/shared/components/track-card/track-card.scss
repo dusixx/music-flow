@@ -1,0 +1,128 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+@mixin card-focus {
+  background-color: var(--color-bg-focused);
+
+  .duration {
+    @include mix.hidden(false) {
+      opacity: 1;
+    }
+  }
+}
+
+@mixin always-show-duration-no-hover {
+  @include mix.not-supports-hover {
+    .duration {
+      @include mix.hidden(false) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+:host {
+  --track-card-max-width: 220px;
+  --track-card-max-height: 400px;
+  --color-bg-focused: var(--color-surface);
+
+  user-select: none;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+
+  max-width: var(--track-card-max-width);
+  max-height: var(--track-card-max-height);
+  padding: var(--padding-m);
+  border-radius: var(--border-radius-s);
+
+  @include mix.main-transition('background-color');
+
+  @include mix.hover {
+    @include card-focus;
+  }
+
+  @include mix.focus-visible-within {
+    @include card-focus;
+  }
+
+  &.playing {
+    .duration {
+      @include mix.hidden(false) {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.desc {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.stats {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  margin-top: 8px;
+
+  @include always-show-duration-no-hover;
+}
+
+.duration,
+.plays {
+  width: fit-content;
+  padding: var(--padding-xs) 6px;
+  border-radius: var(--border-radius-s);
+
+  font-size: 10px;
+  line-height: 1;
+  color: var(--color-text-muted);
+
+  background-color: var(--color-surface-secondary);
+}
+
+.duration {
+  color: var(--color-text-inverse);
+  background-color: var(--color-text-subtle);
+
+  @include mix.main-transition('visibility, opacity');
+  @include mix.hidden {
+    opacity: 0;
+  }
+}
+
+.name,
+.artist {
+  @extend %link;
+
+  width: fit-content;
+  padding: var(--padding-xs);
+}
+
+.name {
+  text-transform: uppercase;
+
+  @include mix.hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+  @include mix.focus-visible {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+}
+
+.artist {
+  color: var(--color-text-muted);
+
+  @include mix.hover {
+    color: var(--color-text);
+  }
+  @include mix.focus-visible {
+    color: var(--color-text);
+  }
+}
