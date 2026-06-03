@@ -45,3 +45,6 @@ __screenshots__/
 Thumbs.db
 .data/
 .backup/
+
+# Local congig with real keys
+src/environments/environment.dev.ts
