@@ -1,12 +1,3 @@
-<!-- @if (isCheckingAuth()) {
-  <main class="main"></main>
-} @else {
-  @if (breakpointService.screenWidth() === 'mobile') {
-    <player-mobile-layout />
-  } @else {
-    <player-desktop-layout />
-  }
-} -->
 @switch (view()) {
   @case ('loading') {
     <main class="main"></main>
