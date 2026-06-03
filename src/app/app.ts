@@ -11,8 +11,5 @@ import { RedirectService } from '@core/services/redirect/redirect-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class App {
-  private redirectService = inject(RedirectService);
-  constructor() {
-    this.redirectService.initEffect();
-  }
+  private _ = inject(RedirectService);
 }

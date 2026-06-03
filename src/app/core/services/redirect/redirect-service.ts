@@ -10,17 +10,15 @@ export class RedirectService {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  initEffect() {
-    effect(() => {
-      const state = this.authService.authState();
-      if (state !== 'guest') {
-        return;
-      }
+  readonly init = effect(() => {
+    const state = this.authService.authState();
+    if (state !== 'guest') {
+      return;
+    }
 
-      const activeRoute = this.router.routerState.snapshot.root.firstChild;
-      if (activeRoute?.data?.[REQUIRES_AUTH]) {
-        this.router.navigate(['/']);
-      }
-    });
-  }
+    const activeRoute = this.router.routerState.snapshot.root.firstChild;
+    if (activeRoute?.data?.[REQUIRES_AUTH]) {
+      this.router.navigate(['/']);
+    }
+  });
 }
