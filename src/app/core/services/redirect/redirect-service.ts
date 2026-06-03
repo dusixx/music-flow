@@ -10,11 +10,7 @@ export class RedirectService {
   private router = inject(Router);
   private authService = inject(AuthService);
 
-  constructor() {
-    this.initEffect();
-  }
-
-  private initEffect() {
+  initEffect() {
     effect(() => {
       const state = this.authService.authState();
       if (state !== 'guest') {
