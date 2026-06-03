@@ -47,4 +47,4 @@ Thumbs.db
 .backup/
 
 # Local congig with real keys
-src/environments/environment.dev.ts
+src/environments/environment.ts
