@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
 import { BreakpointService } from '@app/core/services/breakpoint/breakpoint-service';
 import { DesktopLayout } from '../desktop-layout/desktop-layout';
 import { MobileLayout } from '../mobile-layout/mobile-layout';
@@ -12,6 +12,13 @@ import { AuthService } from '@app/core/services/auth/auth-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
-  protected breakpointService = inject(BreakpointService);
-  protected authService = inject(AuthService);
+  private breakpointService = inject(BreakpointService);
+  private authService = inject(AuthService);
+
+  protected readonly view = computed(() => {
+    const loading = this.authService.isCheckingAuth();
+    const mobile = this.breakpointService.screenWidth() === 'mobile';
+    if (loading) return 'loading';
+    return mobile ? 'mobile' : 'desktop';
+  });
 }
