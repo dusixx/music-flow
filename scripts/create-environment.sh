@@ -4,7 +4,6 @@ mkdir -p src/environments
 
 cat <<EOF > src/environments/environment.ts
 export const environment = {
-  production: ${PRODUCTION},
   firebase: {
     apiKey: '${FIREBASE_API_KEY}',
     authDomain: '${FIREBASE_AUTH_DOMAIN}',
