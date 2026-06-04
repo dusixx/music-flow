@@ -8,6 +8,11 @@
   @include mix.hover {
     background-color: var(--color-border-subtle) !important;
   }
+
+  &:active {
+    border: unset !important;
+    background-color: var(--color-border) !important;
+  }
 }
 
 .as-split-gutter-icon {

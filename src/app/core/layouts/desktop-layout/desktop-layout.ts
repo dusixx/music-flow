@@ -6,10 +6,10 @@ import { AngularSplitModule, SplitGutterInteractionEvent } from 'angular-split';
 import { Sidebar } from '../components/sidebar/sidebar';
 
 const SidebarParams = {
-  MinWidthPx: 60,
+  MinWidthPx: 64,
   NormalWidthPx: 200,
   MaxWidthPx: 500,
-  GutterWidthPx: 8,
+  GutterWidthPx: 4,
   GutterDblClickDuration: 300,
 };
 

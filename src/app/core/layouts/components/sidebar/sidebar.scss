@@ -15,7 +15,7 @@ $nav-wrapper-breakpoint: 100px;
   gap: 20px;
 
   width: 100%;
-  padding: 8px;
+  padding: var(--padding-m);
 }
 
 .logo {
