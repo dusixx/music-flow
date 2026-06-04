@@ -12,30 +12,13 @@
   gap: var(--padding-m);
 }
 
-.section {
+.genres-list {
   display: flex;
-  flex-direction: column;
-  gap: var(--padding-s);
-}
-
-.section-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.title {
-  font-size: 28px;
-  text-transform: capitalize;
-}
-
-.subtitle {
-  font-size: 12px;
-  color: var(--color-text-muted);
-}
-
-.carousel:has(.genre) {
   gap: 40px;
+}
+
+.carousel:has(.genres-list) {
+  gap: 20px;
 }
 
 .carousel-item {
@@ -59,8 +42,4 @@
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
-}
-
-.controls {
-  display: flex;
 }

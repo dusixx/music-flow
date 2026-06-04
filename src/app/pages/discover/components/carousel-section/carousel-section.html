@@ -1,0 +1,30 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<div class="header">
+  <div>
+    @if (title()) {
+      <h2 class="title">{{ title() }}</h2>
+      @if (subtitle()) {
+        <p class="subtitle">{{ subtitle() }}</p>
+      }
+    }
+  </div>
+  <div class="controls">
+    <button
+      playerButton
+      icon="icon-chevron-left"
+      variant="base"
+      (click)="carousel.prev()"
+      [disabled]="carousel.atStart()"
+    ></button>
+    <button
+      playerButton
+      icon="icon-chevron-right"
+      variant="base"
+      (click)="carousel.next()"
+      [disabled]="carousel.atEnd()"
+    ></button>
+  </div>
+</div>
+<player-carousel #carousel class="carousel">
+  <ng-content />
+</player-carousel>

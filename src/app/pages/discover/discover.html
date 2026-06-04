@@ -1,46 +1,27 @@
-<!-- eslint-disable @angular-eslint/template/elements-content -->
-@for (item of sectionData; track item.title) {
-  <div class="section">
-    <div class="section-header">
-      <div>
-        <h2 class="title">{{ item.title }}</h2>
-        <p class="subtitle">{{ item.subtitle }}</p>
-      </div>
-      <div class="controls">
-        <button
-          playerButton
-          icon="icon-chevron-left"
-          variant="base"
-          (click)="carousel.prev()"
-          [disabled]="carousel.atStart()"
-        ></button>
-        <button
-          playerButton
-          icon="icon-chevron-right"
-          variant="base"
-          (click)="carousel.next()"
-          [disabled]="carousel.atEnd()"
-        ></button>
-      </div>
+@let popular = sectionHeading.popular;
+@let releases = sectionHeading.releases;
+@let genres = sectionHeading.genres;
+
+<player-carousel-section [title]="popular.title" [subtitle]="popular.subtitle">
+  @for (track of popularTracks(); track track.id) {
+    <div playerCarouselItem="carousel-item" [routerLink]="['/album', track.album.id]">
+      <player-track-card [track]="track" />
     </div>
-    <player-carousel #carousel class="carousel">
-      @if (item.id !== 'genres') {
-        @for (track of item.data(); track track.id) {
-          <div playerCarouselItem="carousel-item" [routerLink]="['/album', track.album.id]">
-            <player-track-card [track]="track" />
-          </div>
-        }
-      } @else {
-        @for (genre of item.data; track genre) {
-          <a
-            playerCarouselItem="carousel-item genre"
-            routerLink="/search"
-            [queryParams]="{ genre }"
-          >
-            {{ genre }}
-          </a>
-        }
-      }
-    </player-carousel>
+  }
+</player-carousel-section>
+<player-carousel-section [title]="releases.title" [subtitle]="releases.subtitle">
+  @for (track of newReleaseTracks(); track track.id) {
+    <div playerCarouselItem="carousel-item" [routerLink]="['/album', track.album.id]">
+      <player-track-card [track]="track" />
+    </div>
+  }
+</player-carousel-section>
+<player-carousel-section class="carousel" [title]="genres.title" [subtitle]="genres.subtitle">
+  <div class="genres-list">
+    @for (genre of genresList; track genre) {
+      <a playerCarouselItem="carousel-item genre" routerLink="/search" [queryParams]="{ genre }">
+        {{ genre }}
+      </a>
+    }
   </div>
-}
+</player-carousel-section>

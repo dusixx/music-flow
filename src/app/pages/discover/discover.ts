@@ -1,31 +1,15 @@
-import { ChangeDetectionStrategy, Component, inject, Signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { RouterLink } from '@angular/router';
 import { TrackService } from '@app/core/api/tracks/track-service';
-import { Carousel } from '@app/shared/components/carousel/carousel';
 import { CarouselItem } from '@app/shared/components/carousel/carousel-item/carousel-item';
 import { TrackCard } from '@app/shared/components/track-card/track-card';
 import { JAMENDO_GENRES } from '@app/shared/constants';
-import { Button } from '@app/shared/directives/button/button';
-import { Track } from '@app/shared/models/track';
-
-type SectionData = {
-  title: string;
-  subtitle: string;
-} & (
-  | {
-      id: 'popular' | 'releases';
-      data: Signal<Track[]>;
-    }
-  | {
-      id: 'genres';
-      data: typeof JAMENDO_GENRES;
-    }
-);
+import { CarouselSection } from './components/carousel-section/carousel-section';
 
 @Component({
   selector: 'player-discover',
-  imports: [TrackCard, Button, Carousel, CarouselItem, RouterLink],
+  imports: [TrackCard, CarouselItem, RouterLink, CarouselSection],
   templateUrl: './discover.html',
   styleUrl: './discover.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,31 +17,27 @@ type SectionData = {
 export class Discover {
   private trackService = inject(TrackService);
 
-  protected popular = toSignal(this.trackService.getPopular(), {
+  protected popularTracks = toSignal(this.trackService.getPopular(), {
     initialValue: [],
   });
-  protected releases = toSignal(this.trackService.getNewReleases(), {
+  protected newReleaseTracks = toSignal(this.trackService.getNewReleases(), {
     initialValue: [],
   });
 
-  protected sectionData: SectionData[] = [
-    {
-      id: 'popular',
+  protected genresList = JAMENDO_GENRES;
+
+  protected sectionHeading = {
+    popular: {
       title: 'popular',
       subtitle: 'popular subtitle',
-      data: this.popular,
     },
-    {
-      id: 'releases',
+    releases: {
       title: 'new releases',
       subtitle: 'releases subtitle',
-      data: this.releases,
     },
-    {
-      id: 'genres',
+    genres: {
       title: 'genres',
       subtitle: 'genres subtitle',
-      data: JAMENDO_GENRES,
     },
-  ];
+  };
 }
