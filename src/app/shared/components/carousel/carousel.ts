@@ -8,8 +8,6 @@ import {
   signal,
 } from '@angular/core';
 
-const EPSILON = 1;
-
 @Component({
   selector: 'player-carousel',
   imports: [],
@@ -45,9 +43,11 @@ export class Carousel {
   }
 
   protected updateScrollEdges() {
-    const el = this.host.nativeElement;
-    this.atStart.set(el.scrollLeft <= EPSILON);
-    this.atEnd.set(el.scrollLeft + el.clientWidth >= el.scrollWidth - EPSILON);
+    const { scrollLeft, clientWidth, scrollWidth } = this.host.nativeElement;
+    const left = Math.ceil(scrollLeft);
+
+    this.atStart.set(!left);
+    this.atEnd.set(left + clientWidth >= scrollWidth);
   }
 
   next() {
