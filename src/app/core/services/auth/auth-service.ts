@@ -1,4 +1,5 @@
-import { Injectable, signal, computed } from '@angular/core';
+import { Injectable, signal, computed, inject, effect } from '@angular/core';
+import { Router } from '@angular/router';
 import {
   getAuth,
   onAuthStateChanged,
@@ -7,14 +8,16 @@ import {
   User,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { firebaseApp } from '@app/core/firebase/firebase.config';
 import { FirebaseError } from 'firebase/app';
-import { AuthState } from './auth.types';
+import { firebaseApp } from '@app/core/firebase/firebase.config';
+import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
+import { AuthState } from './types/auth.type';
 
 @Injectable({
   providedIn: 'root',
 })
 export class AuthService {
+  private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
 
   private _user = signal<User | null>(null);
@@ -29,10 +32,15 @@ export class AuthService {
   constructor() {
     onAuthStateChanged(this.auth, (user) => {
       this._user.set(user);
-      if (user) {
-        this._authState.set('auth');
-      } else {
-        this._authState.set('guest');
+      this._authState.set(user ? 'auth' : 'guest');
+    });
+    effect(() => {
+      if (this.authState() !== 'guest') {
+        return;
+      }
+      const activeRoute = this.router.routerState.snapshot.root.firstChild;
+      if (activeRoute?.data?.[REQUIRES_AUTH]) {
+        this.router.navigate(['/']);
       }
     });
   }
