@@ -17,27 +17,25 @@ import { CarouselSection } from './components/carousel-section/carousel-section'
 export class Discover {
   private trackService = inject(TrackService);
 
-  protected popularTracks = toSignal(this.trackService.getPopular(), {
+  protected popular = toSignal(this.trackService.getPopular(), {
     initialValue: [],
   });
-  protected newReleaseTracks = toSignal(this.trackService.getNewReleases(), {
+  protected releases = toSignal(this.trackService.getNewReleases(), {
     initialValue: [],
   });
 
   protected genresList = JAMENDO_GENRES;
 
-  protected sectionHeading = {
-    popular: {
+  protected tracksData = [
+    {
       title: 'popular',
       subtitle: 'popular subtitle',
+      tracks: this.popular,
     },
-    releases: {
+    {
       title: 'new releases',
       subtitle: 'releases subtitle',
+      tracks: this.releases,
     },
-    genres: {
-      title: 'genres',
-      subtitle: 'genres subtitle',
-    },
-  };
+  ];
 }
