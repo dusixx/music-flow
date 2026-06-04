@@ -1,1 +1,46 @@
-<p>discover works!</p>
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+@for (item of sectionData; track item.title) {
+  <div class="section">
+    <div class="section-header">
+      <div>
+        <h2 class="title">{{ item.title }}</h2>
+        <p class="subtitle">{{ item.subtitle }}</p>
+      </div>
+      <div class="controls">
+        <button
+          playerButton
+          icon="icon-chevron-left"
+          variant="base"
+          (click)="carousel.prev()"
+          [disabled]="carousel.atStart()"
+        ></button>
+        <button
+          playerButton
+          icon="icon-chevron-right"
+          variant="base"
+          (click)="carousel.next()"
+          [disabled]="carousel.atEnd()"
+        ></button>
+      </div>
+    </div>
+    <player-carousel #carousel class="carousel">
+      @if (item.id !== 'genres') {
+        @for (track of item.data(); track track.id) {
+          <div playerCarouselItem="carousel-item" [routerLink]="['/album', track.album.id]">
+            <player-track-card [track]="track" />
+          </div>
+        }
+      } @else {
+        @for (genre of item.data; track genre) {
+          <a
+            playerCarouselItem="carousel-item genre"
+            routerLink="/search"
+            [queryParams]="{ genre }"
+          >
+            {{ genre }}
+          </a>
+        }
+      }
+    </player-carousel>
+  </div>
+}

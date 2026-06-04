@@ -1,0 +1,66 @@
+@use 'utils';
+
+@mixin align-vertically($f: true) {
+  @if $f == false {
+    align-items: start;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-m);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-s);
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  font-size: 28px;
+  text-transform: capitalize;
+}
+
+.subtitle {
+  font-size: 12px;
+  color: var(--color-text-muted);
+}
+
+.carousel:has(.genre) {
+  gap: 40px;
+}
+
+.carousel-item {
+  display: flex;
+  flex-shrink: 0;
+  width: 180px;
+
+  @include align-vertically(false);
+}
+
+.genre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1;
+  width: 140px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-s);
+
+  color: var(--color-text);
+  text-decoration: none;
+  text-transform: uppercase;
+}
+
+.controls {
+  display: flex;
+}
