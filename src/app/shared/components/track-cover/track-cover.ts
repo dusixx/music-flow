@@ -1,12 +1,13 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
 import { Button } from '@app/shared/directives/button/button';
 import { Track } from '@app/shared/models/track';
+import { StopPropagation } from '@app/shared/directives/stop-propagation/stop-propagation';
 
 type TrackCoverVariant = 'primary' | 'secondary';
 
 @Component({
   selector: 'player-track-cover',
-  imports: [Button],
+  imports: [Button, StopPropagation],
   templateUrl: './track-cover.html',
   styleUrl: './track-cover.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
