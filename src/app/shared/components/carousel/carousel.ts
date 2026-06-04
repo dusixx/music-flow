@@ -35,12 +35,12 @@ export class Carousel {
     afterNextRender(() => {
       this.updateScrollEdges();
 
-      const ro = new ResizeObserver((_) => {
+      const resizeObserver = new ResizeObserver((_) => {
         this.updateScrollEdges();
       });
-      ro.observe(this.host.nativeElement);
+      resizeObserver.observe(this.host.nativeElement);
 
-      this.destroyRef.onDestroy(() => ro.disconnect());
+      this.destroyRef.onDestroy(() => resizeObserver.disconnect());
     });
   }
 
