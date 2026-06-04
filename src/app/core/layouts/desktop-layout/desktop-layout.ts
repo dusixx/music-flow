@@ -8,7 +8,7 @@ import { Sidebar } from '../components/sidebar/sidebar';
 const SidebarParams = {
   MinWidthPx: 60,
   NormalWidthPx: 200,
-  MaxWidthPx: 300,
+  MaxWidthPx: 500,
   GutterWidthPx: 8,
   GutterDblClickDuration: 300,
 };
