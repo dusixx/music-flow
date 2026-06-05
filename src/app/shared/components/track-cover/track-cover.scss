@@ -1,0 +1,122 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+$play-only: false;
+$small-buttons: true;
+$active-brightness: 1.05;
+
+@mixin show-buttons($both: true) {
+  $selector: if(sass($both): '.fav-btn,.play-btn' ; else: '.play-btn');
+
+  #{$selector} {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@mixin always-show-buttons-no-hover($small: false) {
+  @include mix.no-hover {
+    @if $small == true {
+      .fav-btn,
+      .play-btn {
+        --button-height: var(--button-height-s);
+      }
+    }
+    @include show-buttons($play-only);
+  }
+}
+
+:host {
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+
+  aspect-ratio: 1;
+  border-radius: var(--border-radius-s);
+
+  @include mix.main-transition('background-color');
+
+  &.hovered {
+    @include show-buttons;
+  }
+
+  @include mix.hover {
+    @include show-buttons;
+  }
+
+  @include mix.focus-visible-within {
+    @include show-buttons;
+
+    .fav-btn,
+    .play-btn {
+      transition: none;
+    }
+  }
+
+  &.playing {
+    @include show-buttons($play-only);
+  }
+}
+
+:host.secondary {
+  border-radius: var(--border-radius-xs);
+
+  .buttons {
+    position: absolute;
+    z-index: 10;
+    inset: 0;
+    justify-content: center;
+
+    @include mix.no-hover {
+      display: none;
+    }
+  }
+}
+
+.image {
+  object-fit: cover;
+}
+
+.buttons {
+  position: absolute;
+  z-index: 10;
+  right: 8px;
+  bottom: 8px;
+
+  display: flex;
+  gap: 8px;
+  align-items: center;
+
+  @include always-show-buttons-no-hover;
+}
+
+.fav-btn,
+.play-btn {
+  transform: translateY(25%) scale(1);
+  opacity: 0;
+  box-shadow: var(--box-shadow);
+
+  &:active {
+    filter: brightness($active-brightness);
+  }
+
+  @include mix.main-transition('transform, opacity, filter');
+  @include mix.hover {
+    filter: brightness($active-brightness);
+  }
+}
+
+.fav-btn {
+  --button-bg-focus: var(--color-accent);
+  --button-bg: var(--color-accent);
+  --button-color: var(--color-text);
+  --button-color-focus: var(--button-color);
+}
+
+.play-btn {
+  --button-bg-focus: var(--color-accent-secondary);
+  --button-bg: var(--color-accent-secondary);
+  --button-color: var(--color-text-inverse);
+  --button-color-focus: var(--button-color);
+}

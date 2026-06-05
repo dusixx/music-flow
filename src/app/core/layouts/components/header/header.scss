@@ -14,7 +14,7 @@ $link-size: 30px;
 
   width: 100%;
   height: var(--header-height);
-  padding: 0 18px;
+  padding: 0 var(--padding-xl);
 
   background-color: var(--color-bg);
 }
@@ -40,7 +40,7 @@ $link-size: 30px;
   width: var(--button-height);
   padding: 0;
 
-  font-weight: 500;
+  font-weight: 600;
   color: var(--color-text-inverse);
 
   background-color: var(--color-accent-secondary);

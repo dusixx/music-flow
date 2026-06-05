@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, model } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
-import { AuthService } from '@app/core/services/auth/auth';
+import { AuthService } from '@app/core/services/auth/auth-service';
 import { Button } from '@app/shared/directives/button/button';
 
 @Component({

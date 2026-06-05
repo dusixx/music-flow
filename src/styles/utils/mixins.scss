@@ -1,19 +1,47 @@
 @use 'vars' as *;
 
+$breakpoints: (
+  mobile: $bp-mobile,
+  tablet: $bp-tablet,
+  desktop: $bp-desktop,
+  wide: $bp-wide,
+);
+
 @mixin main-transition($props: 'all') {
   transition-timing-function: $transition-func;
   transition-duration: $transition-duration;
   transition-property: #{$props};
 }
 
-@mixin focused($target: '') {
-  &#{$target}:focus-visible {
+@mixin supports-hover {
+  @media (hover: hover) and (pointer: fine) {
     @content;
   }
-  @media (hover: hover) and (pointer: fine) {
+}
+
+@mixin no-hover() {
+  @media (hover: none), (pointer: coarse) {
+    @content;
+  }
+}
+
+@mixin hover($target: '') {
+  @include supports-hover {
     &#{$target}:hover {
       @content;
     }
+  }
+}
+
+@mixin focus-visible-within($target: '') {
+  &#{$target}:has(:focus-visible) {
+    @content;
+  }
+}
+
+@mixin focus-visible($target: '') {
+  &#{$target}:focus-visible {
+    @content;
   }
 }
 
@@ -27,9 +55,29 @@
   @if $flag == true {
     pointer-events: none;
     visibility: hidden;
+    opacity: 0;
   } @else if $flag == false {
     pointer-events: all;
     visibility: visible;
+    opacity: 1;
   }
   @content;
+}
+
+@mixin mobile() {
+  @media (width <= #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (width > #{$bp-mobile}) and (width <= #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @media (width > #{$bp-tablet}) {
+    @content;
+  }
 }

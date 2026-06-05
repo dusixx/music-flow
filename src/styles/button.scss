@@ -1,0 +1,151 @@
+@use 'utils/mixins' as mix;
+@use 'utils';
+
+$loading-selector: '.loading';
+$focused-selector: ':not(#{$loading-selector})';
+
+@mixin hover-active {
+  @include mix.hover($focused-selector) {
+    color: var(--button-color-focus);
+    background-color: var(--button-bg-focus);
+  }
+
+  &:active {
+    color: var(--button-color-focus);
+    background-color: var(--button-bg-focus);
+  }
+}
+
+%btn {
+  --button-height-m: 46px;
+  --button-height-s: 34px;
+  --button-font-size-m: 16px;
+  --button-font-size-s: 14px;
+  --button-padding-side-m: 20px;
+  --button-padding-side-s: 18px;
+  --button-icon-size-m: 16px;
+  --button-icon-size-s: 14px;
+  --button-spinner-size-m: 20px;
+  --button-spinner-size-s: 18px;
+
+  @extend %button;
+
+  height: var(--button-height);
+  padding: 0 var(--button-padding-side);
+  border-radius: var(--button-border-radius);
+  font-size: var(--button-font-size);
+
+  &:disabled {
+    @include mix.non-interactive {
+      opacity: var(--button-disabled-opacity);
+    }
+  }
+  @include mix.main-transition('background-color, color');
+}
+
+.btn {
+  --button-height: var(--button-height-m);
+  --button-font-size: var(--button-font-size-m);
+  --button-padding-side: var(--button-padding-side-m);
+  --button-border-radius: 9999px;
+  --button-disabled-opacity: 0.6;
+  --button-icon-size: var(--button-font-size-m);
+  --button-spinner-size: var(--button-spinner-size-m);
+  --button-color: var(--color-text);
+  --button-color-focus: var(--color-text);
+  --button-bg: transparent;
+  --button-bg-focus: var(--color-border);
+
+  position: relative;
+
+  .btn-spinner {
+    display: none;
+  }
+
+  &.base {
+    @extend %btn;
+
+    color: var(--button-color);
+    background-color: var(--button-bg);
+
+    @include hover-active;
+  }
+
+  &.primary {
+    --button-bg: var(--color-text);
+    --button-color: var(--color-text-inverse);
+    --button-bg-focus: var(--color-accent);
+    --button-color-focus: var(--color-text);
+
+    @extend %btn;
+
+    color: var(--button-color);
+    background-color: var(--button-bg);
+
+    @include hover-active;
+  }
+
+  &.secondary {
+    --button-bg: var(--color-accent);
+    --button-color: var(--color-text);
+    --button-bg-focus: var(--color-text);
+    --button-color-focus: var(--color-text-inverse);
+
+    @extend %btn;
+
+    color: var(--button-color);
+    background-color: var(--button-bg);
+
+    @include hover-active;
+  }
+
+  & .btn-icon {
+    aspect-ratio: 1;
+    height: var(--button-icon-size);
+    margin-right: 6px;
+    fill: currentcolor;
+  }
+
+  &.small {
+    --button-height: var(--button-height-s);
+    --button-font-size: var(--button-font-size-s);
+    --button-padding-side: var(--button-padding-side-s);
+    --button-icon-size: var(--button-icon-size-s);
+    --button-spinner-size: var(--button-spinner-size-s);
+  }
+
+  &.btn-no-icon {
+    .btn-icon {
+      display: none;
+    }
+  }
+
+  &.btn-no-text {
+    --button-padding-side: 0;
+
+    aspect-ratio: 1;
+
+    .btn-icon {
+      margin: 0;
+    }
+  }
+
+  &#{$loading-selector} {
+    pointer-events: none;
+    color: transparent;
+
+    .btn-spinner {
+      position: absolute;
+      inset: 0;
+
+      display: block;
+
+      width: var(--button-spinner-size);
+      margin: auto;
+    }
+
+    .btn-icon {
+      display: none;
+    }
+  }
+}
