@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SPRITE_PATH } from '@app/core/constants';
+import { SPRITE_PATH } from '@app/shared/constants/misc';
 
 @Component({
   selector: 'player-sprite',

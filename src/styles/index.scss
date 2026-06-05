@@ -1,6 +1,7 @@
 @use 'modern-normalize';
 @use './utils/vars' as *;
-@use '../app/shared/directives/button/button';
+@use './button';
+@use './angular-split';
 
 body {
   overflow: hidden;
@@ -20,6 +21,7 @@ body {
   --color-text-subtle: rgb(234 234 234 / 30%);
   --color-text-inverse: var(--color-bg);
   --color-border: rgb(234 234 234 / 10%);
+  --color-border-subtle: rgb(234 234 234 / 4%);
   --color-border-strong: rgb(234 234 234 / 40%);
   --color-accent: #5f3bb2;
   --color-accent-secondary: #1ed760;
@@ -41,7 +43,6 @@ body {
   --bp-wide: #{$bp-wide};
   --wrapper-min-width: 380px;
   --wrapper-max-width: 1440px;
-  --header-height: 72px;
   --border-radius: 20px;
   --border-radius-m: 12px;
   --border-radius-s: 8px;
@@ -50,12 +51,15 @@ body {
   --padding-s: 8px;
   --padding-m: 12px;
   --padding: 20px;
+  --padding-xl: 28px;
   --gutter-z-index: 10;
   --header-z-index: 20;
+  --header-height: 78px;
   --mobile-menu-z-index: 1000;
   --mobile-menu-width: 280px;
   --box-shadow: 0 8px 8px var(--color-shadow);
   --border: 1px solid var(--color-border);
+  --main-padding: 32px var(--padding-xl);
 }
 
 :root,
@@ -72,14 +76,4 @@ body {
   --tui-background-accent-1: var(--color-border-strong);
   @extend %vars;
   @extend %dark-palette;
-}
-
-.as-split-gutter {
-  z-index: var(--gutter-z-index) !important;
-  border-right: 1px solid var(--color-border);
-  background-color: transparent !important;
-}
-
-.as-split-gutter-icon {
-  display: none !important;
 }

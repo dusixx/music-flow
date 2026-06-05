@@ -5,25 +5,28 @@
   background-color: var(--color-bg-focused);
 
   .duration {
-    @include mix.hidden(false) {
-      opacity: 1;
-    }
+    @include mix.hidden(false);
   }
 }
 
 @mixin always-show-duration-no-hover {
-  @include mix.not-supports-hover {
+  @include mix.no-hover {
     .duration {
-      @include mix.hidden(false) {
-        opacity: 1;
-      }
+      @include mix.hidden(false);
+    }
+  }
+}
+
+@mixin hide-stats-no-hover {
+  @include mix.no-hover {
+    .duration,
+    .plays {
+      display: none;
     }
   }
 }
 
 :host {
-  --track-card-max-width: 220px;
-  --track-card-max-height: 400px;
   --color-bg-focused: var(--color-surface);
 
   user-select: none;
@@ -31,12 +34,17 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  flex-grow: 1;
 
-  max-width: var(--track-card-max-width);
-  max-height: var(--track-card-max-height);
+  width: 100%;
   padding: var(--padding-m);
   border-radius: var(--border-radius-s);
+
+  &.playing {
+    .duration {
+      @include mix.hidden(false);
+    }
+  }
 
   @include mix.main-transition('background-color');
 
@@ -47,29 +55,22 @@
   @include mix.focus-visible-within {
     @include card-focus;
   }
-
-  &.playing {
-    .duration {
-      @include mix.hidden(false) {
-        opacity: 1;
-      }
-    }
-  }
 }
 
 .desc {
   overflow: hidden;
   display: flex;
   flex-direction: column;
+  margin-top: var(--padding-s);
 }
 
 .stats {
   display: flex;
   gap: 8px;
   align-items: center;
-  margin-top: 8px;
+  margin-top: 6px;
 
-  @include always-show-duration-no-hover;
+  @include hide-stats-no-hover;
 }
 
 .duration,
@@ -90,9 +91,7 @@
   background-color: var(--color-text-subtle);
 
   @include mix.main-transition('visibility, opacity');
-  @include mix.hidden {
-    opacity: 0;
-  }
+  @include mix.hidden;
 }
 
 .name,
@@ -101,6 +100,7 @@
 
   width: fit-content;
   padding: var(--padding-xs);
+  line-height: 1.2;
 }
 
 .name {

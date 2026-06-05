@@ -5,6 +5,7 @@
   @if (variant() === 'primary') {
     <button
       playerButton
+      playerStopPropagation
       class="fav-btn"
       aria-label="toggle favorite"
       (click)="favoriteClicked.emit(t)"
@@ -13,6 +14,7 @@
   }
   <button
     playerButton
+    playerStopPropagation
     class="play-btn"
     aria-label="toggle play"
     (click)="playClicked.emit(t)"

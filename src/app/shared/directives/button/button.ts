@@ -7,7 +7,7 @@ import {
   input,
   Renderer2,
 } from '@angular/core';
-import { SPRITE_PATH } from '@app/core/constants';
+import { SPRITE_PATH } from '@app/shared/constants/misc';
 import { ButtonClass, SPINNER_SRC, SVG_NS } from './button.constants';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';

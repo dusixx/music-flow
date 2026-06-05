@@ -2,6 +2,8 @@
 @use 'utils';
 
 $play-only: false;
+$small-buttons: true;
+$active-brightness: 1.05;
 
 @mixin show-buttons($both: true) {
   $selector: if(sass($both): '.fav-btn,.play-btn' ; else: '.play-btn');
@@ -12,13 +14,15 @@ $play-only: false;
   }
 }
 
-@mixin always-show-buttons-no-hover {
-  @include mix.not-supports-hover {
-    .fav-btn,
-    .play-btn {
-      --button-height: var(--button-height-s);
+@mixin always-show-buttons-no-hover($small: false) {
+  @include mix.no-hover {
+    @if $small == true {
+      .fav-btn,
+      .play-btn {
+        --button-height: var(--button-height-s);
+      }
     }
-    @include show-buttons;
+    @include show-buttons($play-only);
   }
 }
 
@@ -64,8 +68,8 @@ $play-only: false;
     inset: 0;
     justify-content: center;
 
-    @include mix.not-supports-hover {
-      @include mix.hidden;
+    @include mix.no-hover {
+      display: none;
     }
   }
 }
@@ -91,25 +95,28 @@ $play-only: false;
 .play-btn {
   transform: translateY(25%) scale(1);
   opacity: 0;
+  box-shadow: var(--box-shadow);
+
+  &:active {
+    filter: brightness($active-brightness);
+  }
 
   @include mix.main-transition('transform, opacity, filter');
   @include mix.hover {
-    filter: brightness(1.05);
+    filter: brightness($active-brightness);
   }
-
-  box-shadow: var(--box-shadow);
 }
 
 .fav-btn {
-  --color-button-bg-focus-primary: var(--color-accent);
-  --color-button-bg-primary: var(--color-accent);
-  --color-button-primary: var(--color-text);
-  --color-button-focus-primary: var(--color-button-primary);
+  --button-bg-focus: var(--color-accent);
+  --button-bg: var(--color-accent);
+  --button-color: var(--color-text);
+  --button-color-focus: var(--button-color);
 }
 
 .play-btn {
-  --color-button-bg-focus-primary: var(--color-accent-secondary);
-  --color-button-bg-primary: var(--color-accent-secondary);
-  --color-button-primary: var(--color-text-inverse);
-  --color-button-focus-primary: var(--color-button-primary);
+  --button-bg-focus: var(--color-accent-secondary);
+  --button-bg: var(--color-accent-secondary);
+  --button-color: var(--color-text-inverse);
+  --button-color-focus: var(--button-color);
 }

@@ -17,9 +17,7 @@
   @include mix.hidden;
 
   &--active {
-    @include mix.hidden(false) {
-      opacity: 1;
-    }
+    @include mix.hidden(false);
   }
 }
 

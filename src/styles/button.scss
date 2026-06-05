@@ -4,6 +4,18 @@
 $loading-selector: '.loading';
 $focused-selector: ':not(#{$loading-selector})';
 
+@mixin hover-active {
+  @include mix.hover($focused-selector) {
+    color: var(--button-color-focus);
+    background-color: var(--button-bg-focus);
+  }
+
+  &:active {
+    color: var(--button-color-focus);
+    background-color: var(--button-bg-focus);
+  }
+}
+
 %btn {
   --button-height-m: 46px;
   --button-height-s: 34px;
@@ -39,15 +51,10 @@ $focused-selector: ':not(#{$loading-selector})';
   --button-disabled-opacity: 0.6;
   --button-icon-size: var(--button-font-size-m);
   --button-spinner-size: var(--button-spinner-size-m);
-  --color-button-primary: var(--color-text-inverse);
-  --color-button-secondary: var(--color-text);
-  --color-button-bg-primary: var(--color-text);
-  --color-button-bg-secondary: var(--color-accent);
-  --color-button-bg-base: var(--color-border);
-  --color-button-focus-primary: var(--color-text);
-  --color-button-focus-secondary: var(--color-text-inverse);
-  --color-button-bg-focus-primary: var(--color-accent);
-  --color-button-bg-focus-secondary: var(--color-text);
+  --button-color: var(--color-text);
+  --button-color-focus: var(--color-text);
+  --button-bg: transparent;
+  --button-bg-focus: var(--color-border);
 
   position: relative;
 
@@ -58,33 +65,38 @@ $focused-selector: ':not(#{$loading-selector})';
   &.base {
     @extend %btn;
 
-    @include mix.hover($focused-selector) {
-      background-color: var(--color-button-bg-base);
-    }
+    color: var(--button-color);
+    background-color: var(--button-bg);
+
+    @include hover-active;
   }
 
   &.primary {
+    --button-bg: var(--color-text);
+    --button-color: var(--color-text-inverse);
+    --button-bg-focus: var(--color-accent);
+    --button-color-focus: var(--color-text);
+
     @extend %btn;
 
-    color: var(--color-button-primary);
-    background-color: var(--color-button-bg-primary);
+    color: var(--button-color);
+    background-color: var(--button-bg);
 
-    @include mix.hover($focused-selector) {
-      color: var(--color-button-focus-primary);
-      background-color: var(--color-button-bg-focus-primary);
-    }
+    @include hover-active;
   }
 
   &.secondary {
+    --button-bg: var(--color-accent);
+    --button-color: var(--color-text);
+    --button-bg-focus: var(--color-text);
+    --button-color-focus: var(--color-text-inverse);
+
     @extend %btn;
 
-    color: var(--color-button-secondary);
-    background-color: var(--color-button-bg-secondary);
+    color: var(--button-color);
+    background-color: var(--button-bg);
 
-    @include mix.hover($focused-selector) {
-      color: var(--color-button-focus-secondary);
-      background-color: var(--color-button-bg-focus-secondary);
-    }
+    @include hover-active;
   }
 
   & .btn-icon {

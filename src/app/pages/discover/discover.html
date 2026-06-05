@@ -1,1 +1,18 @@
-<p>discover works!</p>
+@for (data of tracksData; track data.title) {
+  <player-carousel-section [title]="data.title" [subtitle]="data.subtitle">
+    @for (track of data.tracks(); track track.id) {
+      <div playerCarouselItem="carousel-item" [routerLink]="['/album', track.album.id]">
+        <player-track-card [track]="track" />
+      </div>
+    }
+  </player-carousel-section>
+}
+<player-carousel-section class="carousel">
+  <div class="genres-list">
+    @for (genre of genresList; track genre) {
+      <a playerCarouselItem="carousel-item genre" routerLink="/search" [queryParams]="{ genre }">
+        {{ genre }}
+      </a>
+    }
+  </div>
+</player-carousel-section>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Track } from '@app/shared/models/track';
+import { of } from 'rxjs';
 import { mapTrack } from './track.mapper';
 import { tracks } from './tracks.mock';
 
@@ -9,10 +9,10 @@ import { tracks } from './tracks.mock';
   providedIn: 'root',
 })
 export class TrackService {
-  getPopular(/* pagination params */): Track[] {
-    return tracks.slice(0, 15).map(mapTrack);
+  getPopular(/* pagination params */) {
+    return of(tracks.slice(0, 15).map(mapTrack));
   }
   getNewReleases(/* pagination params */) {
-    return tracks.slice(16, 26).map(mapTrack);
+    return of(tracks.slice(16, 31).map(mapTrack));
   }
 }

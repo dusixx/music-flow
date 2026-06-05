@@ -1,5 +1,12 @@
 @use 'vars' as *;
 
+$breakpoints: (
+  mobile: $bp-mobile,
+  tablet: $bp-tablet,
+  desktop: $bp-desktop,
+  wide: $bp-wide,
+);
+
 @mixin main-transition($props: 'all') {
   transition-timing-function: $transition-func;
   transition-duration: $transition-duration;
@@ -12,7 +19,7 @@
   }
 }
 
-@mixin not-supports-hover() {
+@mixin no-hover() {
   @media (hover: none), (pointer: coarse) {
     @content;
   }
@@ -48,9 +55,29 @@
   @if $flag == true {
     pointer-events: none;
     visibility: hidden;
+    opacity: 0;
   } @else if $flag == false {
     pointer-events: all;
     visibility: visible;
+    opacity: 1;
   }
   @content;
+}
+
+@mixin mobile() {
+  @media (width <= #{$bp-mobile}) {
+    @content;
+  }
+}
+
+@mixin tablet() {
+  @media (width > #{$bp-mobile}) and (width <= #{$bp-tablet}) {
+    @content;
+  }
+}
+
+@mixin desktop() {
+  @media (width > #{$bp-tablet}) {
+    @content;
+  }
 }
