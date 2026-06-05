@@ -7,11 +7,11 @@ import {
   input,
   Renderer2,
 } from '@angular/core';
-import { SPRITE_PATH } from '@app/core/constants';
+import { SPRITE_PATH } from '@app/shared/constants/misc';
 import { ButtonClass, SPINNER_SRC, SVG_NS } from './button.constants';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';
-type ButtonSize = 'small';
+type ButtonSize = 'small' | 'medium';
 
 @Directive({
   selector: 'button[playerButton]',
@@ -28,7 +28,7 @@ type ButtonSize = 'small';
 })
 export class Button {
   variant = input<ButtonVariant>('primary');
-  size = input<ButtonSize>();
+  size = input<ButtonSize>('medium');
   disabled = input(false);
   loading = input(false);
   icon = input('');

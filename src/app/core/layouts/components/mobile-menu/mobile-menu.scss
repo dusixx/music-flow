@@ -1,7 +1,5 @@
 @use 'utils/mixins' as mix;
 
-$drawer-width: 280px;
-
 :host {
   pointer-events: none;
   position: fixed;
@@ -19,9 +17,7 @@ $drawer-width: 280px;
   @include mix.hidden;
 
   &--active {
-    @include mix.hidden(false) {
-      opacity: 1;
-    }
+    @include mix.hidden(false);
   }
 }
 
@@ -31,7 +27,7 @@ $drawer-width: 280px;
   right: 0;
   transform: translateX(105%);
 
-  width: $drawer-width;
+  width: var(--mobile-menu-width);
   height: 100dvh;
   padding: 12px;
   border-left: 1px solid var(--color-border);
@@ -75,7 +71,11 @@ $drawer-width: 280px;
   text-decoration: none;
 
   @include mix.main-transition('background-color');
-  @include mix.focused {
+
+  @include mix.hover {
+    color: var(--color-text-subtle);
+  }
+  @include mix.focus-visible {
     color: var(--color-text-subtle);
   }
 

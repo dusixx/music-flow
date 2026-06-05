@@ -48,3 +48,4 @@ Thumbs.db
 
 # Local congig with real keys
 src/environments/environment.ts
+*.bak

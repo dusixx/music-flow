@@ -1,0 +1,45 @@
+@use 'utils';
+
+@mixin align-vertically($f: true) {
+  @if $f == false {
+    align-items: start;
+  }
+}
+
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--padding-m);
+}
+
+.genres-list {
+  display: flex;
+  gap: 40px;
+}
+
+.carousel:has(.genres-list) {
+  gap: 20px;
+}
+
+.carousel-item {
+  display: flex;
+  flex-shrink: 0;
+  width: 180px;
+
+  @include align-vertically(false);
+}
+
+.genre {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1;
+  width: 140px;
+  border: 1px solid var(--color-border);
+  border-radius: var(--border-radius-s);
+
+  color: var(--color-text);
+  text-decoration: none;
+  text-transform: uppercase;
+}

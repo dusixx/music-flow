@@ -1,5 +1,4 @@
 @use './mixins';
-@use './placeholders/button';
-@use './placeholders/misc';
-@use '../utils/reset';
-@use '../utils/vars';
+@use './placeholders';
+@use './reset';
+@use './vars';

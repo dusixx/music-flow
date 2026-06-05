@@ -1,0 +1,24 @@
+@let t = track();
+
+<img class="image" [src]="t.image" [alt]="t.name" />
+<div class="buttons">
+  @if (variant() === 'primary') {
+    <button
+      playerButton
+      playerStopPropagation
+      class="fav-btn"
+      aria-label="toggle favorite"
+      (click)="favoriteClicked.emit(t)"
+      [icon]="isFavorite() ? 'icon-heart' : 'icon-heart-outlined'"
+    ></button>
+  }
+  <button
+    playerButton
+    playerStopPropagation
+    class="play-btn"
+    aria-label="toggle play"
+    (click)="playClicked.emit(t)"
+    [size]="variant() === 'primary' ? 'medium' : 'small'"
+    [icon]="isPlaying() ? 'icon-pause' : 'icon-play'"
+  ></button>
+</div>
