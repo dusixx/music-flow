@@ -1,48 +1,38 @@
 # MusicFlow
 
-## 📌 Description
+## 🎧 Description
 
-MusicFlow is a music streaming service clone that allows users to search for tracks and artists, listen to music, create playlists, and manage a favorites library.
+When rhythm and modern web technology come together, the result is MusicFlow.
 
-The application is built on top of the Jamendo API v3.0, which provides access to over 500,000+ freely licensed tracks, along with metadata for artists, albums, and audio streaming links.
-
-This project is part of the [Rolling Scopes School Angular course](https://rs.school/courses/angular). It was developed by a team of three over four sprints to practice Angular and modern frontend development principles.
+Powered by the Jamendo API and developed with Angular, it brings music discovery, playlists, and favorite tracks to a smooth modern web experience — every commit is a beat in the [Rolling Scopes School Angular course](https://rs.school/courses/angular).
 
 ## 🛠️ Technology Stack
 
-- Angular
-- TypeScript
-- Angular Router
-- HttpClient
-- RxJS
-- NgRx Signals
-- Reactive Forms
-- ESLint
-- Prettier
-- Stylelint
-- Husky
-- SCSS
-- Taiga UI
-- Vitest
-- Firebase (Authentication, Firestore)
-- Netlify (Deployment)
+- **Frontend:** Angular, TypeScript, RxJS, Angular Router, HttpClient
+- **State Management:** NgRx Signals
+- **Forms:** Reactive Forms
+- **UI:** SCSS, Taiga UI
+- **Testing:** Vitest
+- **Code Quality:** ESLint, Prettier, Stylelint, Husky
+- **Backend Services:** Firebase Authentication, Firestore
+- **Deployment:** Netlify
 
 ## 👥 Team
 
-| Name     | Role                           | GitHub                                      | Development Diary                                                                       |
-| -------- | ------------------------------ | ------------------------------------------- | --------------------------------------------------------------------------------------- |
-| Ina      | Frontend Developer             | 🔗[Profile](https://github.com/inalitvinka) | 🔗[Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
-| Andrew   | Team Lead / Frontend Developer | 🔗[Profile](https://github.com/dusixx)      | 🔗[Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
-| Aliaksei | Mentor                         | 🔗[Profile](https://github.com/aliaksei-sl) | N/A                                                                                     |
+| Name     | Role                           | GitHub                                    | Development Diary                                                                     |
+| -------- | ------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------- |
+| Ina      | Frontend Developer             | [Profile](https://github.com/inalitvinka) | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
+| Andrew   | Team Lead / Frontend Developer | [Profile](https://github.com/dusixx)      | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
+| Aliaksei | Mentor                         | [Profile](https://github.com/aliaksei-sl) | -                                                                                     |
 
 ## 🚀 Local Setup
 
-**Prerequisites**
+### Prerequisites
 
 - Node.js (LTS v24 or higher)
 - npm
 
-**Installation**
+### Installation
 
 ```bash
 git clone https://github.com/dusixx/music-flow.git
@@ -50,15 +40,16 @@ cd music-flow
 npm install
 ```
 
-**Running the project**
+### Running the project
 
 ```bash
 npm start
 ```
 
-Application will be available at: http://localhost:4200
+Local server will be available at http://localhost:4200
 
-**Available Scripts**
+<details>
+<summary><strong>Available Scripts</strong></summary>
 
 - `npm start` — Run development server
 - `npm run build` — Build production version
@@ -73,6 +64,8 @@ Application will be available at: http://localhost:4200
 - `npm run watch` — Build in watch mode (development)
 - `npm run ng` — Angular CLI commands
 
+</details>
+
 ## 🌐 Deployment
 
-Explore the app: 🔗[MusicFlow](https://music-flow-team.netlify.app/)
+Explore the live app: [MusicFlow](https://music-flow-team.netlify.app/)
