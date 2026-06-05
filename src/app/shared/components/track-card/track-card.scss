@@ -46,12 +46,6 @@
     }
   }
 
-  @include mix.supports-hover {
-    &:hover player-track-cover {
-      --cover-hovered: 1;
-    }
-  }
-
   @include mix.main-transition('background-color');
 
   @include mix.hover {
