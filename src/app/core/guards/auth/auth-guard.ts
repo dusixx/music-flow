@@ -7,13 +7,13 @@ import { filter, map, take } from 'rxjs';
 export const authGuard: CanActivateFn = () => {
   const authService = inject(AuthService);
   const router = inject(Router);
+  const authState = authService.authState;
 
-  const state = authService.authState();
-  if (state !== 'loading') {
-    return state === 'auth' ? true : router.createUrlTree(['/']);
+  if (authState() !== 'loading') {
+    return authState() === 'auth' ? true : router.createUrlTree(['/']);
   }
 
-  return toObservable(authService.authState).pipe(
+  return toObservable(authState).pipe(
     filter((state) => state !== 'loading'),
     take(1),
     map((state) => (state === 'auth' ? true : router.createUrlTree(['/'])))
