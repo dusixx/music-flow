@@ -4,7 +4,7 @@
 
 When rhythm and modern web technology come together, the result is MusicFlow.
 
-Powered by the Jamendo API and developed with Angular, it brings music discovery, playlists, and favorite tracks to a smooth modern web experience — every commit is a beat in the [Rolling Scopes School Angular course](https://rs.school/courses/angular).
+Powered by the Jamendo API and developed with Angular, it brings music discovery, playlists, and favorite tracks to a smooth modern web experience – every commit is a beat in the [Rolling Scopes School Angular course](https://rs.school/courses/angular).
 
 ## 🛠️ Technology Stack
 
@@ -23,7 +23,7 @@ Powered by the Jamendo API and developed with Angular, it brings music discovery
 | -------- | ------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------- |
 | Ina      | Frontend Developer             | [Profile](https://github.com/inalitvinka) | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
 | Andrew   | Team Lead / Frontend Developer | [Profile](https://github.com/dusixx)      | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
-| Aliaksei | Mentor                         | [Profile](https://github.com/aliaksei-sl) | -                                                                                     |
+| Aliaksei | Mentor                         | [Profile](https://github.com/aliaksei-sl) | –                                                                                     |
 
 ## 🚀 Local Setup
 
