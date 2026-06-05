@@ -24,7 +24,9 @@
       "@pages/*": ["./src/app/pages/*"],
       "@pages": ["./src/app/pages"],
       "@assets/*": ["./src/assets/*"],
-      "@assets": ["./src/assets"]
+      "@assets": ["./src/assets"],
+      "@env/*": ["./src/environments/*"],
+      "@env": ["./src/environments"]
     }
   },
   "include": ["src/**/*.ts"],

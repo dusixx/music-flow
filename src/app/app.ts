@@ -1,5 +1,5 @@
-import { TuiRoot } from '@taiga-ui/core';
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { TuiRoot } from '@taiga-ui/core';
 import { MainLayout } from '@core/layouts/main-layout/main-layout';
 
 @Component({
