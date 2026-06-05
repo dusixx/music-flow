@@ -1,11 +1,7 @@
-@switch (view()) {
-  @case ('loading') {
-    <main class="main"></main>
-  }
-  @case ('mobile') {
-    <player-mobile-layout />
-  }
-  @case ('desktop') {
-    <player-desktop-layout />
-  }
+@if (isCheckingAuth()) {
+  <main></main>
+} @else if (screenWidth() === 'mobile') {
+  <player-mobile-layout />
+} @else {
+  <player-desktop-layout />
 }
