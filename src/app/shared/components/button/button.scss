@@ -126,10 +126,8 @@ $focused-selector: ':not(#{$loading-selector})';
 }
 
 .icon {
-  aspect-ratio: 1;
   height: var(--button-icon-size);
   margin-right: 6px;
-  fill: currentcolor;
 }
 
 .small {

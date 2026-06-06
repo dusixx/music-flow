@@ -2,8 +2,6 @@
   <img class="spinner" [src]="spinnerPath" alt="spinner" />
 }
 @if (icon()) {
-  <svg class="icon">
-    <use [attr.href]="icon()"></use>
-  </svg>
+  <player-sprite-icon [href]="icon()" class="icon" />
 }
 <ng-content />

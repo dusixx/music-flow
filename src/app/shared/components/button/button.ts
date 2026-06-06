@@ -9,18 +9,14 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { SPRITE_PATH } from '@app/shared/constants';
+import { SpriteIcon } from '@app/shared/components/sprite-icon/sprite-icon';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';
 type ButtonSize = 'small' | 'medium';
 
-const transformIconPath = (pathOrId: string) => {
-  return /[\\/]/.test(pathOrId) ? pathOrId : `${SPRITE_PATH}#${pathOrId}`;
-};
-
 @Component({
   selector: 'button[playerButton]',
-  imports: [],
+  imports: [SpriteIcon],
   templateUrl: './button.html',
   styleUrl: './button.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -46,7 +42,7 @@ export class Button {
   size = input<ButtonSize>('medium');
   disabled = input(false);
   loading = input(false);
-  icon = input('', { transform: transformIconPath });
+  icon = input('');
 
   protected hasText = signal(true);
 
