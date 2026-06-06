@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, input, output } from '@angular/core';
-import { Button } from '@app/shared/directives/button/button';
-import { Track } from '@app/shared/models/track';
+import { Button } from '@app/shared/components/button/button';
 import { StopPropagation } from '@app/shared/directives/stop-propagation/stop-propagation';
+import { Track } from '@app/shared/models/track';
 
 type TrackCoverVariant = 'primary' | 'secondary';
 
