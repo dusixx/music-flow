@@ -19,11 +19,11 @@ Powered by the Jamendo API and developed with Angular, it brings music discovery
 
 ## 👥 Team
 
-| Name     | Role                           | GitHub                                    | Development Diary                                                                     |
-| -------- | ------------------------------ | ----------------------------------------- | ------------------------------------------------------------------------------------- |
-| Ina      | Frontend Developer             | [Profile](https://github.com/inalitvinka) | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/inalitvinka) |
-| Andrew   | Team Lead / Frontend Developer | [Profile](https://github.com/dusixx)      | [Diary](https://github.com/dusixx/music-flow/tree/main/development-notes/dusixx)      |
-| Aliaksei | Mentor                         | [Profile](https://github.com/aliaksei-sl) | –                                                                                     |
+| Name     | Role                           | GitHub                                    |
+| -------- | ------------------------------ | ----------------------------------------- |
+| Ina      | Frontend Developer             | [Profile](https://github.com/inalitvinka) |
+| Andrew   | Team Lead / Frontend Developer | [Profile](https://github.com/dusixx)      |
+| Aliaksei | Mentor                         | [Profile](https://github.com/aliaksei-sl) |
 
 ## 🚀 Local Setup
 
