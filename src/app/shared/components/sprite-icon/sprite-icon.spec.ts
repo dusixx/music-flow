@@ -1,17 +1,17 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { Sprite } from './sprite';
+import { SpriteIcon } from './sprite-icon';
 
-describe('Sprite', () => {
-  let component: Sprite;
-  let fixture: ComponentFixture<Sprite>;
+describe('SpriteIcon', () => {
+  let component: SpriteIcon;
+  let fixture: ComponentFixture<SpriteIcon>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Sprite],
+      imports: [SpriteIcon],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(Sprite);
+    fixture = TestBed.createComponent(SpriteIcon);
     component = fixture.componentInstance;
     await fixture.whenStable();
   });
