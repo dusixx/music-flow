@@ -9,7 +9,7 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
-import { Button } from '@app/shared/directives/button/button';
+import { Button } from '@app/shared/components/button/button';
 import { BreakpointService } from '@services/breakpoint/breakpoint-service';
 import { TuiInput } from '@taiga-ui/core';
 
