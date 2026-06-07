@@ -1,5 +1,5 @@
 @if (loading()) {
-  <img class="spinner" [src]="spinnerPath" alt="spinner" />
+  <img class="spinner" [src]="spinnerPath" alt="spinner" width="var(--button-spinner-size)" />
 }
 @if (icon()) {
   <player-sprite-icon [href]="icon()" class="icon" />

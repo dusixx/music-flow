@@ -19,7 +19,7 @@ $active-brightness: 1.05;
     @if $small == true {
       .fav-btn,
       .play-btn {
-        --button-height: var(--button-height-s);
+        --button-height: var(--size-m);
       }
     }
     @include show-buttons($play-only);
@@ -33,7 +33,7 @@ $active-brightness: 1.05;
   display: flex;
 
   aspect-ratio: 1;
-  border-radius: var(--border-radius-s);
+  border-radius: var(--radius-s);
 
   @include mix.main-transition('background-color');
 
@@ -60,7 +60,7 @@ $active-brightness: 1.05;
 }
 
 :host.secondary {
-  border-radius: var(--border-radius-xs);
+  border-radius: var(--radius-xs);
 
   .buttons {
     position: absolute;
@@ -81,11 +81,11 @@ $active-brightness: 1.05;
 .buttons {
   position: absolute;
   z-index: 10;
-  right: 8px;
-  bottom: 8px;
+  right: var(--space-s);
+  bottom: var(--space-s);
 
   display: flex;
-  gap: 8px;
+  gap: var(--space-s);
   align-items: center;
 
   @include always-show-buttons-no-hover;
@@ -93,6 +93,9 @@ $active-brightness: 1.05;
 
 .fav-btn,
 .play-btn {
+  --button-height: var(--size-m);
+  --button-icon-size: var(--font-m);
+
   transform: translateY(25%) scale(1);
   opacity: 0;
   box-shadow: var(--box-shadow);

@@ -25,7 +25,6 @@ type ButtonSize = 'small' | 'medium';
     '[class.base]': 'variant() === "base"',
     '[class.primary]': 'variant() === "primary"',
     '[class.secondary]': 'variant() === "secondary"',
-    '[class.disabled]': 'disabled()',
     '[class.small]': 'size() === "small"',
     '[class.loading]': 'loading()',
     '[disabled]': 'disabled() || loading()',

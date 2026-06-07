@@ -29,12 +29,12 @@
 
   width: var(--mobile-menu-width);
   height: 100dvh;
-  padding: 12px;
+  padding: var(--space-m);
   border-left: 1px solid var(--color-border);
 
   background: var(--color-bg-secondary);
 
-  @include mix.main-transition('visibility, transform');
+  @include mix.main-transition('visibility, transform, opacity');
   @include mix.hidden;
 
   &--active {
@@ -48,13 +48,13 @@
   display: flex;
   align-items: center;
   justify-content: end;
-  margin-bottom: 24px;
+  margin-bottom: var(--space-xl);
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: var(--space-l);
   align-items: center;
 }
 
@@ -63,10 +63,10 @@
   justify-content: center;
 
   width: 100px;
-  padding: 6px;
-  border-radius: var(--border-radius);
+  padding: var(--space-s);
+  border-radius: var(--radius-l);
 
-  font-size: 18px;
+  font-size: var(--font-l);
   color: var(--color-text);
   text-decoration: none;
 

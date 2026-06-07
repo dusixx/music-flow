@@ -14,9 +14,20 @@ $link-size: 30px;
 
   width: 100%;
   height: var(--header-height);
-  padding: 0 var(--padding-xl);
+  padding: 0 var(--space-xl);
 
   background-color: var(--color-bg);
+
+  .profile-btn {
+    --button-padding-side: 0;
+    --button-color: var(--color-text-inverse);
+    --button-bg: var(--color-accent-secondary);
+
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    font-weight: 600;
+    outline: 8px solid var(--color-border);
+  }
 }
 
 .header {
@@ -29,35 +40,16 @@ $link-size: 30px;
   container-type: inline-size;
   display: flex;
   flex-grow: 1;
-  gap: 18px;
+  gap: var(--space-xl);
   align-items: center;
   justify-content: space-between;
-}
-
-.profile-btn {
-  flex-shrink: 0;
-
-  width: var(--button-height);
-  padding: 0;
-
-  font-weight: 600;
-  color: var(--color-text-inverse);
-
-  background-color: var(--color-accent-secondary);
-  outline: 8px solid var(--color-border);
-}
-
-.nav {
-  display: flex;
-  gap: 8px;
-  align-items: center;
-  justify-content: center;
 }
 
 .search-bar {
   --tui-text-secondary: var(--color-text);
 
   width: 500px;
+  border-radius: var(--radius-xl);
   background-color: var(--color-surface);
 
   ::placeholder {

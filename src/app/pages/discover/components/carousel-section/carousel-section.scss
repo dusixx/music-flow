@@ -1,7 +1,7 @@
 :host {
   display: flex;
   flex-direction: column;
-  gap: var(--padding-s);
+  gap: var(--space-m);
 }
 
 .header {
@@ -11,12 +11,12 @@
 }
 
 .title {
-  font-size: 28px;
+  margin-bottom: var(--space-xs);
   text-transform: capitalize;
 }
 
 .subtitle {
-  font-size: 12px;
+  font-size: var(--font-xs);
   color: var(--color-text-muted);
 }
 

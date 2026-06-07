@@ -5,7 +5,6 @@ import { Directive } from '@angular/core';
   host: {
     '(click)': '$event.stopPropagation()',
     '(mousedown)': '$event.stopPropagation()',
-    '(touchstart)': '$event.stopPropagation()',
   },
 })
 export class StopPropagation {}

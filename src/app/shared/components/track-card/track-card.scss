@@ -37,8 +37,8 @@
   flex-grow: 1;
 
   width: 100%;
-  padding: var(--padding-m);
-  border-radius: var(--border-radius-s);
+  padding: var(--space-m);
+  border-radius: var(--radius-s);
 
   &.playing {
     .duration {
@@ -61,14 +61,14 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-top: var(--padding-s);
+  margin-top: var(--space-s);
 }
 
 .stats {
   display: flex;
-  gap: 8px;
+  gap: var(--space-s);
   align-items: center;
-  margin-top: 6px;
+  margin-top: var(--space-s);
 
   @include hide-stats-no-hover;
 }
@@ -76,8 +76,8 @@
 .duration,
 .plays {
   width: fit-content;
-  padding: var(--padding-xs) 6px;
-  border-radius: var(--border-radius-s);
+  padding: var(--space-xs) 6px;
+  border-radius: var(--radius-s);
 
   font-size: 10px;
   line-height: 1;
@@ -99,7 +99,7 @@
   @extend %link;
 
   width: fit-content;
-  padding: var(--padding-xs);
+  padding: var(--space-xs);
   line-height: 1.2;
 }
 
