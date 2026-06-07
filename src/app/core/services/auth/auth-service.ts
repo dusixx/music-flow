@@ -8,10 +8,13 @@ import {
   User,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import { serverTimestamp } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
-import { firebaseApp } from '@app/core/firebase/firebase.config';
+import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
-import { AuthState } from './types/auth.type';
+import { FirestoreService } from '../firestore/firestore-service';
+
+type AuthState = 'loading' | 'auth' | 'guest';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +22,8 @@ import { AuthState } from './types/auth.type';
 export class AuthService {
   private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
+
+  private firestoreService = inject(FirestoreService);
 
   private _user = signal<User | null>(null);
   readonly user = this._user.asReadonly();
@@ -61,11 +66,20 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string) {
+  async register(email: string, password: string, displayName: string, birthday: string) {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const uid = userCredential.user.uid;
+
+      await this.firestoreService.setData('users', uid, {
+        displayName,
+        birthday,
+        createdAt: serverTimestamp(),
+      });
     } catch (error) {
       this.handleError(error, 'register');
+      // TEMP: until global ErrorHandlerService is implemented
+      throw error;
     }
   }
 
