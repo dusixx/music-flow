@@ -9,14 +9,14 @@ import {
   input,
   signal,
 } from '@angular/core';
-import { SpriteIcon } from '@app/shared/components/sprite-icon/sprite-icon';
+import { Sprite } from '../sprite/sprite';
 
 type ButtonVariant = 'base' | 'primary' | 'secondary';
 type ButtonSize = 'small' | 'medium';
 
 @Component({
   selector: 'button[playerButton]',
-  imports: [SpriteIcon],
+  imports: [Sprite],
   templateUrl: './button.html',
   styleUrl: './button.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
