@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { BreakpointService } from '@app/core/services/breakpoint/breakpoint-service';
 import { DesktopLayout } from '../desktop-layout/desktop-layout';
 import { MobileLayout } from '../mobile-layout/mobile-layout';
 import { AuthService } from '@app/core/services/auth/auth-service';
+import { ViewportService } from '@app/core/services/viewport/viewport-service';
 
 @Component({
   selector: 'player-main-layout',
@@ -12,9 +12,6 @@ import { AuthService } from '@app/core/services/auth/auth-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
-  private breakpointService = inject(BreakpointService);
-  private authService = inject(AuthService);
-
-  protected readonly isCheckingAuth = this.authService.isCheckingAuth;
-  protected readonly screenWidth = this.breakpointService.screenWidth;
+  viewportService = inject(ViewportService);
+  authService = inject(AuthService);
 }

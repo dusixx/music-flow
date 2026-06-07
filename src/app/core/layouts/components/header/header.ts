@@ -9,8 +9,8 @@ import {
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
+import { ViewportService } from '@app/core/services/viewport/viewport-service';
 import { Button } from '@app/shared/components/button/button';
-import { BreakpointService } from '@services/breakpoint/breakpoint-service';
 import { TuiInput } from '@taiga-ui/core';
 
 @Component({
@@ -22,7 +22,7 @@ import { TuiInput } from '@taiga-ui/core';
 })
 export class Header {
   protected readonly authService = inject(AuthService);
-  protected readonly breakpointService = inject(BreakpointService);
+  protected readonly viewportService = inject(ViewportService);
 
   private menuButton = viewChild.required<ElementRef<HTMLButtonElement>>('menuButton');
   protected searchQuery = '';

@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { BreakpointService } from '@app/core/services/breakpoint/breakpoint-service';
 import { Track } from '@app/shared/models/track';
 import { CompactNumberPipe } from '@app/shared/pipes/compact-number-pipe';
 import { DurationPipe } from '@app/shared/pipes/duration-pipe';
 import { TrackCover } from '../track-cover/track-cover';
+import { ViewportService } from '@app/core/services/viewport/viewport-service';
 
 @Component({
   selector: 'player-track-card',
@@ -19,7 +19,7 @@ import { TrackCover } from '../track-cover/track-cover';
   },
 })
 export class TrackCard {
-  private breakpointService = inject(BreakpointService);
+  private viewportService = inject(ViewportService);
 
   track = input.required<Track>();
 
@@ -31,7 +31,7 @@ export class TrackCard {
   favoriteClicked = output<Track>();
 
   protected onMouseEnter(): void {
-    if (this.breakpointService.canHover()) {
+    if (this.viewportService.canHover()) {
       this.isHovered.set(true);
     }
   }
