@@ -14,9 +14,11 @@ import { Button } from '@app/shared/components/button/button';
   },
 })
 export class MobileMenu {
-  protected readonly authService = inject(AuthService);
+  private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
+
+  protected readonly isAuthenticated = this.authService.isAuthenticated;
 
   open = model(false);
 

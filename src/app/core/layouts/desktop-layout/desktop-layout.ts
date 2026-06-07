@@ -21,7 +21,7 @@ const SidebarParams = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesktopLayout {
-  protected viewportService = inject(ViewportService);
+  private readonly viewportService = inject(ViewportService);
 
   protected readonly gutterSize = SidebarParams.GutterWidthPx;
   protected readonly gutterDblClickDuration = SidebarParams.GutterDblClickDuration;

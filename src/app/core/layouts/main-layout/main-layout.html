@@ -1,6 +1,6 @@
-@if (authService.isCheckingAuth()) {
+@if (isCheckingAuth()) {
   <main></main>
-} @else if (viewportService.isMobile()) {
+} @else if (isMobile()) {
   <player-mobile-layout />
 } @else {
   <player-desktop-layout />

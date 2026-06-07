@@ -1,8 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { DesktopLayout } from '../desktop-layout/desktop-layout';
-import { MobileLayout } from '../mobile-layout/mobile-layout';
 import { AuthService } from '@app/core/services/auth/auth-service';
 import { ViewportService } from '@app/core/services/viewport/viewport-service';
+import { DesktopLayout } from '../desktop-layout/desktop-layout';
+import { MobileLayout } from '../mobile-layout/mobile-layout';
 
 @Component({
   selector: 'player-main-layout',
@@ -12,6 +12,9 @@ import { ViewportService } from '@app/core/services/viewport/viewport-service';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class MainLayout {
-  viewportService = inject(ViewportService);
-  authService = inject(AuthService);
+  private readonly viewportService = inject(ViewportService);
+  private readonly authService = inject(AuthService);
+
+  protected isCheckingAuth = this.authService.isCheckingAuth;
+  protected isMobile = this.viewportService.isMobile;
 }

@@ -4,7 +4,7 @@
     <tui-textfield iconStart="@tui.search" class="search-bar">
       <input placeholder="Search for tracks..." tuiInput [(ngModel)]="searchQuery" />
     </tui-textfield>
-    @if (viewportService.isMobile()) {
+    @if (isMobile()) {
       <button
         #menuButton
         playerButton
@@ -12,14 +12,8 @@
         icon="icon-menu-kebab-vert"
         (click)="openMenu()"
       ></button>
-    } @else if (authService.isAuthenticated()) {
-      <button
-        playerButton
-        variant="secondary"
-        class="profile-btn"
-        size="small"
-        (click)="authService.logout()"
-      >
+    } @else if (isAuthenticated()) {
+      <button playerButton variant="secondary" class="profile-btn" size="small" (click)="logout()">
         A
       </button>
     } @else {

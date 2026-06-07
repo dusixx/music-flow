@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { ViewportService } from '@app/core/services/viewport/viewport-service';
 import { Track } from '@app/shared/models/track';
 import { CompactNumberPipe } from '@app/shared/pipes/compact-number-pipe';
 import { DurationPipe } from '@app/shared/pipes/duration-pipe';
 import { TrackCover } from '../track-cover/track-cover';
-import { ViewportService } from '@app/core/services/viewport/viewport-service';
 
 @Component({
   selector: 'player-track-card',
@@ -19,7 +19,7 @@ import { ViewportService } from '@app/core/services/viewport/viewport-service';
   },
 })
 export class TrackCard {
-  private viewportService = inject(ViewportService);
+  private readonly viewportService = inject(ViewportService);
 
   track = input.required<Track>();
 

@@ -21,12 +21,19 @@ import { TuiInput } from '@taiga-ui/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Header {
-  protected readonly authService = inject(AuthService);
-  protected readonly viewportService = inject(ViewportService);
+  private readonly authService = inject(AuthService);
+  private readonly viewportService = inject(ViewportService);
+
+  protected isAuthenticated = this.authService.isAuthenticated;
+  protected isMobile = this.viewportService.isMobile;
 
   private menuButton = viewChild.required<ElementRef<HTMLButtonElement>>('menuButton');
   protected searchQuery = '';
   menuOpen = model(false);
+
+  logout() {
+    this.authService.logout();
+  }
 
   openMenu() {
     this.menuOpen.set(true);
