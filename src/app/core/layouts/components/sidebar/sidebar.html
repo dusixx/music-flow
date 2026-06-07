@@ -26,7 +26,7 @@
         <player-sprite-icon href="icon-search" class="icon" />
         <span class="label">Search</span>
       </a>
-      @if (authService.isAuthenticated()) {
+      @if (isAuthenticated()) {
         <a
           routerLink="/library"
           class="link"
