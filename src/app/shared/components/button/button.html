@@ -1,0 +1,7 @@
+@if (loading()) {
+  <img class="spinner" [src]="spinnerPath" alt="spinner" />
+}
+@if (icon()) {
+  <player-sprite-icon [href]="icon()" class="icon" />
+}
+<ng-content />

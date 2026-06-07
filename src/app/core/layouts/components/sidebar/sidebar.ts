@@ -1,11 +1,11 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
-import { Sprite } from '@app/shared/components/sprite/sprite';
+import { SpriteIcon } from '@app/shared/components/sprite-icon/sprite-icon';
 
 @Component({
   selector: 'player-sidebar',
-  imports: [RouterLink, Sprite, RouterLinkActive],
+  imports: [RouterLink, SpriteIcon, RouterLinkActive],
   templateUrl: './sidebar.html',
   styleUrl: './sidebar.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

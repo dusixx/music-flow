@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
+import { Button } from '@app/shared/components/button/button';
 import { Carousel } from '@app/shared/components/carousel/carousel';
-import { Button } from '@app/shared/directives/button/button';
 
 @Component({
   selector: 'player-carousel-section',
