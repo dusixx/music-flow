@@ -8,11 +8,12 @@ import {
   User,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
-import { serverTimestamp } from 'firebase/firestore';
+import { serverTimestamp, WithFieldValue } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
 import { FirestoreService } from '../firestore/firestore-service';
+import { RegisterPayload, UserProfile } from '@shared/models/firestore.model';
 
 type AuthState = 'loading' | 'auth' | 'guest';
 
@@ -66,19 +67,45 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string, displayName: string, birthday: string) {
+  // async register(email: string, password: string, displayName: string, birthday: string) {
+  //   try {
+  //     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+  //     const uid = userCredential.user.uid;
+
+  //     await this.firestoreService.setData('users', uid, {
+  //       displayName,
+  //       birthday,
+  //       createdAt: serverTimestamp(),
+  //     });
+  //   } catch (error) {
+  //     this.handleError(error, 'register');
+  //     // TEMP: until global ErrorHandlerService is implemented
+  //     throw error;
+  //   }
+  // }
+
+  async register(payload: RegisterPayload) {
     try {
-      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        payload.email,
+        payload.password
+      );
       const uid = userCredential.user.uid;
 
-      await this.firestoreService.setData('users', uid, {
-        displayName,
-        birthday,
+      const userData: WithFieldValue<UserProfile> = {
+        displayName: payload.displayName,
         createdAt: serverTimestamp(),
-      });
+      };
+
+      if (payload.birthday) {
+        userData.birthday = payload.birthday;
+      }
+
+      await this.firestoreService.setData('users', uid, userData);
     } catch (error) {
       this.handleError(error, 'register');
-      // TEMP: until global ErrorHandlerService is implemented
+      // TEMP: until ErrorHandlerService is implemented
       throw error;
     }
   }

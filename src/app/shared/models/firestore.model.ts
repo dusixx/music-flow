@@ -2,8 +2,8 @@ import { Timestamp } from 'firebase/firestore';
 
 export interface UserProfile {
   displayName: string;
-  birthday: string;
   createdAt: Timestamp;
+  birthday?: string;
 }
 
 export interface Playlist {
@@ -18,3 +18,8 @@ export interface CollectionRegistry {
   users: UserProfile;
   playlists: Playlist;
 }
+
+export type RegisterPayload = {
+  email: string;
+  password: string;
+} & Omit<UserProfile, 'createdAt'>;
