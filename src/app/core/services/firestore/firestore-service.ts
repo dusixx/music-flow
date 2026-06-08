@@ -25,10 +25,6 @@ type CollectionName = keyof CollectionRegistry;
 export class FirestoreService {
   private db = getFirestore(firebaseApp);
 
-  // generateId<K extends CollectionName>(colName: K): string {
-  //   return doc(collection(this.db, colName)).id;
-  // }
-
   generateId(colName: CollectionName): string {
     return doc(collection(this.db, colName)).id;
   }
