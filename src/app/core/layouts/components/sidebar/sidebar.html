@@ -9,7 +9,7 @@
         [routerLinkActiveOptions]="{ exact: true }"
         title="Home"
       >
-        <player-sprite-icon href="icon-home-smile" class="icon" />
+        <player-sprite icon="home-smile" class="icon" />
         <span class="label">Home</span>
       </a>
       <a
@@ -19,11 +19,11 @@
         [routerLinkActiveOptions]="{ exact: true }"
         title="About Us"
       >
-        <player-sprite-icon href="icon-about" class="icon" />
+        <player-sprite icon="about" class="icon" />
         <span class="label">About</span>
       </a>
       <a routerLink="/search" class="link" routerLinkActive="active" title="Search">
-        <player-sprite-icon href="icon-search" class="icon" />
+        <player-sprite icon="search" class="icon" />
         <span class="label">Search</span>
       </a>
       @if (isAuthenticated()) {
@@ -34,7 +34,7 @@
           [routerLinkActiveOptions]="{ exact: true }"
           title="Library"
         >
-          <player-sprite-icon href="icon-library" class="icon" />
+          <player-sprite icon="library" class="icon" />
           <span class="label">Library</span>
         </a>
       }

@@ -9,7 +9,7 @@
       class="fav-btn"
       aria-label="toggle favorite"
       (click)="favoriteClicked.emit(t)"
-      [icon]="isFavorite() ? 'icon-heart' : 'icon-heart-outlined'"
+      [icon]="isFavorite() ? 'heart' : 'heart-outlined'"
     ></button>
   }
   <button
@@ -19,6 +19,6 @@
     aria-label="toggle play"
     (click)="playClicked.emit(t)"
     [size]="variant() === 'primary' ? 'medium' : 'small'"
-    [icon]="isPlaying() ? 'icon-pause' : 'icon-play'"
+    [icon]="isPlaying() ? 'pause' : 'play'"
   ></button>
 </div>

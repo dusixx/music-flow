@@ -1,47 +1,47 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 
-$link-size: 40px;
-$nav-wrapper-breakpoint: 100px;
+$link-size: rem(40);
+$nav-wrapper-breakpoint: rem(100);
 
 :host {
   display: flex;
   width: 100%;
-  padding-top: 16px;
+  padding-top: var(--space-l);
 }
 
 .aside {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: var(--space-xl);
 
   width: 100%;
-  padding: var(--padding-m);
+  padding: var(--space-m);
 }
 
 .logo {
-  margin-bottom: 24px;
+  margin-bottom: var(--space-xl);
 }
 
 .nav-wrapper {
   container-name: nav-wrapper;
   container-type: inline-size;
   width: 100%;
+  margin-bottom: var(--space-3xl);
 }
 
 .nav {
   display: flex;
   flex-direction: column;
-  gap: 16px;
-
+  gap: var(--space-l);
   width: 100%;
-  margin-bottom: 40px;
 }
 
 @container nav-wrapper (width < #{$nav-wrapper-breakpoint}) {
   a.link {
     justify-content: center;
     width: $link-size;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
   }
 
   .nav {
@@ -55,14 +55,14 @@ $nav-wrapper-breakpoint: 100px;
 
 .link {
   display: flex;
-  gap: 12px;
+  gap: var(--space-m);
   align-items: center;
 
   height: $link-size;
-  padding: 0 12px;
-  border-radius: var(--border-radius);
+  padding: 0 var(--space-m);
+  border-radius: var(--radius-xl);
 
-  font-size: 18px;
+  font-size: var(--text-l);
   color: var(--color-text);
   text-decoration: none;
 
@@ -95,5 +95,5 @@ $nav-wrapper-breakpoint: 100px;
 }
 
 .icon {
-  width: 20px;
+  width: rem(20);
 }

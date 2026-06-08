@@ -1,13 +1,38 @@
 @use 'modern-normalize';
 @use './utils/vars' as *;
-@use './button';
-@use './angular-split';
+@use './utils/funcs' as *;
+@use './utils/reset';
+@use './vendors/angular-split';
 
 body {
   overflow: hidden;
+
   height: 100vh;
   margin: 0;
+
+  font-size: 100%;
+
   color-scheme: dark;
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.11;
+}
+
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.14;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.17;
+}
+
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.2;
 }
 
 %dark-palette {
@@ -36,37 +61,77 @@ body {
   --color-shadow: rgb(0 0 0 / 30%);
 }
 
+%z-index {
+  --gutter-z-index: 10;
+  --header-z-index: 20;
+  --mobile-menu-z-index: 1000;
+}
+
+%sizing {
+  --size-xs: #{$scale-xs};
+  --size-s: #{$scale-s};
+  --size-m: #{$scale-m};
+  --size-l: #{$scale-l};
+  --size-xl: #{$scale-xl};
+  --size-2xl: #{$scale-2xl};
+  --size-3xl: #{$scale-3xl};
+  --size-4xl: #{$scale-4xl};
+}
+
+%spacing {
+  --space-xs: #{$scale-xs};
+  --space-s: #{$scale-s};
+  --space-m: #{$scale-m};
+  --space-l: #{$scale-l};
+  --space-xl: #{$scale-xl};
+  --space-2xl: #{$scale-2xl};
+  --space-3xl: #{$scale-3xl};
+  --space-4xl: #{$scale-4xl};
+}
+
+%radius {
+  --radius-xs: #{$scale-xs};
+  --radius-s: #{$scale-s};
+  --radius-m: #{$scale-m};
+  --radius-l: #{$scale-l};
+  --radius-xl: #{$scale-xl};
+  --radius-full: 9999px;
+}
+
+%text-size {
+  --text-3xs: #{$text-3xs};
+  --text-2xs: #{$text-2xs};
+  --text-xs: #{$text-xs};
+  --text-s: #{$text-s};
+  --text-m: #{$text-m};
+  --text-l: #{$text-l};
+  --text-xl: #{$text-xl};
+  --text-2xl: #{$text-2xl};
+  --text-3xl: #{$text-3xl};
+  --text-4xl: #{$text-4xl};
+}
+
 %vars {
   --bp-mobile: #{$bp-mobile};
   --bp-tablet: #{$bp-tablet};
   --bp-desktop: #{$bp-desktop};
   --bp-wide: #{$bp-wide};
-  --wrapper-min-width: 380px;
+  --wrapper-min-width: 420px;
   --wrapper-max-width: 1440px;
-  --border-radius: 20px;
-  --border-radius-m: 12px;
-  --border-radius-s: 8px;
-  --border-radius-xs: 4px;
-  --padding-xs: 4px;
-  --padding-s: 8px;
-  --padding-m: 12px;
-  --padding: 20px;
-  --padding-xl: 28px;
-  --gutter-z-index: 10;
-  --header-z-index: 20;
-  --header-height: 78px;
-  --mobile-menu-z-index: 1000;
-  --mobile-menu-width: 280px;
-  --box-shadow: 0 8px 8px var(--color-shadow);
+  --box-shadow: 0 var(--scale-s) var(--scale-s) var(--color-shadow);
   --border: 1px solid var(--color-border);
-  --main-padding: 32px var(--padding-xl);
+  --main-padding: var(--space-2xl) var(--space-xl);
+  @extend %spacing;
+  @extend %radius;
+  @extend %text-size;
+  @extend %z-index;
 }
 
 :root,
 [tuiTheme='dark'] {
   --tui-duration: #{$transition-duration};
-  --tui-radius-l: var(--border-radius);
-  --tui-height-l: 42px;
+  --tui-radius-l: var(--radius-l);
+  --tui-height-l: 2.75rem;
   --tui-typography-family-text: 'Nunito Sans', sans-serif;
   --tui-background-base: var(--color-bg);
   --tui-text-primary: var(--color-text);
