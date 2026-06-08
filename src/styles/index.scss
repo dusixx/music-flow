@@ -1,5 +1,6 @@
 @use 'modern-normalize';
 @use './utils/vars' as *;
+@use './utils/funcs' as *;
 @use './utils/reset';
 @use './vendors/angular-split';
 
@@ -60,45 +61,54 @@ h4 {
   --color-shadow: rgb(0 0 0 / 30%);
 }
 
-%font {
-  --font-xs: 0.75rem; // 12px
-  --font-s: 0.875rem; // 14px
-  --font-m: 1rem; // 16px
-  --font-l: 1.125rem; // 18px
-}
-
-%size {
-  --size-xs: 1.5rem; // 24px
-  --size-s: 2rem; // 32px
-  --size-m: 2.5rem; // 40px
-  --size-l: 3rem; // 48px
-  --size-xl: 4rem; // 64px
-}
-
-%space {
-  --space-xs: 0.25rem; // 4px
-  --space-s: 0.5rem; // 8px
-  --space-m: 0.75rem; // 12px
-  --space-l: 1rem; // 16px
-  --space-xl: 1.5rem; // 24px
-  --space-2xl: 2rem; // 32px
-  --space-3xl: 3rem; // 48px
-  --space-4xl: 4rem; // 64px
-}
-
-%radius {
-  --radius-xs: 0.25rem; // 4px
-  --radius-s: 0.5rem; // 8px
-  --radius-m: 0.75rem; // 12px
-  --radius-l: 1rem; // 16px
-  --radius-xl: 1.5rem; // 24px
-  --radius-full: 9999px;
-}
-
 %z-index {
   --gutter-z-index: 10;
   --header-z-index: 20;
   --mobile-menu-z-index: 1000;
+}
+
+%sizing {
+  --size-xs: #{$scale-xs};
+  --size-s: #{$scale-s};
+  --size-m: #{$scale-m};
+  --size-l: #{$scale-l};
+  --size-xl: #{$scale-xl};
+  --size-2xl: #{$scale-2xl};
+  --size-3xl: #{$scale-3xl};
+  --size-4xl: #{$scale-4xl};
+}
+
+%spacing {
+  --space-xs: #{$scale-xs};
+  --space-s: #{$scale-s};
+  --space-m: #{$scale-m};
+  --space-l: #{$scale-l};
+  --space-xl: #{$scale-xl};
+  --space-2xl: #{$scale-2xl};
+  --space-3xl: #{$scale-3xl};
+  --space-4xl: #{$scale-4xl};
+}
+
+%radius {
+  --radius-xs: #{$scale-xs};
+  --radius-s: #{$scale-s};
+  --radius-m: #{$scale-m};
+  --radius-l: #{$scale-l};
+  --radius-xl: #{$scale-xl};
+  --radius-full: 9999px;
+}
+
+%text-size {
+  --text-3xs: #{$text-3xs};
+  --text-2xs: #{$text-2xs};
+  --text-xs: #{$text-xs};
+  --text-s: #{$text-s};
+  --text-m: #{$text-m};
+  --text-l: #{$text-l};
+  --text-xl: #{$text-xl};
+  --text-2xl: #{$text-2xl};
+  --text-3xl: #{$text-3xl};
+  --text-4xl: #{$text-4xl};
 }
 
 %vars {
@@ -106,17 +116,14 @@ h4 {
   --bp-tablet: #{$bp-tablet};
   --bp-desktop: #{$bp-desktop};
   --bp-wide: #{$bp-wide};
-  --wrapper-min-width: 380px;
+  --wrapper-min-width: 420px;
   --wrapper-max-width: 1440px;
-  --header-height: 78px;
-  --mobile-menu-width: 280px;
-  --box-shadow: 0 8px 8px var(--color-shadow);
+  --box-shadow: 0 var(--scale-s) var(--scale-s) var(--color-shadow);
   --border: 1px solid var(--color-border);
   --main-padding: var(--space-2xl) var(--space-xl);
-  @extend %space;
+  @extend %spacing;
   @extend %radius;
-  @extend %size;
-  @extend %font;
+  @extend %text-size;
   @extend %z-index;
 }
 
