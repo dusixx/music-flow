@@ -23,3 +23,5 @@ export type RegisterPayload = {
   email: string;
   password: string;
 } & Omit<UserProfile, 'createdAt'>;
+
+export type PlaylistPayload = { playlistId: string } & Playlist;

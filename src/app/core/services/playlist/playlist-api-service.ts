@@ -1,11 +1,13 @@
 import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore/firestore-service';
+import { PlaylistPayload } from '@app/shared/models/firestore.model';
 
 @Injectable()
 export class PlaylistApiService {
   private firestoreService = inject(FirestoreService);
 
-  createPlaylist(playlistId: string, name: string, description: string, uid: string) {
+  createPlaylist(payload: PlaylistPayload) {
+    const { playlistId, name, description, uid } = payload;
     return this.firestoreService.setData('playlists', playlistId, {
       name,
       description,
