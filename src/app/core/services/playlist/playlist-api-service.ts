@@ -1,17 +1,9 @@
-import { Injectable, inject, OnDestroy } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore/firestore-service';
 
 @Injectable()
-export class PlaylistApiService implements OnDestroy {
+export class PlaylistApiService {
   private firestoreService = inject(FirestoreService);
-
-  constructor() {
-    console.log('PlaylistService created');
-  }
-
-  ngOnDestroy() {
-    console.log('PlaylistService destroyed');
-  }
 
   createPlaylist(playlistId: string, name: string, description: string, uid: string) {
     return this.firestoreService.setData('playlists', playlistId, {
@@ -26,7 +18,6 @@ export class PlaylistApiService implements OnDestroy {
     return this.firestoreService.getDocsByUid('playlists', uid);
   }
 
-  // UPDATE: name and description
   updatePlaylistDetails(playlistId: string, name: string, description: string) {
     return this.firestoreService.updateData('playlists', playlistId, {
       name,
@@ -34,7 +25,6 @@ export class PlaylistApiService implements OnDestroy {
     });
   }
 
-  // UPDATE: track order => changed array after drag & drop
   updateTrackOrder(playlistId: string, newTrackIds: string[]) {
     return this.firestoreService.updateData('playlists', playlistId, {
       trackIds: newTrackIds,

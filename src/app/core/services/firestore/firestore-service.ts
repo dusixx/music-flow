@@ -48,7 +48,6 @@ export class FirestoreService {
     return snapshot.exists() ? snapshot.data() : null;
   }
 
-  // to get an array of documents of a specific type
   async getDocsByUid<K extends CollectionName>(colName: K, uid: string) {
     const colRef = collection(this.db, colName).withConverter(
       firestoreDataConverter<CollectionRegistry[K]>()
@@ -58,7 +57,6 @@ export class FirestoreService {
     return querySnapshot.docs.map((doc) => doc.data());
   }
 
-  // partial update without overwriting the entire document
   updateData<K extends CollectionName>(
     colName: K,
     docId: string,
