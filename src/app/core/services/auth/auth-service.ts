@@ -8,10 +8,14 @@ import {
   User,
   createUserWithEmailAndPassword,
 } from 'firebase/auth';
+import { serverTimestamp, WithFieldValue } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
-import { firebaseApp } from '@app/core/firebase/firebase.config';
+import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
-import { AuthState } from './types/auth.type';
+import { FirestoreService } from '../firestore/firestore-service';
+import { RegisterPayload, UserProfile } from '@shared/models/firestore.model';
+
+type AuthState = 'loading' | 'auth' | 'guest';
 
 @Injectable({
   providedIn: 'root',
@@ -19,6 +23,8 @@ import { AuthState } from './types/auth.type';
 export class AuthService {
   private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
+
+  private firestoreService = inject(FirestoreService);
 
   private _user = signal<User | null>(null);
   readonly user = this._user.asReadonly();
@@ -61,11 +67,29 @@ export class AuthService {
     }
   }
 
-  async register(email: string, password: string) {
+  async register(payload: RegisterPayload) {
     try {
-      await createUserWithEmailAndPassword(this.auth, email, password);
+      const userCredential = await createUserWithEmailAndPassword(
+        this.auth,
+        payload.email,
+        payload.password
+      );
+      const uid = userCredential.user.uid;
+
+      const userData: WithFieldValue<UserProfile> = {
+        displayName: payload.displayName,
+        createdAt: serverTimestamp(),
+      };
+
+      if (payload.birthday) {
+        userData.birthday = payload.birthday;
+      }
+
+      await this.firestoreService.setData('users', uid, userData);
     } catch (error) {
       this.handleError(error, 'register');
+      // TEMP: until ErrorHandlerService is implemented
+      throw error;
     }
   }
 
