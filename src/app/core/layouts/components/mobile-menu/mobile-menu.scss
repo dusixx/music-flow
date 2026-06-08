@@ -1,0 +1,95 @@
+@use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
+
+:host {
+  pointer-events: none;
+  position: fixed;
+  z-index: var(--mobile-menu-z-index);
+  inset: 0;
+}
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  background: var(--color-overlay);
+
+  @include mix.main-transition('visibility, opacity');
+  @include mix.hidden;
+
+  &--active {
+    @include mix.hidden(false);
+  }
+}
+
+.drawer {
+  position: fixed;
+  top: 0;
+  right: 0;
+  transform: translateX(105%);
+
+  width: rem(280);
+  max-width: 100dvw;
+  height: 100dvh;
+  padding: var(--space-m);
+  border-left: var(--border);
+
+  background: var(--color-bg-secondary);
+
+  @include mix.main-transition('visibility, transform, opacity');
+  @include mix.hidden;
+
+  &--active {
+    @include mix.hidden(false) {
+      transform: translateX(0);
+    }
+  }
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  margin-bottom: var(--space-xl);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+  align-items: center;
+}
+
+.link {
+  display: flex;
+  justify-content: center;
+
+  width: rem(100);
+  padding: var(--space-s);
+  border-radius: var(--radius-l);
+
+  font-size: var(--text-l);
+  color: var(--color-text);
+  text-decoration: none;
+
+  @include mix.main-transition('background-color');
+
+  @include mix.hover {
+    color: var(--color-text-subtle);
+  }
+  @include mix.focus-visible {
+    color: var(--color-text-subtle);
+  }
+
+  &.active {
+    pointer-events: none;
+    cursor: default;
+    color: var(--color-text-subtle);
+  }
+}
+
+.splitter {
+  width: 100%;
+  height: rem(2);
+  background-color: var(--color-border);
+}

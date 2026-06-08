@@ -1,114 +1,68 @@
+@use 'utils';
+@use 'utils/funcs' as *;
+
 .card {
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: var(--space-m);
 
   width: 100%;
-  max-width: 340px;
-  padding: 18px;
-  border: 1px solid var(--color-violet-10);
-  border-radius: 18px;
+  max-width: rem(340);
+  padding: var(--space-l);
+  border: var(--border);
+  border-radius: var(--radius-l);
 
   color: var(--color-white);
 
-  background: linear-gradient(145deg, var(--color-violet-10), rgb(79 55 138 / 20%));
-  backdrop-filter: blur(8px);
-  box-shadow: 0 8px 24px rgb(0 0 0 / 40%);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
+  background: var(--color-surface);
 
   &-photo {
     width: 100%;
-    height: 220px;
-    border: 1px solid var(--color-violet-10);
-    border-radius: 14px;
-
+    height: rem(220);
+    border-radius: var(--radius-m);
     object-fit: cover;
   }
 
-  &-name {
-    margin: 0;
-    font-size: 20px;
-    font-weight: 500;
-  }
-
   &-role {
-    margin: 0;
-    font-size: 14px;
-    font-weight: 500;
-    color: rgb(158 158 255);
-  }
-
-  &-bio {
-    margin: 0;
-    font-size: 15px;
-    line-height: 1.4;
+    color: var(--color-text-muted);
   }
 
   &-tracks {
     display: flex;
     flex-direction: column;
-    gap: 8px;
+    gap: var(--space-s);
 
-    margin-top: 6px;
-    padding-top: 10px;
-    border-top: 1px solid var(--color-white-10);
-  }
-
-  &-favtracks {
-    margin: 0;
-
-    font-size: 12px;
-    font-weight: 500;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
+    margin-top: var(--space-s);
+    padding-top: var(--space-s);
+    border-top: var(--border);
   }
 
   &-list {
     display: flex;
     flex-direction: column;
-    gap: 6px;
+    gap: var(--space-s);
 
-    margin: 0 0 6px;
+    margin: 0 0 var(--space-s);
     padding: 0;
   }
 
   &-track {
     display: flex;
     flex-direction: column;
-    gap: 2px;
+    gap: var(--space-xs);
 
-    padding: 6px 10px;
-    border: 1px solid rgb(79 55 138 / 25%);
-    border-radius: 10px;
+    padding: var(--space-s);
+    border: var(--border);
+    border-radius: var(--radius-s);
 
-    background: var(--color-violet-10);
-
-    &-title {
-      font-size: 14px;
-      font-weight: 500;
-    }
-
-    &-artist {
-      font-size: 12px;
-    }
+    background: var(--color-surface-secondary);
   }
 
   &-link {
-    margin-top: auto;
+    @extend %link;
 
-    font-size: 13px;
-    font-weight: 600;
+    margin-top: auto;
     text-align: end;
     text-decoration: none;
-  }
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .card:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 32px rgb(79 55 138 / 10%);
   }
 }

@@ -1,0 +1,25 @@
+:host {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-m);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.title {
+  margin-bottom: var(--space-xs);
+  text-transform: capitalize;
+}
+
+.subtitle {
+  font-size: var(--text-s);
+  color: var(--color-text-muted);
+}
+
+.controls {
+  display: flex;
+}

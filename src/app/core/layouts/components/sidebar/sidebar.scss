@@ -1,0 +1,99 @@
+@use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
+
+$link-size: rem(40);
+$nav-wrapper-breakpoint: rem(100);
+
+:host {
+  display: flex;
+  width: 100%;
+  padding-top: var(--space-l);
+}
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+
+  width: 100%;
+  padding: var(--space-m);
+}
+
+.logo {
+  margin-bottom: var(--space-xl);
+}
+
+.nav-wrapper {
+  container-name: nav-wrapper;
+  container-type: inline-size;
+  width: 100%;
+  margin-bottom: var(--space-3xl);
+}
+
+.nav {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-l);
+  width: 100%;
+}
+
+@container nav-wrapper (width < #{$nav-wrapper-breakpoint}) {
+  a.link {
+    justify-content: center;
+    width: $link-size;
+    border-radius: var(--radius-full);
+  }
+
+  .nav {
+    align-items: center;
+  }
+
+  .label {
+    display: none;
+  }
+}
+
+.link {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+
+  height: $link-size;
+  padding: 0 var(--space-m);
+  border-radius: var(--radius-xl);
+
+  font-size: var(--text-l);
+  color: var(--color-text);
+  text-decoration: none;
+
+  background-color: transparent;
+
+  @include mix.main-transition('background-color');
+
+  @include mix.hover {
+    background-color: var(--color-border);
+  }
+  @include mix.focus-visible {
+    background-color: var(--color-border);
+  }
+
+  &.active {
+    background-color: var(--color-accent);
+  }
+
+  &.disabled {
+    @include mix.non-interactive {
+      opacity: 0.2;
+    }
+  }
+}
+
+.label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.icon {
+  width: rem(20);
+}

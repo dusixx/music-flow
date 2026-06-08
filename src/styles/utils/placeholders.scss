@@ -1,0 +1,58 @@
+@use './mixins.scss' as mix;
+
+%wrapper {
+  position: relative;
+
+  overflow: hidden;
+
+  min-width: var(--wrapper-min-width);
+  max-width: var(--wrapper-max-width);
+  margin: 0 auto;
+  padding: 0 var(--space-l);
+}
+
+%link {
+  color: var(--color-text);
+  text-decoration: none;
+
+  @include mix.main-transition('color');
+
+  @include mix.hover {
+    color: var(--color-text-muted);
+  }
+  @include mix.focus-visible {
+    color: var(--color-text-muted);
+  }
+}
+
+%button {
+  cursor: pointer;
+  user-select: none;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  border: unset;
+  border-style: none;
+
+  font-family: inherit;
+
+  background-color: transparent;
+}
+
+%ellipsis {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+%scrollbar-none {
+  scrollbar-width: none;
+
+  -ms-overflow-style: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}

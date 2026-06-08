@@ -1,0 +1,58 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<div
+  class="backdrop"
+  [class.backdrop--active]="open()"
+  (click)="open.set(false)"
+  tabindex="-1"
+  role="button"
+></div>
+<aside class="drawer" [class.drawer--active]="open()">
+  <div class="header">
+    <button playerButton variant="base" (click)="open.set(false)" icon="close-2"></button>
+  </div>
+  <nav class="nav">
+    @if (!isAuthenticated()) {
+      <a
+        class="link"
+        routerLink="/login"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Login</a
+      >
+      <a
+        class="link"
+        routerLink="/signup"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Signup</a
+      >
+    } @else {
+      <button playerButton variant="secondary" (click)="onLogoutClick()">Logout</button>
+    }
+    <span class="splitter"></span>
+    <a
+      class="link"
+      routerLink="/"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >Home</a
+    >
+    <a
+      class="link"
+      routerLink="/about"
+      routerLinkActive="active"
+      [routerLinkActiveOptions]="{ exact: true }"
+      >About</a
+    >
+    <a class="link" routerLink="/search" routerLinkActive="active">Search</a>
+    @if (isAuthenticated()) {
+      <a
+        class="link"
+        routerLink="/library"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        >Library</a
+      >
+    }
+  </nav>
+</aside>

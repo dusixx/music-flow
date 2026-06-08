@@ -1,5 +1,10 @@
 :host {
   display: flex;
-  align-items: center;
-  justify-content: center;
+}
+
+.icon {
+  aspect-ratio: 1;
+  width: inherit;
+  height: inherit;
+  fill: currentcolor;
 }

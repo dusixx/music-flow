@@ -1,0 +1,14 @@
+@use 'utils';
+
+:host {
+  @extend %scrollbar-none;
+
+  user-select: none;
+  scroll-behavior: smooth;
+  scroll-snap-type: x mandatory;
+
+  position: relative;
+
+  overflow-x: auto;
+  display: flex;
+}

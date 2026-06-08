@@ -1,0 +1,32 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<header class="header">
+  <div class="wrapper">
+    <tui-textfield iconStart="@tui.search" class="search-bar">
+      <input placeholder="Search for tracks..." tuiInput [(ngModel)]="searchQuery" />
+    </tui-textfield>
+    @if (isMobile()) {
+      <button
+        #menuButton
+        playerButton
+        variant="base"
+        icon="menu-kebab-vert"
+        (click)="openMenu()"
+      ></button>
+    } @else if (isAuthenticated()) {
+      <button playerButton variant="secondary" class="profile-btn" size="small" (click)="logout()">
+        A
+      </button>
+    } @else {
+      <button
+        playerButton
+        size="small"
+        routerLinkActive
+        routerLink="/login"
+        #rla="routerLinkActive"
+        [disabled]="rla.isActive"
+      >
+        Login
+      </button>
+    }
+  </div>
+</header>

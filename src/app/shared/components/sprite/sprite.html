@@ -1,5 +1,3 @@
-@let path = href();
-
-<svg>
-  <use [attr.href]="path ? path : `${spritePath}#${id()}`"></use>
+<svg class="icon">
+  <use [attr.href]="icon()" />
 </svg>

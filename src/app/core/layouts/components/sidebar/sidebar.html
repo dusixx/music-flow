@@ -1,0 +1,44 @@
+<aside class="aside">
+  <div class="logo">Logo</div>
+  <div class="nav-wrapper">
+    <nav class="nav">
+      <a
+        routerLink="/"
+        class="link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        title="Home"
+      >
+        <player-sprite icon="home-smile" class="icon" />
+        <span class="label">Home</span>
+      </a>
+      <a
+        routerLink="/about"
+        class="link"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: true }"
+        title="About Us"
+      >
+        <player-sprite icon="about" class="icon" />
+        <span class="label">About</span>
+      </a>
+      <a routerLink="/search" class="link" routerLinkActive="active" title="Search">
+        <player-sprite icon="search" class="icon" />
+        <span class="label">Search</span>
+      </a>
+      @if (isAuthenticated()) {
+        <a
+          routerLink="/library"
+          class="link"
+          routerLinkActive="active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          title="Library"
+        >
+          <player-sprite icon="library" class="icon" />
+          <span class="label">Library</span>
+        </a>
+      }
+    </nav>
+  </div>
+  <ng-content></ng-content>
+</aside>

@@ -1,0 +1,22 @@
+@let t = track();
+
+<player-track-cover
+  [track]="t"
+  [isHovered]="isHovered()"
+  [isPlaying]="isPlaying()"
+  [isFavorite]="isFavorite()"
+  (playClicked)="playClicked.emit($event)"
+  (favoriteClicked)="favoriteClicked.emit($event)"
+/>
+<div class="desc">
+  <a class="name" [routerLink]="['/album', t.album.id]">{{ t.name }}</a>
+  <a class="artist" [routerLink]="['/artist', t.artist.id]">{{ t.artist.name }}</a>
+  <div class="stats">
+    @if (t.plays) {
+      <span class="plays">{{ t.plays | compactNumber }}</span>
+    }
+    @if (t.duration) {
+      <span class="duration">{{ t.duration | duration }}</span>
+    }
+  </div>
+</div>

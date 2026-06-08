@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Button } from '@app/shared/directives/button/button';
 import { RouterLink } from '@angular/router';
+import { Button } from '@app/shared/components/button/button';
 
 @Component({
   selector: 'player-not-found',

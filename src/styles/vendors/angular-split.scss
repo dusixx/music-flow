@@ -1,0 +1,21 @@
+@use 'utils/mixins' as mix;
+
+.as-split-gutter {
+  z-index: var(--gutter-z-index) !important;
+  border-right: var(--border);
+  background-color: transparent !important;
+
+  @include mix.hover {
+    border: unset !important;
+    background-color: var(--color-border) !important;
+  }
+
+  &:active {
+    border: unset !important;
+    background-color: var(--color-border) !important;
+  }
+}
+
+.as-split-gutter-icon {
+  display: none !important;
+}

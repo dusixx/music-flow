@@ -1,0 +1,133 @@
+@use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
+@use 'utils';
+
+@mixin card-focus {
+  background-color: var(--color-bg-focused);
+
+  .duration {
+    @include mix.hidden(false);
+  }
+}
+
+@mixin always-show-duration-no-hover {
+  @include mix.no-hover {
+    .duration {
+      @include mix.hidden(false);
+    }
+  }
+}
+
+@mixin hide-stats-no-hover {
+  @include mix.no-hover {
+    .duration,
+    .plays {
+      display: none;
+    }
+  }
+}
+
+:host {
+  --color-bg-focused: var(--color-surface);
+
+  user-select: none;
+
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+
+  width: 100%;
+  padding: var(--space-m);
+  border-radius: var(--radius-s);
+
+  &.playing {
+    .duration {
+      @include mix.hidden(false);
+    }
+  }
+
+  @include mix.main-transition('background-color');
+
+  @include mix.hover {
+    @include card-focus;
+  }
+
+  @include mix.focus-visible-within {
+    @include card-focus;
+  }
+}
+
+.desc {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  margin-top: var(--space-s);
+}
+
+.stats {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+  margin-top: var(--space-s);
+
+  @include hide-stats-no-hover;
+}
+
+.duration,
+.plays {
+  width: fit-content;
+  padding: var(--space-xs) rem(6);
+  border-radius: var(--radius-s);
+
+  font-size: var(--text-2xs);
+  line-height: 1;
+  color: var(--color-text-muted);
+
+  background-color: var(--color-surface-secondary);
+}
+
+.duration {
+  color: var(--color-text-inverse);
+  background-color: var(--color-text-subtle);
+
+  @include mix.main-transition('visibility, opacity');
+  @include mix.hidden;
+}
+
+.name,
+.artist {
+  @extend %link;
+
+  width: 100%;
+  padding: var(--space-xs);
+  line-height: 1.2;
+}
+
+.artist {
+  @extend %ellipsis;
+}
+
+.name {
+  text-transform: uppercase;
+
+  @include mix.hover {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+  @include mix.focus-visible {
+    color: var(--color-text);
+    text-decoration: underline;
+  }
+}
+
+.artist {
+  color: var(--color-text-muted);
+
+  @include mix.hover {
+    color: var(--color-text);
+  }
+  @include mix.focus-visible {
+    color: var(--color-text);
+  }
+}

@@ -1,0 +1,73 @@
+@use 'utils/vars' as *;
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+@use '@taiga-ui/styles/utils' as taiga;
+
+:host {
+  position: sticky;
+  z-index: var(--header-z-index);
+  top: 0;
+
+  display: flex;
+  align-items: center;
+
+  width: 100%;
+  height: rem(78);
+  padding: 0 var(--space-xl);
+
+  background-color: var(--color-bg);
+
+  .profile-btn {
+    --button-padding-side: 0;
+    --button-color: var(--color-text-inverse);
+    --button-bg: var(--color-accent-secondary);
+
+    flex-shrink: 0;
+    aspect-ratio: 1;
+    font-weight: 600;
+    outline: rem(8) solid var(--color-border);
+  }
+}
+
+.header {
+  display: flex;
+  width: 100%;
+}
+
+.wrapper {
+  container-name: header-wrapper;
+  container-type: inline-size;
+  display: flex;
+  flex-grow: 1;
+  gap: var(--space-xl);
+  align-items: center;
+  justify-content: space-between;
+}
+
+.search-bar {
+  --tui-text-secondary: var(--color-text);
+
+  width: rem(500);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+
+  ::placeholder {
+    color: var(--color-text-subtle);
+  }
+  @include taiga.appearance-hover {
+    background-color: var(--color-surface-secondary);
+  }
+  @include taiga.appearance-focus {
+    background-color: var(--color-surface-secondary);
+
+    &::before {
+      color: var(--color-text);
+    }
+  }
+}
+
+@container header-wrapper (width < #{$bp-tablet}) {
+  .search-bar {
+    width: 100%;
+  }
+}

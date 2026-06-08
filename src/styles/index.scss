@@ -1,30 +1,144 @@
 @use 'modern-normalize';
-@use './vars';
-@use '../app/shared/directives/button/button';
-
-@use '@angular/material' as mat;
-
-html {
-  height: 100%;
-  @include mat.theme(
-    (
-      color: (
-        primary: mat.$cyan-palette,
-        tertiary: mat.$orange-palette,
-      ),
-      typography: Roboto,
-      density: 0,
-    )
-  );
-}
+@use './utils/vars' as *;
+@use './utils/funcs' as *;
+@use './utils/reset';
+@use './vendors/angular-split';
 
 body {
-  height: 100%;
+  overflow: hidden;
+
+  height: 100vh;
   margin: 0;
 
-  font: var(--mat-sys-body-medium);
-  color: var(--mat-sys-on-surface);
+  font-size: 100%;
 
   color-scheme: dark;
-  background-color: var(--mat-sys-surface);
+}
+
+h1 {
+  font-size: 2.25rem;
+  line-height: 1.11;
+}
+
+h2 {
+  font-size: 1.75rem;
+  line-height: 1.14;
+}
+
+h3 {
+  font-size: 1.5rem;
+  line-height: 1.17;
+}
+
+h4 {
+  font-size: 1.25rem;
+  line-height: 1.2;
+}
+
+%dark-palette {
+  --color-bg: rgb(28 27 34);
+  --color-bg-secondary: rgb(21 20 25);
+  --color-surface: rgb(42 42 49);
+  --color-surface-secondary: rgb(52 52 60);
+  --color-text: rgb(232 232 232);
+  --color-text-secondary: rgb(216 216 216);
+  --color-text-muted: rgb(234 234 234 / 50%);
+  --color-text-subtle: rgb(234 234 234 / 30%);
+  --color-text-inverse: var(--color-bg);
+  --color-border: rgb(234 234 234 / 10%);
+  --color-border-subtle: rgb(234 234 234 / 4%);
+  --color-border-strong: rgb(234 234 234 / 40%);
+  --color-accent: #5f3bb2;
+  --color-accent-secondary: #1ed760;
+  --color-accent-tertiary: #b34263;
+  --color-success: #1ed760;
+  --color-warning: #ffb4ab;
+  --color-error: #810081;
+  --color-info: rgb(106 103 255);
+  --color-overlay: rgb(28 27 34 / 40%);
+  --color-overlay-secondary: rgb(28 27 34 / 80%);
+  --color-overlay-tertiary: rgb(28 27 34 / 20%);
+  --color-shadow: rgb(0 0 0 / 30%);
+}
+
+%z-index {
+  --gutter-z-index: 10;
+  --header-z-index: 20;
+  --mobile-menu-z-index: 1000;
+}
+
+%sizing {
+  --size-xs: #{$scale-xs};
+  --size-s: #{$scale-s};
+  --size-m: #{$scale-m};
+  --size-l: #{$scale-l};
+  --size-xl: #{$scale-xl};
+  --size-2xl: #{$scale-2xl};
+  --size-3xl: #{$scale-3xl};
+  --size-4xl: #{$scale-4xl};
+}
+
+%spacing {
+  --space-xs: #{$scale-xs};
+  --space-s: #{$scale-s};
+  --space-m: #{$scale-m};
+  --space-l: #{$scale-l};
+  --space-xl: #{$scale-xl};
+  --space-2xl: #{$scale-2xl};
+  --space-3xl: #{$scale-3xl};
+  --space-4xl: #{$scale-4xl};
+}
+
+%radius {
+  --radius-xs: #{$scale-xs};
+  --radius-s: #{$scale-s};
+  --radius-m: #{$scale-m};
+  --radius-l: #{$scale-l};
+  --radius-xl: #{$scale-xl};
+  --radius-full: 9999px;
+}
+
+%text-size {
+  --text-3xs: #{$text-3xs};
+  --text-2xs: #{$text-2xs};
+  --text-xs: #{$text-xs};
+  --text-s: #{$text-s};
+  --text-m: #{$text-m};
+  --text-l: #{$text-l};
+  --text-xl: #{$text-xl};
+  --text-2xl: #{$text-2xl};
+  --text-3xl: #{$text-3xl};
+  --text-4xl: #{$text-4xl};
+}
+
+%vars {
+  --bp-mobile: #{$bp-mobile};
+  --bp-tablet: #{$bp-tablet};
+  --bp-desktop: #{$bp-desktop};
+  --bp-wide: #{$bp-wide};
+  --wrapper-min-width: 420px;
+  --wrapper-max-width: 1440px;
+  --box-shadow: 0 var(--scale-s) var(--scale-s) var(--color-shadow);
+  --border: 1px solid var(--color-border);
+  --main-padding: var(--space-2xl) var(--space-xl);
+  @extend %spacing;
+  @extend %radius;
+  @extend %text-size;
+  @extend %z-index;
+}
+
+:root,
+[tuiTheme='dark'] {
+  --tui-duration: #{$transition-duration};
+  --tui-radius-l: var(--radius-l);
+  --tui-height-l: 2.75rem;
+  --tui-typography-family-text: 'Nunito Sans', sans-serif;
+  --tui-background-base: var(--color-bg);
+  --tui-text-primary: var(--color-text);
+  --tui-text-secondary: var(--color-text-muted);
+  --tui-text-tertiary: var(--color-text-subtle);
+  --tui-border-normal: var(--color-border);
+  --tui-background-accent-1: var(--color-border-strong);
+  @extend %vars;
+  @extend %dark-palette;
 }
