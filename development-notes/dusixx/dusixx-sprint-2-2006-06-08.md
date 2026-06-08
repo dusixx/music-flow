@@ -47,7 +47,7 @@ atEnd = signal(false);
 
 В итоге карусель создается так:
 ```html
-<player-carousel #carousel class="carousel">
+<div class="controls">
   <button      
     playerButton
     icon="chevron-left" 
@@ -60,7 +60,8 @@ atEnd = signal(false);
     (click)="carousel.next()" 
     [disabled]="carousel.atEnd()">
   </button>
-
+</div>
+<player-carousel #carousel class="carousel">
   @for (item of items(); track item.id) {
     <div playerCarouselItem="carousel-item">
       <!-- some content -->
