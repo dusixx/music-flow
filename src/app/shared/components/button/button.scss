@@ -1,4 +1,5 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 @use 'utils';
 
 $loading-selector: '.loading';
@@ -17,14 +18,16 @@ $focused-selector: ':not(#{$loading-selector})';
 }
 
 :host {
-  --button-height: 46px;
-  --button-font-size: var(--font-m);
+  $height: rem(46);
+
+  --button-height: #{$height};
+  --button-font-size: var(--text-m);
   --button-padding-side: var(--space-xl);
   --button-border-radius: var(--radius-full);
   --button-disabled-opacity: 0.6;
-  --button-icon-size: var(--font-l);
+  --button-icon-size: var(--text-l);
   --button-icon-indent: var(--space-s);
-  --button-spinner-size: var(--font-l);
+  --button-spinner-size: var(--text-l);
   --button-color: var(--color-text);
   --button-color-focus: var(--color-text);
   --button-bg: transparent;
@@ -85,11 +88,13 @@ $focused-selector: ':not(#{$loading-selector})';
   }
 
   &.small {
-    --button-height: var(--size-s);
-    --button-font-size: var(--font-s);
+    $height: rem(32);
+
+    --button-height: #{$height};
+    --button-font-size: var(--text-s);
     --button-padding-side: var(--space-l);
-    --button-icon-size: var(--font-s);
-    --button-spinner-size: var(--font-m);
+    --button-icon-size: var(--text-s);
+    --button-spinner-size: var(--text-m);
     --button-icon-indent: var(--space-xs);
   }
 

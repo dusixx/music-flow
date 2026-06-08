@@ -1,3 +1,5 @@
+@use 'utils/funcs' as *;
+
 $image-path: '/assets/images/not-found.png';
 
 :host {
@@ -8,13 +10,11 @@ $image-path: '/assets/images/not-found.png';
 }
 
 .title {
-  font-size: 72px;
-  line-height: 120%;
-  letter-spacing: -3%;
+  font-size: rem(72);
 }
 
 .message {
-  font-size: var(--font-l);
+  font-size: var(--text-l);
   text-align: center;
 }
 
@@ -22,7 +22,7 @@ $image-path: '/assets/images/not-found.png';
   overflow: hidden;
 
   width: 100%;
-  height: 180px;
+  height: rem(180);
 
   background-image: url(#{$image-path});
   background-repeat: no-repeat;

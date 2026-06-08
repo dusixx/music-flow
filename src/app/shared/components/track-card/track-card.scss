@@ -1,4 +1,5 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 @use 'utils';
 
 @mixin card-focus {
@@ -76,10 +77,10 @@
 .duration,
 .plays {
   width: fit-content;
-  padding: var(--space-xs) 6px;
+  padding: var(--space-xs) rem(6);
   border-radius: var(--radius-s);
 
-  font-size: 10px;
+  font-size: var(--text-2xs);
   line-height: 1;
   color: var(--color-text-muted);
 
@@ -98,9 +99,13 @@
 .artist {
   @extend %link;
 
-  width: fit-content;
+  width: 100%;
   padding: var(--space-xs);
   line-height: 1.2;
+}
+
+.artist {
+  @extend %ellipsis;
 }
 
 .name {

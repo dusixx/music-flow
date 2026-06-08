@@ -1,4 +1,4 @@
-@use 'utils';
+@use 'utils/funcs' as *;
 
 @mixin align-vertically($f: true) {
   @if $f == false {
@@ -24,7 +24,7 @@
 .carousel-item {
   display: flex;
   flex-shrink: 0;
-  width: 180px;
+  width: rem(180);
 
   @include align-vertically(false);
 }
@@ -35,8 +35,8 @@
   justify-content: center;
 
   aspect-ratio: 1;
-  width: 140px;
-  border: 1px solid var(--color-border);
+  width: rem(140);
+  border: var(--border);
   border-radius: var(--radius-s);
 
   color: var(--color-text);

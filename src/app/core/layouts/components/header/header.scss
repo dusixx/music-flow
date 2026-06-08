@@ -1,8 +1,7 @@
 @use 'utils/vars' as *;
+@use 'utils/funcs' as *;
 @use 'utils/mixins' as mix;
 @use '@taiga-ui/styles/utils' as taiga;
-
-$link-size: 30px;
 
 :host {
   position: sticky;
@@ -13,7 +12,7 @@ $link-size: 30px;
   align-items: center;
 
   width: 100%;
-  height: var(--header-height);
+  height: rem(78);
   padding: 0 var(--space-xl);
 
   background-color: var(--color-bg);
@@ -26,7 +25,7 @@ $link-size: 30px;
     flex-shrink: 0;
     aspect-ratio: 1;
     font-weight: 600;
-    outline: 8px solid var(--color-border);
+    outline: rem(8) solid var(--color-border);
   }
 }
 
@@ -48,7 +47,7 @@ $link-size: 30px;
 .search-bar {
   --tui-text-secondary: var(--color-text);
 
-  width: 500px;
+  width: rem(500);
   border-radius: var(--radius-xl);
   background-color: var(--color-surface);
 

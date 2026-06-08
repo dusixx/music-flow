@@ -1,7 +1,8 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 
-$link-size: 40px;
-$nav-wrapper-breakpoint: 100px;
+$link-size: rem(40);
+$nav-wrapper-breakpoint: rem(100);
 
 :host {
   display: flex;
@@ -61,7 +62,7 @@ $nav-wrapper-breakpoint: 100px;
   padding: 0 var(--space-m);
   border-radius: var(--radius-xl);
 
-  font-size: var(--font-l);
+  font-size: var(--text-l);
   color: var(--color-text);
   text-decoration: none;
 
@@ -94,5 +95,5 @@ $nav-wrapper-breakpoint: 100px;
 }
 
 .icon {
-  width: 20px;
+  width: rem(20);
 }

@@ -2,7 +2,7 @@
 
 .as-split-gutter {
   z-index: var(--gutter-z-index) !important;
-  border-right: 1px solid var(--color-border);
+  border-right: var(--border);
   background-color: transparent !important;
 
   @include mix.hover {

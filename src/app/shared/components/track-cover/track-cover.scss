@@ -1,9 +1,11 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 @use 'utils';
 
 $play-only: false;
 $small-buttons: true;
 $active-brightness: 1.05;
+$button-size: rem(40);
 
 @mixin show-buttons($both: true) {
   $selector: if(sass($both): '.fav-btn,.play-btn' ; else: '.play-btn');
@@ -19,7 +21,7 @@ $active-brightness: 1.05;
     @if $small == true {
       .fav-btn,
       .play-btn {
-        --button-height: var(--size-m);
+        --button-height: #{$button-size};
       }
     }
     @include show-buttons($play-only);
@@ -93,8 +95,8 @@ $active-brightness: 1.05;
 
 .fav-btn,
 .play-btn {
-  --button-height: var(--size-m);
-  --button-icon-size: var(--font-m);
+  --button-height: #{$button-size};
+  --button-icon-size: var(--text-m);
 
   transform: translateY(25%) scale(1);
   opacity: 0;

@@ -5,8 +5,10 @@ import { ViewportService } from '@app/core/services/viewport/viewport-service';
 import { AngularSplitModule, SplitGutterInteractionEvent } from 'angular-split';
 import { Sidebar } from '../components/sidebar/sidebar';
 
+// TODO: adapt to 1 rem (?)
+
 const SidebarParams = {
-  MinWidthPx: 64,
+  MinWidthPx: 72,
   NormalWidthPx: 200,
   MaxWidthPx: 500,
   GutterWidthPx: 4,
