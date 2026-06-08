@@ -1,12 +1,10 @@
 :host {
-  --sprite-icon-color: currentcolor;
-  --sprite-icon-size: 16px;
-
   display: flex;
-  aspect-ratio: 1;
-  width: var(--sprite-icon-size);
 }
 
 .icon {
-  fill: var(--sprite-icon-color);
+  aspect-ratio: 1;
+  width: inherit;
+  height: inherit;
+  fill: currentcolor;
 }

@@ -1,6 +1,30 @@
+/* stylelint-disable scss/dollar-variable-empty-line-before */
+@use 'utils/funcs' as *;
+
 $bp-mobile: 640px;
 $bp-tablet: 768px;
 $bp-desktop: 1024px;
 $bp-wide: 1280px;
+
 $transition-duration: 250ms;
 $transition-func: ease;
+
+$scale-xs: rem(4);
+$scale-s: rem(8);
+$scale-m: rem(12);
+$scale-l: rem(16);
+$scale-xl: rem(24);
+$scale-2xl: rem(32);
+$scale-3xl: rem(48);
+$scale-4xl: rem(64);
+
+$text-3xs: rem(8);
+$text-2xs: rem(10);
+$text-xs: rem(12);
+$text-s: rem(14);
+$text-m: rem(16);
+$text-l: rem(18);
+$text-xl: rem(20);
+$text-2xl: rem(24);
+$text-3xl: rem(32);
+$text-4xl: rem(48);

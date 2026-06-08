@@ -1,12 +1,14 @@
 import { ChangeDetectionStrategy, Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { Header } from '@app/core/layouts/components/header/header';
-import { BreakpointService } from '@app/core/services/breakpoint/breakpoint-service';
+import { ViewportService } from '@app/core/services/viewport/viewport-service';
 import { AngularSplitModule, SplitGutterInteractionEvent } from 'angular-split';
 import { Sidebar } from '../components/sidebar/sidebar';
 
+// TODO: adapt to 1 rem (?)
+
 const SidebarParams = {
-  MinWidthPx: 64,
+  MinWidthPx: 72,
   NormalWidthPx: 200,
   MaxWidthPx: 500,
   GutterWidthPx: 4,
@@ -21,7 +23,7 @@ const SidebarParams = {
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class DesktopLayout {
-  protected breakpointService = inject(BreakpointService);
+  private readonly viewportService = inject(ViewportService);
 
   protected readonly gutterSize = SidebarParams.GutterWidthPx;
   protected readonly gutterDblClickDuration = SidebarParams.GutterDblClickDuration;
@@ -32,7 +34,7 @@ export class DesktopLayout {
 
   constructor() {
     effect(() => {
-      if (this.breakpointService.screenWidth() !== 'desktop') {
+      if (!this.viewportService.isDesktop()) {
         this.sidebarCurrentSize.set(SidebarParams.MinWidthPx);
       }
     });

@@ -1,4 +1,5 @@
 @use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
 @use 'utils';
 
 @mixin card-focus {
@@ -37,8 +38,8 @@
   flex-grow: 1;
 
   width: 100%;
-  padding: var(--padding-m);
-  border-radius: var(--border-radius-s);
+  padding: var(--space-m);
+  border-radius: var(--radius-s);
 
   &.playing {
     .duration {
@@ -61,14 +62,14 @@
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  margin-top: var(--padding-s);
+  margin-top: var(--space-s);
 }
 
 .stats {
   display: flex;
-  gap: 8px;
+  gap: var(--space-s);
   align-items: center;
-  margin-top: 6px;
+  margin-top: var(--space-s);
 
   @include hide-stats-no-hover;
 }
@@ -76,10 +77,10 @@
 .duration,
 .plays {
   width: fit-content;
-  padding: var(--padding-xs) 6px;
-  border-radius: var(--border-radius-s);
+  padding: var(--space-xs) rem(6);
+  border-radius: var(--radius-s);
 
-  font-size: 10px;
+  font-size: var(--text-2xs);
   line-height: 1;
   color: var(--color-text-muted);
 
@@ -98,9 +99,13 @@
 .artist {
   @extend %link;
 
-  width: fit-content;
-  padding: var(--padding-xs);
+  width: 100%;
+  padding: var(--space-xs);
   line-height: 1.2;
+}
+
+.artist {
+  @extend %ellipsis;
 }
 
 .name {

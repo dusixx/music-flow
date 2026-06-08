@@ -11,5 +11,7 @@ import { Sprite } from '@app/shared/components/sprite/sprite';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Sidebar {
-  protected authService = inject(AuthService);
+  private authService = inject(AuthService);
+
+  protected readonly isAuthenticated = this.authService.isAuthenticated;
 }

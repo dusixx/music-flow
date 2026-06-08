@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, DestroyRef, inject, model } from '@angular/core';
 import { NavigationEnd, Router, RouterLink, RouterLinkActive } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
-import { Button } from '@app/shared/directives/button/button';
+import { Button } from '@app/shared/components/button/button';
 
 @Component({
   selector: 'player-mobile-menu',
@@ -14,9 +14,11 @@ import { Button } from '@app/shared/directives/button/button';
   },
 })
 export class MobileMenu {
-  protected readonly authService = inject(AuthService);
+  private readonly authService = inject(AuthService);
   private readonly destroyRef = inject(DestroyRef);
   private readonly router = inject(Router);
+
+  protected readonly isAuthenticated = this.authService.isAuthenticated;
 
   open = model(false);
 

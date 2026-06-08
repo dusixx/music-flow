@@ -1,4 +1,4 @@
-import { DestroyRef, inject, Injectable, signal } from '@angular/core';
+import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { Breakpoint } from '@app/shared/constants';
 
 type ScreenWidth = Exclude<Lowercase<keyof typeof Breakpoint>, 'wide'>;
@@ -10,16 +10,18 @@ const MediaQuery = {
   CanHover: '(hover: hover) and (pointer: fine)',
 };
 
-// TODO: rename to ViewportService
-
 @Injectable({
   providedIn: 'root',
 })
-export class BreakpointService {
+export class ViewportService {
   private destroyRef = inject(DestroyRef);
 
   private _screenWidth = signal<ScreenWidth>('desktop');
   screenWidth = this._screenWidth.asReadonly();
+
+  isMobile = computed(() => this.screenWidth() === 'mobile');
+  isTablet = computed(() => this.screenWidth() === 'tablet');
+  isDesktop = computed(() => this.screenWidth() === 'desktop');
 
   private _canHover = signal(false);
   canHover = this._canHover.asReadonly();

@@ -1,5 +1,8 @@
 import { ChangeDetectionStrategy, Component, input } from '@angular/core';
-import { SPRITE_PATH } from '@app/shared/constants/misc';
+import { SPRITE_PATH } from '@app/shared/constants';
+
+const resolveIconPath = (pathOrId: string) =>
+  /[\\/]/.test(pathOrId) ? pathOrId : `${SPRITE_PATH}#${pathOrId}`;
 
 @Component({
   selector: 'player-sprite',
@@ -7,15 +10,7 @@ import { SPRITE_PATH } from '@app/shared/constants/misc';
   templateUrl: './sprite.html',
   styleUrl: './sprite.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  host: {
-    '[style.--sprite-icon-size]': 'size()',
-    '[style.--sprite-icon-color]': 'color()',
-  },
 })
 export class Sprite {
-  iconUrl = input('');
-  iconId = input('');
-  size = input('14px');
-  color = input('currentColor');
-  protected readonly spritePath = SPRITE_PATH;
+  icon = input.required({ transform: resolveIconPath });
 }
