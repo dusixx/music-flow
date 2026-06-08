@@ -67,23 +67,6 @@ export class AuthService {
     }
   }
 
-  // async register(email: string, password: string, displayName: string, birthday: string) {
-  //   try {
-  //     const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-  //     const uid = userCredential.user.uid;
-
-  //     await this.firestoreService.setData('users', uid, {
-  //       displayName,
-  //       birthday,
-  //       createdAt: serverTimestamp(),
-  //     });
-  //   } catch (error) {
-  //     this.handleError(error, 'register');
-  //     // TEMP: until global ErrorHandlerService is implemented
-  //     throw error;
-  //   }
-  // }
-
   async register(payload: RegisterPayload) {
     try {
       const userCredential = await createUserWithEmailAndPassword(
