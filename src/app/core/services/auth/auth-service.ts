@@ -68,24 +68,22 @@ export class AuthService {
   }
 
   async register(payload: RegisterPayload) {
+    const { email, password, displayName, birthday } = payload;
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        this.auth,
-        payload.email,
-        payload.password
-      );
-      const uid = userCredential.user.uid;
+      const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
+      const id = userCredential.user.uid;
 
       const userData: WithFieldValue<UserProfile> = {
-        displayName: payload.displayName,
+        id,
+        displayName,
         createdAt: serverTimestamp(),
       };
 
-      if (payload.birthday) {
-        userData.birthday = payload.birthday;
+      if (birthday) {
+        userData.birthday = birthday;
       }
 
-      await this.firestoreService.setData('users', uid, userData);
+      await this.firestoreService.setData('users', id, userData);
     } catch (error) {
       this.handleError(error, 'register');
       // TEMP: until ErrorHandlerService is implemented
