@@ -25,7 +25,4 @@ export type RegisterPayload = {
   password: string;
 } & Omit<UserProfile, 'createdAt' | 'id'>;
 
-// export type PlaylistPayload = { playlistId: string } & Playlist;
-
-// export type PlaylistPayload = Omit<Playlist, 'id'>;
 export type PlaylistPayload = { playlistId: string } & Omit<Playlist, 'id'>;
