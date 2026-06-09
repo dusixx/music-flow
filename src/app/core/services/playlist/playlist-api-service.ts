@@ -7,11 +7,12 @@ export class PlaylistApiService {
   private firestoreService = inject(FirestoreService);
 
   createPlaylist(payload: PlaylistPayload) {
-    const { playlistId, name, description, uid } = payload;
+    const { playlistId, name, description, uid, trackIds } = payload;
     return this.firestoreService.setData('playlists', playlistId, {
+      id: playlistId,
       name,
       description,
-      trackIds: [],
+      trackIds,
       uid,
     });
   }
