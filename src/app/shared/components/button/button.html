@@ -1,7 +1,9 @@
 @if (loading()) {
-  <img class="spinner" [src]="spinnerPath" alt="spinner" width="var(--button-spinner-size)" />
+  <img class="spinner" [src]="spinnerPath" alt="spinner" />
 }
 @if (icon()) {
   <player-sprite [icon]="icon()" class="icon" />
 }
-<ng-content />
+<div class="content">
+  <ng-content />
+</div>
