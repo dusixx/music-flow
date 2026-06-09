@@ -26,3 +26,5 @@ export type RegisterPayload = {
 } & Omit<UserProfile, 'createdAt' | 'id'>;
 
 export type PlaylistPayload = { playlistId: string } & Omit<Playlist, 'id'>;
+
+export type PlaylistDetailsPayload = Pick<Playlist, 'id' | 'name' | 'description'>;

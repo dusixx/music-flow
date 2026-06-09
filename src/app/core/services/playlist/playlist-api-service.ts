@@ -1,6 +1,6 @@
 import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore/firestore-service';
-import { PlaylistPayload } from '@app/shared/models/firestore.model';
+import { PlaylistPayload, PlaylistDetailsPayload } from '@app/shared/models/firestore.model';
 
 @Injectable()
 export class PlaylistApiService {
@@ -21,11 +21,9 @@ export class PlaylistApiService {
     return this.firestoreService.getDocsByUid('playlists', uid);
   }
 
-  updatePlaylistDetails(playlistId: string, name: string, description: string) {
-    return this.firestoreService.updateData('playlists', playlistId, {
-      name,
-      description,
-    });
+  updatePlaylistDetails(payload: PlaylistDetailsPayload) {
+    const { id, ...updates } = payload;
+    return this.firestoreService.updateData('playlists', id, updates);
   }
 
   updateTrackOrder(playlistId: string, newTrackIds: string[]) {
