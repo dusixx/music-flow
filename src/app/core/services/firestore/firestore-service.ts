@@ -15,9 +15,7 @@ import {
 } from 'firebase/firestore';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { firestoreDataConverter } from '@shared/utils/firestore-data-converter';
-import { CollectionRegistry } from '@shared/models/firestore.model';
-
-type CollectionName = keyof CollectionRegistry;
+import { CollectionName, CollectionRegistry } from '@shared/models/firestore.model';
 
 @Injectable({
   providedIn: 'root',

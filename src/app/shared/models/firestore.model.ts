@@ -28,3 +28,5 @@ export type RegisterPayload = {
 export type PlaylistPayload = { playlistId: string } & Omit<Playlist, 'id'>;
 
 export type PlaylistDetailsPayload = Pick<Playlist, 'id' | 'name' | 'description'>;
+
+export type CollectionName = keyof CollectionRegistry;
