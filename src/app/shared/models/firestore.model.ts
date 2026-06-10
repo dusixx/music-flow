@@ -20,13 +20,13 @@ export interface CollectionRegistry {
   playlists: Playlist;
 }
 
-export type RegisterPayload = {
+export type RegisterInput = {
   email: string;
   password: string;
 } & Omit<UserProfile, 'createdAt' | 'id'>;
 
-export type PlaylistPayload = { playlistId: string } & Omit<Playlist, 'id'>;
-
-export type PlaylistDetailsPayload = Pick<Playlist, 'id' | 'name' | 'description'>;
-
 export type CollectionName = keyof CollectionRegistry;
+
+export type CreatePlaylistInput = Omit<Playlist, 'id'>;
+
+export type UpdatePlaylistInput = Partial<Omit<Playlist, 'id'>>;

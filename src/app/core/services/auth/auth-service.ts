@@ -13,7 +13,7 @@ import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
 import { FirestoreService } from '../firestore/firestore-service';
-import { RegisterPayload, UserProfile } from '@shared/models/firestore.model';
+import { RegisterInput, UserProfile } from '@shared/models/firestore.model';
 
 type AuthState = 'loading' | 'auth' | 'guest';
 
@@ -67,23 +67,23 @@ export class AuthService {
     }
   }
 
-  async register(payload: RegisterPayload) {
-    const { email, password, displayName, birthday } = payload;
+  async register(input: RegisterInput) {
+    const { email, password, displayName, birthday } = input;
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
       const id = userCredential.user.uid;
 
-      const userData: WithFieldValue<UserProfile> = {
+      const UserProfile: WithFieldValue<UserProfile> = {
         id,
         displayName,
         createdAt: serverTimestamp(),
       };
 
       if (birthday) {
-        userData.birthday = birthday;
+        UserProfile.birthday = birthday;
       }
 
-      await this.firestoreService.setData('users', id, userData);
+      await this.firestoreService.setData('users', id, UserProfile);
     } catch (error) {
       this.handleError(error, 'register');
       // TEMP: until ErrorHandlerService is implemented
