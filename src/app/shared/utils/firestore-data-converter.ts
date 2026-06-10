@@ -12,11 +12,7 @@ export function firestoreDataConverter<T>(): FirestoreDataConverter<T> {
     },
 
     fromFirestore(snapshot: QueryDocumentSnapshot): T {
-      const data = snapshot.data();
-      return {
-        id: snapshot.id,
-        ...data,
-      } as T;
+      return snapshot.data() as T;
     },
   };
 }

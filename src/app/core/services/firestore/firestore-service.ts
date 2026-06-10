@@ -15,9 +15,7 @@ import {
 } from 'firebase/firestore';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { firestoreDataConverter } from '@shared/utils/firestore-data-converter';
-import { CollectionRegistry } from '@shared/models/firestore.model';
-
-type CollectionName = keyof CollectionRegistry;
+import { CollectionName, CollectionRegistry } from '@shared/models/firestore.model';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +23,7 @@ type CollectionName = keyof CollectionRegistry;
 export class FirestoreService {
   private db = getFirestore(firebaseApp);
 
-  generateId(colName: CollectionName): string {
+  generateId(colName: CollectionName) {
     return doc(collection(this.db, colName)).id;
   }
 
@@ -65,7 +63,7 @@ export class FirestoreService {
     return updateDoc(this.getDocRef(colName, docId), data);
   }
 
-  deleteDoc<K extends CollectionName>(colName: K, docId: string) {
+  deleteDoc(colName: CollectionName, docId: string) {
     return deleteDoc(this.getDocRef(colName, docId));
   }
 }

@@ -1,36 +1,23 @@
 import { Injectable, inject } from '@angular/core';
 import { FirestoreService } from '../firestore/firestore-service';
-import { PlaylistPayload } from '@app/shared/models/firestore.model';
+import { CreatePlaylistInput, UpdatePlaylistInput } from '@app/shared/models/firestore.model';
 
 @Injectable()
 export class PlaylistApiService {
   private firestoreService = inject(FirestoreService);
 
-  createPlaylist(payload: PlaylistPayload) {
-    const { playlistId, name, description, uid } = payload;
-    return this.firestoreService.setData('playlists', playlistId, {
-      name,
-      description,
-      trackIds: [],
-      uid,
-    });
-  }
-
   getUserPlaylists(uid: string) {
     return this.firestoreService.getDocsByUid('playlists', uid);
   }
 
-  updatePlaylistDetails(playlistId: string, name: string, description: string) {
-    return this.firestoreService.updateData('playlists', playlistId, {
-      name,
-      description,
-    });
+  async createPlaylist(input: CreatePlaylistInput) {
+    const id = crypto.randomUUID();
+    await this.firestoreService.setData('playlists', id, { ...input, id });
+    return id;
   }
 
-  updateTrackOrder(playlistId: string, newTrackIds: string[]) {
-    return this.firestoreService.updateData('playlists', playlistId, {
-      trackIds: newTrackIds,
-    });
+  updatePlaylist(playlistId: string, updates: UpdatePlaylistInput) {
+    return this.firestoreService.updateData('playlists', playlistId, updates);
   }
 
   deletePlaylist(playlistId: string) {
