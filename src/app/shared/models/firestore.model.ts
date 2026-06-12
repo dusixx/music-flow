@@ -1,13 +1,5 @@
-import { Timestamp } from 'firebase/firestore';
-
-export interface UserProfile {
-  displayName: string;
-  createdAt: Timestamp;
-  birthday?: string;
-}
-
 export interface Playlist {
-  id?: string;
+  id: string;
   name: string;
   description?: string;
   trackIds: string[];
@@ -15,13 +7,17 @@ export interface Playlist {
 }
 
 export interface CollectionRegistry {
-  users: UserProfile;
   playlists: Playlist;
 }
 
-export type RegisterPayload = {
+export interface RegisterInput {
   email: string;
   password: string;
-} & Omit<UserProfile, 'createdAt'>;
+  displayName: string;
+}
 
-export type PlaylistPayload = { playlistId: string } & Playlist;
+export type CollectionName = keyof CollectionRegistry;
+
+export type CreatePlaylistInput = Omit<Playlist, 'id'>;
+
+export type UpdatePlaylistInput = Partial<Omit<Playlist, 'id'>>;
