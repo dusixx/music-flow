@@ -7,13 +7,17 @@ import {
   signOut,
   User,
   createUserWithEmailAndPassword,
+  updateProfile,
+  verifyBeforeUpdateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  deleteUser,
 } from 'firebase/auth';
-import { serverTimestamp, WithFieldValue } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
-import { FirestoreService } from '../firestore/firestore-service';
-import { RegisterInput, UserProfile } from '@shared/models/firestore.model';
+import { RegisterInput } from '@shared/models/firestore.model';
 
 type AuthState = 'loading' | 'auth' | 'guest';
 
@@ -23,8 +27,6 @@ type AuthState = 'loading' | 'auth' | 'guest';
 export class AuthService {
   private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
-
-  private firestoreService = inject(FirestoreService);
 
   private _user = signal<User | null>(null);
   readonly user = this._user.asReadonly();
@@ -51,6 +53,24 @@ export class AuthService {
     });
   }
 
+  private getRequiredUser(): User {
+    const currentUser = this.auth.currentUser;
+    if (!currentUser) {
+      throw new Error('[AuthService] Operation requires an authenticated user.');
+    }
+    return currentUser;
+  }
+
+  private async reauthenticate(password: string): Promise<User> {
+    const user = this.getRequiredUser();
+    if (!user.email) {
+      throw new Error('[AuthService] User email is missing for reauthentication.');
+    }
+    const credential = EmailAuthProvider.credential(user.email, password);
+    await reauthenticateWithCredential(user, credential);
+    return user;
+  }
+
   async login(email: string, password: string) {
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
@@ -68,25 +88,55 @@ export class AuthService {
   }
 
   async register(input: RegisterInput) {
-    const { email, password, displayName, birthday } = input;
+    const { email, password, displayName } = input;
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      const id = userCredential.user.uid;
-
-      const UserProfile: WithFieldValue<UserProfile> = {
-        id,
-        displayName,
-        createdAt: serverTimestamp(),
-      };
-
-      if (birthday) {
-        UserProfile.birthday = birthday;
-      }
-
-      await this.firestoreService.setData('users', id, UserProfile);
+      await updateProfile(userCredential.user, { displayName });
     } catch (error) {
       this.handleError(error, 'register');
       // TEMP: until ErrorHandlerService is implemented
+      throw error;
+    }
+  }
+
+  async updateDisplayName(newName: string) {
+    try {
+      const user = this.getRequiredUser();
+      await updateProfile(user, { displayName: newName });
+      this._user.set({ ...user });
+    } catch (error) {
+      this.handleError(error, 'updateDisplayName');
+      throw error;
+    }
+  }
+
+  async updateEmail(newEmail: string, currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await verifyBeforeUpdateEmail(user, newEmail);
+      this._user.set({ ...user });
+    } catch (error) {
+      this.handleError(error, 'updateEmail');
+      throw error;
+    }
+  }
+
+  async updateUserPassword(newPassword: string, currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await updatePassword(user, newPassword);
+    } catch (error) {
+      this.handleError(error, 'updateUserPassword');
+      throw error;
+    }
+  }
+
+  async deleteAccount(currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await deleteUser(user);
+    } catch (error) {
+      this.handleError(error, 'deleteAccount');
       throw error;
     }
   }
