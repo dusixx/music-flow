@@ -12,7 +12,7 @@
   align-items: center;
 
   width: 100%;
-  height: rem(78);
+  height: rem(84);
   padding: 0 var(--space-xl);
 
   background-color: var(--color-bg);
@@ -23,9 +23,14 @@
     --button-bg: var(--color-accent-secondary);
 
     flex-shrink: 0;
+
     aspect-ratio: 1;
+
+    font-size: var(--text-m);
     font-weight: 600;
-    outline: rem(8) solid var(--color-border);
+    line-height: 0;
+
+    outline: rem(7) solid var(--color-border);
   }
 }
 
@@ -48,6 +53,7 @@
   --tui-text-secondary: var(--color-text);
 
   width: rem(500);
+  border-width: 2px;
   border-radius: var(--radius-xl);
   background-color: var(--color-surface);
 
