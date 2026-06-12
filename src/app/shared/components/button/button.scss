@@ -98,16 +98,6 @@ $focused-selector: ':not(#{$loading-selector})';
     --button-icon-indent: var(--space-xs);
   }
 
-  &.no-text {
-    --button-padding-side: 0;
-
-    aspect-ratio: 1;
-
-    .icon {
-      margin: 0;
-    }
-  }
-
   &#{$loading-selector} {
     pointer-events: none;
     color: transparent;
@@ -126,4 +116,18 @@ $focused-selector: ':not(#{$loading-selector})';
       opacity: 0;
     }
   }
+
+  &:has(.content:empty) {
+    --button-padding-side: 0;
+
+    aspect-ratio: 1;
+
+    .icon {
+      margin: 0;
+    }
+  }
+}
+
+.content:empty {
+  display: none;
 }

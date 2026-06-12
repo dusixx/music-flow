@@ -1,0 +1,24 @@
+name: "🔧 Refactor"
+description: "Code improvements without changing external behavior"
+title: "[REFACTOR] "
+labels: ["refactor"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "What needs to be refactored and why? (e.g., improve maintainability, replace hardcoded values)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: goals-scope
+    attributes:
+      label: "Goals / Scope"
+      description: "What exactly needs to be done? Use checkboxes to track your progress. Tip: For larger tasks, you can group them by module, e.g.: **Firestore Service:**"
+      placeholder: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: false
