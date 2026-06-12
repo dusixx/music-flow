@@ -23,4 +23,10 @@ export class PlaylistApiService {
   deletePlaylist(playlistId: string) {
     return this.firestoreService.deleteDoc('playlists', playlistId);
   }
+
+  async deleteAllUserPlaylists(uid: string) {
+    const playlists = await this.getUserPlaylists(uid);
+    const deletePromises = playlists.map((playlist) => this.deletePlaylist(playlist.id));
+    await Promise.all(deletePromises);
+  }
 }
