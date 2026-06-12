@@ -7,13 +7,12 @@ import {
   signOut,
   User,
   createUserWithEmailAndPassword,
+  updateProfile,
 } from 'firebase/auth';
-import { serverTimestamp, WithFieldValue } from 'firebase/firestore';
 import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
-import { FirestoreService } from '../firestore/firestore-service';
-import { RegisterInput, UserProfile } from '@shared/models/firestore.model';
+import { RegisterInput } from '@shared/models/firestore.model';
 
 type AuthState = 'loading' | 'auth' | 'guest';
 
@@ -23,8 +22,6 @@ type AuthState = 'loading' | 'auth' | 'guest';
 export class AuthService {
   private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
-
-  private firestoreService = inject(FirestoreService);
 
   private _user = signal<User | null>(null);
   readonly user = this._user.asReadonly();
@@ -68,22 +65,12 @@ export class AuthService {
   }
 
   async register(input: RegisterInput) {
-    const { email, password, displayName, birthday } = input;
+    const { email, password, displayName } = input;
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      const id = userCredential.user.uid;
-
-      const UserProfile: WithFieldValue<UserProfile> = {
-        id,
-        displayName,
-        createdAt: serverTimestamp(),
-      };
-
-      if (birthday) {
-        UserProfile.birthday = birthday;
-      }
-
-      await this.firestoreService.setData('users', id, UserProfile);
+      await updateProfile(userCredential.user, {
+        displayName: displayName,
+      });
     } catch (error) {
       this.handleError(error, 'register');
       // TEMP: until ErrorHandlerService is implemented
