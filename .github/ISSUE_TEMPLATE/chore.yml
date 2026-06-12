@@ -1,0 +1,24 @@
+name: "⚙️ Chore"
+description: "Routine tasks, maintenance, dependency updates, or tooling configuration"
+title: "[CHORE] "
+labels: ["chore"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Provide a description of the maintenance or routine task."
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks-checklist
+    attributes:
+      label: "Tasks / Checklist"
+      description: "What exactly needs to be done?"
+      placeholder: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: false

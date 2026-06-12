@@ -1,0 +1,24 @@
+name: "📝 Documentation"
+description: "Create, update, or improve project documentation"
+title: "[DOCS] "
+labels: ["docs"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "What needs to be documented or updated? (e.g., API changes, Setup guide, Architecture overview)"
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks-checklist
+    attributes:
+      label: "Tasks / Checklist"
+      description: "What exactly needs to be written or updated?"
+      placeholder: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: false

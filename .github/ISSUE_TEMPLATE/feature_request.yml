@@ -1,0 +1,33 @@
+name: "🚀 Feature"
+description: "Suggest a new idea or feature for the project"
+title: "[FEAT] "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: "Description"
+      description: "Provide a description of what the feature is and why it is needed."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "What must be working for this feature to be considered done?"
+      placeholder: |
+        - [ ]
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: design-attachments
+    attributes:
+      label: "Design / Attachments"
+      description: "Links, screenshots, or wireframes."
+      placeholder: "- Link: "
+    validations:
+      required: false

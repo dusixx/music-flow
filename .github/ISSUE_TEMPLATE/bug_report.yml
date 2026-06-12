@@ -1,0 +1,40 @@
+name: "🐞 Bug"
+description: "Report a reproducible bug or unexpected behavior"
+title: "[BUG] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: "Bug Description"
+      description: "Provide a description of what the bug is."
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected-behavior
+    attributes:
+      label: "Expected Behavior"
+      description: "Describe the expected result."
+    validations:
+      required: false
+
+  - type: textarea
+    id: steps-to-reproduce
+    attributes:
+      label: "Steps to Reproduce"
+      description: "Step-by-step instructions to reproduce the behavior."
+      placeholder: |
+        1. Go to '...'
+        2. Click on '...'
+        3. See error
+    validations:
+      required: false
+
+  - type: textarea
+    id: actual-behavior
+    attributes:
+      label: "Actual Behavior & Screenshots"
+      description: "What actually happens? Add screenshots or logs if applicable."
+    validations:
+      required: false
