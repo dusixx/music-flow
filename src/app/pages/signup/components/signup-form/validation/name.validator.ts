@@ -1,0 +1,24 @@
+import { SchemaPathTree, maxLength, minLength, pattern, required } from '@angular/forms/signals';
+import { Regex, ValidationMessage } from '@app/shared/constants/validation';
+import { SignupFormData } from '../signup-form.models';
+
+const NAME_MIN_LEN = 2;
+const NAME_MAX_LEN = 50;
+
+export const nameSchemaFn = (schemaPath: SchemaPathTree<SignupFormData>) => {
+  required(schemaPath.name, {
+    message: ValidationMessage.Required,
+  });
+  pattern(schemaPath.name, Regex.HasNoEdgeSpaces, {
+    message: ValidationMessage.NoEdgeSpaces,
+  });
+  minLength(schemaPath.name, NAME_MIN_LEN, {
+    message: ValidationMessage.MinLen(NAME_MIN_LEN),
+  });
+  maxLength(schemaPath.name, NAME_MAX_LEN, {
+    message: ValidationMessage.MinLen(NAME_MAX_LEN),
+  });
+  pattern(schemaPath.name, Regex.HasFirstLetter, {
+    message: ValidationMessage.FirstLetter,
+  });
+};
