@@ -8,6 +8,11 @@ import {
   User,
   createUserWithEmailAndPassword,
   updateProfile,
+  verifyBeforeUpdateEmail,
+  updatePassword,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  deleteUser,
 } from 'firebase/auth';
 import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
@@ -48,6 +53,24 @@ export class AuthService {
     });
   }
 
+  private getRequiredUser(): User {
+    const currentUser = this.auth.currentUser;
+    if (!currentUser) {
+      throw new Error('[AuthService] Operation requires an authenticated user.');
+    }
+    return currentUser;
+  }
+
+  private async reauthenticate(password: string): Promise<User> {
+    const user = this.getRequiredUser();
+    if (!user.email) {
+      throw new Error('[AuthService] User email is missing for reauthentication.');
+    }
+    const credential = EmailAuthProvider.credential(user.email, password);
+    await reauthenticateWithCredential(user, credential);
+    return user;
+  }
+
   async login(email: string, password: string) {
     try {
       await signInWithEmailAndPassword(this.auth, email, password);
@@ -68,12 +91,52 @@ export class AuthService {
     const { email, password, displayName } = input;
     try {
       const userCredential = await createUserWithEmailAndPassword(this.auth, email, password);
-      await updateProfile(userCredential.user, {
-        displayName: displayName,
-      });
+      await updateProfile(userCredential.user, { displayName });
     } catch (error) {
       this.handleError(error, 'register');
       // TEMP: until ErrorHandlerService is implemented
+      throw error;
+    }
+  }
+
+  async updateDisplayName(newName: string) {
+    try {
+      const user = this.getRequiredUser();
+      await updateProfile(user, { displayName: newName });
+      this._user.set({ ...user });
+    } catch (error) {
+      this.handleError(error, 'updateDisplayName');
+      throw error;
+    }
+  }
+
+  async updateEmail(newEmail: string, currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await verifyBeforeUpdateEmail(user, newEmail);
+      this._user.set({ ...user });
+    } catch (error) {
+      this.handleError(error, 'updateEmail');
+      throw error;
+    }
+  }
+
+  async updateUserPassword(newPassword: string, currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await updatePassword(user, newPassword);
+    } catch (error) {
+      this.handleError(error, 'updateUserPassword');
+      throw error;
+    }
+  }
+
+  async deleteAccount(currentPassword: string) {
+    try {
+      const user = await this.reauthenticate(currentPassword);
+      await deleteUser(user);
+    } catch (error) {
+      this.handleError(error, 'deleteAccount');
       throw error;
     }
   }
