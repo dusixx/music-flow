@@ -1,6 +1,6 @@
 import { SchemaPathTree, validate } from '@angular/forms/signals';
 import { ValidationMessage } from '@app/shared/constants/validation';
-import { SignupFormData } from '../signup-form.models';
+import { SignupFormData } from '../signup.models';
 
 export const confirmPasswordSchemaFn = (schemaPath: SchemaPathTree<SignupFormData>) => {
   validate(schemaPath.confirmPassword, ({ value, valueOf }) => {
