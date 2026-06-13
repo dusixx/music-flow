@@ -56,9 +56,11 @@ export class Signup {
       this.signupForm().markAsTouched();
       return;
     }
-    const formData = this.signupModel();
-    formData.name = formData.name.replace(/\s+/g, ' ');
+    this.signupModel.update((data) => ({
+      ...data,
+      name: data.name.replace(/\s+/g, ' '),
+    }));
     this.errorResetter.markAsSubmitted();
-    this.register(formData);
+    this.register(this.signupModel());
   }
 }
