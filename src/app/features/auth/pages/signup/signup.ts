@@ -7,13 +7,12 @@ import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
-import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
 import { SIGNUP_INITIAL_MODEL, SignupFormData } from '../../shared/models/auth.models';
 import { signupSchemaFn } from './schemas/signup.schema';
 
 @Component({
   selector: 'player-signup',
-  imports: [Button, TuiInput, TuiError, TuiDropdown, FormTextfield, Sprite, RouterLink],
+  imports: [Button, FormTextfield, Sprite, RouterLink],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

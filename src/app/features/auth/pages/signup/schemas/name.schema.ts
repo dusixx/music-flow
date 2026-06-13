@@ -18,6 +18,6 @@ export const nameSchemaFn = (schemaPath: SchemaPathTree<{ name: string }>) => {
     message: ValidationMessage.MinLen(NAME_MIN_LEN),
   });
   maxLength(schemaPath.name, NAME_MAX_LEN, {
-    message: ValidationMessage.MinLen(NAME_MAX_LEN),
+    message: ValidationMessage.MaxLen(NAME_MAX_LEN),
   });
 };

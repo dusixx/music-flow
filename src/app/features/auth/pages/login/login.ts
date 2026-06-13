@@ -6,14 +6,13 @@ import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
-import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
 import { LOGIN_INITIAL_MODEL, LoginFormData } from '../../shared/models/auth.models';
 import { useServerErrorResetter } from '../../shared/utils/server-error-resetter';
 import { loginSchemaFn } from './schemas/login.schema';
 
 @Component({
   selector: 'player-login',
-  imports: [Button, TuiInput, TuiError, TuiDropdown, FormTextfield, Sprite, RouterLink],
+  imports: [Button, FormTextfield, Sprite, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -36,7 +35,7 @@ export class Login {
     error: this.error,
   });
 
-  async login({ email, password }: LoginFormData) {
+  private async login({ email, password }: LoginFormData) {
     this.loading.set(true);
     try {
       await this.authService.login(email, password);

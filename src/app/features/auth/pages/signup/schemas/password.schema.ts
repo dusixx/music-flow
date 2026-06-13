@@ -24,6 +24,6 @@ export const passwordSchemaFn = (schemaPath: SchemaPathTree<{ password: string }
     message: ValidationMessage.MinLen(PASSWORD_MIN_LEN),
   });
   maxLength(schemaPath.password, PASSWORD_MAX_LEN, {
-    message: ValidationMessage.MinLen(PASSWORD_MAX_LEN),
+    message: ValidationMessage.MaxLen(PASSWORD_MAX_LEN),
   });
 };

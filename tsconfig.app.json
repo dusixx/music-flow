@@ -11,6 +11,8 @@
       "@public": ["./public"],
       "@app/*": ["./src/app/*"],
       "@app": ["./src/app"],
+      "@features/*": ["./src/app/features/*"],
+      "@features": ["./src/app/features"],
       "@shared/*": ["./src/app/shared/*"],
       "@shared": ["./src/app/shared"],
       "@utils/*": ["./src/app/shared/utils/*"],
