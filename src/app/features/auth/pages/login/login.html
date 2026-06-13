@@ -1,7 +1,34 @@
-<button
-  playerButton
-  (click)="onClick()"
-  [style.visibility]="authService.isAuthenticated() ? 'hidden' : 'visible'"
->
-  Click to finish
-</button>
+<div class="form-wrapper">
+  <h2 class="title">{{ title() }}</h2>
+
+  <form novalidate (submit)="onSubmit($event)" class="form">
+    <player-form-textfield
+      [formField]="loginForm.email"
+      [invalid]="loginForm.email().touched() && loginForm.email().invalid()"
+      placeholder="Email"
+    />
+    <player-form-textfield
+      type="password"
+      [formField]="loginForm.password"
+      [invalid]="loginForm.password().touched() && loginForm.password().invalid()"
+      placeholder="Password"
+    />
+    @if (error()) {
+      <div class="server-error">
+        <player-sprite icon="error-outlined" class="icon" />
+        <p>{{ error() }}</p>
+      </div>
+    }
+    <button
+      playerButton
+      type="submit"
+      class="submit"
+      variant="secondary"
+      [loading]="loading()"
+      [disabled]="!!error()"
+    >
+      {{ submitText() }}
+    </button>
+  </form>
+  <a class="hint" routerLink="/signup">Create Account</a>
+</div>

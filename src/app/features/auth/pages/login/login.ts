@@ -1,11 +1,19 @@
-import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { form } from '@angular/forms/signals';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
 import { Button } from '@app/shared/components/button/button';
+import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
+import { Sprite } from '@app/shared/components/sprite/sprite';
+import { getErrorMessage } from '@app/shared/utils/error.utils';
+import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
+import { LOGIN_INITIAL_MODEL, LoginFormData } from '../../shared/models/auth.models';
+import { getServerErrorResetter } from '../../shared/utils/server-error-resetter';
+import { loginSchemaFn } from './schemas/login.schema';
 
 @Component({
   selector: 'player-login',
-  imports: [Button],
+  imports: [Button, TuiInput, TuiError, TuiDropdown, FormTextfield, Sprite, RouterLink],
   templateUrl: './login.html',
   styleUrl: './login.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -14,12 +22,41 @@ export class Login {
   protected authService = inject(AuthService);
   private readonly router = inject(Router);
 
-  // FIXME: remove temporary creds once the login form is integrated
-  private email = 'user1@example.com';
-  private password = 'Password123!';
+  title = input('Sign In');
+  submitText = input('Login');
 
-  onClick() {
-    this.router.navigateByUrl('/');
-    this.authService.login(this.email, this.password);
+  protected error = signal('');
+  protected loading = signal(false);
+
+  protected loginModel = signal<LoginFormData>(LOGIN_INITIAL_MODEL);
+  protected loginForm = form(this.loginModel, loginSchemaFn);
+
+  private errorResetter = getServerErrorResetter({
+    formModel: this.loginModel,
+    error: this.error,
+    clearError: () => this.error.set(''),
+  });
+
+  async login({ email, password }: LoginFormData) {
+    this.loading.set(true);
+    try {
+      await this.authService.login(email, password);
+      this.router.navigate(['/']);
+    } catch (error) {
+      this.error.set(getErrorMessage(error));
+    } finally {
+      this.loading.set(false);
+    }
+  }
+
+  protected onSubmit(event: Event) {
+    event.preventDefault();
+
+    if (!this.loginForm().valid()) {
+      this.loginForm().markAsTouched();
+      return;
+    }
+    this.errorResetter.markAsSubmitted();
+    this.login(this.loginModel());
   }
 }
