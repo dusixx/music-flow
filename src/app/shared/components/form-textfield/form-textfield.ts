@@ -29,6 +29,7 @@ export class FormTextfield {
   showErrorIcon = input(false);
   type = input('text');
   placeholder = input('');
+  autocomplete = input<'on' | 'off'>('off');
 
   protected passwordInput = computed(() => this.type() === 'password');
 }

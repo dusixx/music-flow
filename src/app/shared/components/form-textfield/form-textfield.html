@@ -5,7 +5,13 @@
   playerTextfieldOverrides
   [invalid]="invalid()"
 >
-  <input [type]="type()" [placeholder]="placeholder()" tuiInput [formField]="formField()" />
+  <input
+    [type]="type()"
+    [placeholder]="placeholder()"
+    tuiInput
+    [formField]="formField()"
+    [autocomplete]="autocomplete()"
+  />
 
   @let fieldState = formField();
   @let error = fieldState().errors().at(0)?.message;
