@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
-import { Router } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
 import { getServerErrorResetter } from '@app/features/auth/shared/utils/server-error-resetter';
 import { Button } from '@app/shared/components/button/button';
@@ -9,11 +9,11 @@ import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
 import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
 import { SIGNUP_INITIAL_MODEL, SignupFormData } from '../../shared/models/auth.models';
-import { signupFormSchemaFn } from './validators/signup-form.validator';
+import { signupSchemaFn } from './schemas/signup.schema';
 
 @Component({
   selector: 'player-signup',
-  imports: [Button, TuiInput, TuiError, TuiDropdown, FormTextfield, Sprite],
+  imports: [Button, TuiInput, TuiError, TuiDropdown, FormTextfield, Sprite, RouterLink],
   templateUrl: './signup.html',
   styleUrl: './signup.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,7 +29,7 @@ export class Signup {
   protected loading = signal(false);
 
   protected signupModel = signal<SignupFormData>(SIGNUP_INITIAL_MODEL);
-  protected signupForm = form(this.signupModel, signupFormSchemaFn);
+  protected signupForm = form(this.signupModel, signupSchemaFn);
 
   private errorResetter = getServerErrorResetter({
     formModel: this.signupModel,
@@ -58,7 +58,9 @@ export class Signup {
       this.signupForm().markAsTouched();
       return;
     }
+    const formData = this.signupModel();
+    formData.name = formData.name.replace(/\s+/g, ' ');
     this.errorResetter.markAsSubmitted();
-    this.register(this.signupModel());
+    this.register(formData);
   }
 }

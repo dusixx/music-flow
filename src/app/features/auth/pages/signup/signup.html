@@ -21,7 +21,7 @@
     <player-form-textfield
       type="password"
       [formField]="signupForm.confirmPassword"
-      [invalid]="signupForm.confirmPassword().invalid()"
+      [invalid]="signupForm.confirmPassword().touched() && signupForm.confirmPassword().invalid()"
       placeholder="Password again"
     />
     @if (error()) {
@@ -41,4 +41,8 @@
       {{ submitText() }}
     </button>
   </form>
+  <div class="hint">
+    <span class="message">Already registered?</span>
+    <a class="link" routerLink="/login">Log In</a>
+  </div>
 </div>

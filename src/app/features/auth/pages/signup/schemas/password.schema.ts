@@ -1,11 +1,10 @@
 import { SchemaPathTree, maxLength, minLength, pattern, required } from '@angular/forms/signals';
 import { Regex, ValidationMessage } from '@app/shared/constants/validation';
-import { SignupFormData } from '../../../shared/models/auth.models';
 
 const PASSWORD_MIN_LEN = 6;
 const PASSWORD_MAX_LEN = 15;
 
-export const passwordSchemaFn = (schemaPath: SchemaPathTree<SignupFormData>) => {
+export const passwordSchemaFn = (schemaPath: SchemaPathTree<{ password: string }>) => {
   required(schemaPath.password, {
     message: ValidationMessage.Required,
   });
