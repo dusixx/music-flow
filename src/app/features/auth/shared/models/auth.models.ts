@@ -3,7 +3,7 @@ export interface LoginFormData {
   password: string;
 }
 
-export const LOGIN: LoginFormData = {
+export const LOGIN_INITIAL_MODEL: LoginFormData = {
   email: '',
   password: '',
 };
