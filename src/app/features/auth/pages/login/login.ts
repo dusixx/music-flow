@@ -34,7 +34,6 @@ export class Login {
   private errorResetter = getServerErrorResetter({
     formModel: this.loginModel,
     error: this.error,
-    clearError: () => this.error.set(''),
   });
 
   async login({ email, password }: LoginFormData) {

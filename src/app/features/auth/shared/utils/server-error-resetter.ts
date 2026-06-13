@@ -1,17 +1,16 @@
-import { effect, Signal } from '@angular/core';
+import { effect, Signal, WritableSignal } from '@angular/core';
 
 interface ResetterProps {
   formModel: Signal<unknown>;
-  error: Signal<string>;
-  clearError: () => void;
+  error: WritableSignal<string>;
 }
 
-export const getServerErrorResetter = ({ formModel, error, clearError }: ResetterProps) => {
+export const getServerErrorResetter = ({ formModel, error }: ResetterProps) => {
   let lastSubmittedSnapshot = '';
 
   effect(() => {
     if (error() && lastSubmittedSnapshot !== JSON.stringify(formModel())) {
-      clearError();
+      error.set('');
     }
   });
   return {

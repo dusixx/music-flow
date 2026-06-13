@@ -34,7 +34,6 @@ export class Signup {
   private errorResetter = getServerErrorResetter({
     formModel: this.signupModel,
     error: this.error,
-    clearError: () => this.error.set(''),
   });
 
   async register(data: SignupFormData) {
