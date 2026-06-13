@@ -37,8 +37,6 @@ export class Header {
     if (!user) {
       return;
     }
-    console.debug('computed', user.displayName);
-
     const name = user.displayName || user.email;
     return name && name[0].toLocaleUpperCase();
   });
