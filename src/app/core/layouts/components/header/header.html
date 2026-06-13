@@ -14,7 +14,7 @@
       ></button>
     } @else if (isAuthenticated()) {
       <button playerButton variant="secondary" class="profile-btn" size="small" (click)="logout()">
-        {{ null }}
+        {{ userNameInitial() }}
       </button>
     } @else {
       <button
