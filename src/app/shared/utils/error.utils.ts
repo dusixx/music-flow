@@ -4,12 +4,12 @@ import { capitalize } from './string.utils';
 
 export const getErrorMessage = (error: unknown): string => {
   if (error instanceof FirebaseError) {
-    return parseFirebaseErrorCode(error);
+    return createReadableFirebaseError(error);
   }
   return hasOwnKeys<Error>(error, 'message') ? error.message : String(error);
 };
 
-export const parseFirebaseErrorCode = (error: FirebaseError): string => {
+export const createReadableFirebaseError = (error: FirebaseError): string => {
   const [, code] = error.code.split('/');
   const message = code
     .split('-')

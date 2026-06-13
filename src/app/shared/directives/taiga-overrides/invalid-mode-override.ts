@@ -3,12 +3,12 @@ import { afterNextRender, DestroyRef, Directive, ElementRef, inject, input } fro
 const MODE_ATTR_NAME = 'data-mode';
 
 @Directive({
-  selector: '[playerTextfieldOverrides]',
+  selector: '[playerTuiInvalidModeOverride]',
   host: {
     '[attr.data-mode]': 'invalid() ? "invalid" : null',
   },
 })
-export class TextfieldOverrides {
+export class TaigaInvalidModeOverride {
   private destroyRef = inject(DestroyRef);
   private host = inject<ElementRef<HTMLElement>>(ElementRef);
 

@@ -1,7 +1,6 @@
 import { Component, computed, input } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
-import { TextfieldOverrides } from '@app/shared/directives/textfield-overrides/textfield-overrides';
-import { TuiNativeValidator } from '@taiga-ui/cdk/directives/native-validator';
+import { TaigaInvalidModeOverride } from '@app/shared/directives/taiga-overrides/invalid-mode-override';
 import { TuiButtonX, TuiDropdown, TuiError, TuiIcon, TuiInput } from '@taiga-ui/core';
 import { TuiPassword } from '@taiga-ui/kit';
 import { Sprite } from '../sprite/sprite';
@@ -15,8 +14,7 @@ import { Sprite } from '../sprite/sprite';
     TuiPassword,
     TuiButtonX,
     TuiError,
-    TuiNativeValidator,
-    TextfieldOverrides,
+    TaigaInvalidModeOverride,
     TuiDropdown,
     Sprite,
   ],
