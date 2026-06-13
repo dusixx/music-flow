@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { form } from '@angular/forms/signals';
 import { Router } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
+import { getServerErrorResetter } from '@app/features/auth/shared/utils/server-error-resetter';
 import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
-import { getServerErrorResetter } from '@app/shared/utils/form.utils';
 import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
-import { INITIAL_MODEL, SignupFormData } from './signup.models';
+import { SIGNUP_INITIAL_MODEL, SignupFormData } from '../../shared/models/auth.models';
 import { signupFormSchemaFn } from './validators/signup-form.validator';
 
 @Component({
@@ -28,7 +28,7 @@ export class Signup {
   protected error = signal('');
   protected loading = signal(false);
 
-  protected signupModel = signal<SignupFormData>(INITIAL_MODEL);
+  protected signupModel = signal<SignupFormData>(SIGNUP_INITIAL_MODEL);
   protected signupForm = form(this.signupModel, signupFormSchemaFn);
 
   private errorResetter = getServerErrorResetter({

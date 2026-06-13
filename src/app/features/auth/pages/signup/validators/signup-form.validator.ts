@@ -1,5 +1,5 @@
 import { SchemaPathTree } from '@angular/forms/signals';
-import { SignupFormData } from '../signup.models';
+import { SignupFormData } from '../../../shared/models/auth.models';
 import { confirmPasswordSchemaFn } from './confirm-password.validator';
 import { emailSchemaFn } from './email.validator';
 import { nameSchemaFn } from './name.validator';

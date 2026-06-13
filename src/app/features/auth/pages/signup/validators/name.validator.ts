@@ -1,6 +1,6 @@
 import { SchemaPathTree, maxLength, minLength, pattern, required } from '@angular/forms/signals';
 import { Regex, ValidationMessage } from '@app/shared/constants/validation';
-import { SignupFormData } from '../signup.models';
+import { SignupFormData } from '../../../shared/models/auth.models';
 
 const NAME_MIN_LEN = 2;
 const NAME_MAX_LEN = 50;
