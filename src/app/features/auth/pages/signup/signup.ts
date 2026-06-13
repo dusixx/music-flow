@@ -2,7 +2,7 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { form } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
-import { getServerErrorResetter } from '@app/features/auth/shared/utils/server-error-resetter';
+import { useServerErrorResetter } from '@app/features/auth/shared/utils/server-error-resetter';
 import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
@@ -31,7 +31,7 @@ export class Signup {
   protected signupModel = signal<SignupFormData>(SIGNUP_INITIAL_MODEL);
   protected signupForm = form(this.signupModel, signupSchemaFn);
 
-  private errorResetter = getServerErrorResetter({
+  private errorResetter = useServerErrorResetter({
     formModel: this.signupModel,
     error: this.error,
   });

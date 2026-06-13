@@ -8,7 +8,7 @@ import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
 import { TuiDropdown, TuiError, TuiInput } from '@taiga-ui/core';
 import { LOGIN_INITIAL_MODEL, LoginFormData } from '../../shared/models/auth.models';
-import { getServerErrorResetter } from '../../shared/utils/server-error-resetter';
+import { useServerErrorResetter } from '../../shared/utils/server-error-resetter';
 import { loginSchemaFn } from './schemas/login.schema';
 
 @Component({
@@ -31,7 +31,7 @@ export class Login {
   protected loginModel = signal<LoginFormData>(LOGIN_INITIAL_MODEL);
   protected loginForm = form(this.loginModel, loginSchemaFn);
 
-  private errorResetter = getServerErrorResetter({
+  private errorResetter = useServerErrorResetter({
     formModel: this.loginModel,
     error: this.error,
   });

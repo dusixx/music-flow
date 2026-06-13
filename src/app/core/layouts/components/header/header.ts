@@ -35,10 +35,10 @@ export class Header {
   protected userNameInitial = computed(() => {
     const user = this.authService.user();
     if (!user) {
-      return;
+      return '';
     }
     const name = user.displayName || user.email;
-    return name && name[0].toLocaleUpperCase();
+    return name ? name[0].toLocaleUpperCase() : '';
   });
 
   logout() {

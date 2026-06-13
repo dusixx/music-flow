@@ -10,12 +10,12 @@ export const guestGuard: CanActivateFn = () => {
   const authState = authService.authState;
 
   if (authState() !== 'loading') {
-    return authState() === 'guest' ? true : router.createUrlTree(['/']);
+    return authState() === 'guest' || router.createUrlTree(['/']);
   }
 
   return toObservable(authState).pipe(
     filter((state) => state !== 'loading'),
     take(1),
-    map((state) => (state === 'guest' ? true : router.createUrlTree(['/'])))
+    map((state) => state === 'guest' || router.createUrlTree(['/']))
   );
 };

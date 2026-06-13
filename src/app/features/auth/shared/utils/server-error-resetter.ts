@@ -5,7 +5,7 @@ interface ResetterProps {
   error: WritableSignal<string>;
 }
 
-export const getServerErrorResetter = ({ formModel, error }: ResetterProps) => {
+export const useServerErrorResetter = ({ formModel, error }: ResetterProps) => {
   let lastSubmittedSnapshot = '';
 
   effect(() => {
