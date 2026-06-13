@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  computed,
   ElementRef,
   inject,
   model,
@@ -30,6 +31,17 @@ export class Header {
   private menuButton = viewChild.required<ElementRef<HTMLButtonElement>>('menuButton');
   protected searchQuery = '';
   menuOpen = model(false);
+
+  protected userNameInitial = computed(() => {
+    const user = this.authService.user();
+    if (!user) {
+      return;
+    }
+    console.debug('computed', user.displayName);
+
+    const name = user.displayName || user.email;
+    return name && name[0].toLocaleUpperCase();
+  });
 
   logout() {
     this.authService.logout();
