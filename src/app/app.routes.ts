@@ -20,12 +20,12 @@ export const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('@pages/login/login').then((m) => m.Login),
+    loadComponent: () => import('@app/pages/auth/login/login').then((m) => m.Login),
     canActivate: [guestGuard],
   },
   {
     path: 'signup',
-    loadComponent: () => import('@pages/signup/signup').then((m) => m.Signup),
+    loadComponent: () => import('@app/pages/auth/signup/signup').then((m) => m.Signup),
     canActivate: [guestGuard],
   },
   {

@@ -76,6 +76,7 @@ export class AuthService {
       await signInWithEmailAndPassword(this.auth, email, password);
     } catch (error) {
       this.handleError(error, 'login');
+      throw error;
     }
   }
 
@@ -84,6 +85,7 @@ export class AuthService {
       await signOut(this.auth);
     } catch (error) {
       this.handleError(error, 'logout');
+      throw error;
     }
   }
 

@@ -1,0 +1,34 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<tui-textfield
+  class="text-field"
+  [tuiTextfieldCleaner]="false"
+  playerTuiInvalidModeOverride
+  [invalid]="invalid()"
+>
+  <input
+    [type]="type()"
+    [placeholder]="placeholder()"
+    tuiInput
+    [formField]="formField()"
+    [autocomplete]="autocomplete()"
+  />
+
+  @let fieldState = formField();
+  @let error = fieldState().errors().at(0)?.message;
+
+  @if (fieldState().value()) {
+    <button tabindex="-1" tuiButtonX (click)="fieldState().value.set('')"></button>
+  }
+  @if (passwordInput()) {
+    <tui-icon tuiPassword />
+  }
+</tui-textfield>
+
+@if (invalid() && error) {
+  <div class="error">
+    @if (showErrorIcon()) {
+      <player-sprite icon="error-outlined" class="icon" />
+    }
+    <p class="message" [title]="error">{{ error }}</p>
+  </div>
+}

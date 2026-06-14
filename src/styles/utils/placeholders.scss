@@ -25,6 +25,20 @@
   }
 }
 
+%link-inverse {
+  color: var(--color-text-muted);
+  text-decoration: none;
+
+  @include mix.main-transition('color');
+
+  @include mix.hover {
+    color: var(--color-text);
+  }
+  @include mix.focus-visible {
+    color: var(--color-text);
+  }
+}
+
 %button {
   cursor: pointer;
   user-select: none;
