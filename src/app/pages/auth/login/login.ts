@@ -6,9 +6,9 @@ import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
-import { LOGIN_INITIAL_MODEL, LoginFormData } from '../../shared/models/auth.models';
-import { useServerErrorResetter } from '../../shared/utils/server-error-resetter';
-import { loginSchemaFn } from './schemas/login.schema';
+import { useServerErrorResetter } from '../form/utils/server-error-resetter';
+import { loginSchemaFn } from './login.schema';
+import { LoginFormData, LOGIN_INITIAL_MODEL } from '../form/models/login.model';
 
 @Component({
   selector: 'player-login',

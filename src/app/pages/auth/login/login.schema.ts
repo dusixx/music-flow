@@ -1,7 +1,7 @@
 import { required, SchemaPathTree } from '@angular/forms/signals';
 import { ValidationMessage } from '@app/shared/constants/validation';
-import { LoginFormData } from '@features/auth/shared/models/auth.models';
-import { emailSchemaFn } from '@features/auth/shared/schemas/email.schema';
+import { emailSchemaFn } from '@app/pages/auth/form/schemas/email.schema';
+import { LoginFormData } from '../form/models/login.model';
 
 export const loginSchemaFn = (schemaPath: SchemaPathTree<LoginFormData>) => {
   emailSchemaFn(schemaPath);

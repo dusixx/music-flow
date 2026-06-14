@@ -2,13 +2,13 @@ import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angu
 import { form } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
-import { useServerErrorResetter } from '@app/features/auth/shared/utils/server-error-resetter';
+import { useServerErrorResetter } from '@app/pages/auth/form/utils/server-error-resetter';
 import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
-import { SIGNUP_INITIAL_MODEL, SignupFormData } from '../../shared/models/auth.models';
-import { signupSchemaFn } from './schemas/signup.schema';
+import { SIGNUP_INITIAL_MODEL, SignupFormData } from '../form/models/signup.model';
+import { signupSchemaFn } from './signup.schema';
 
 @Component({
   selector: 'player-signup',
