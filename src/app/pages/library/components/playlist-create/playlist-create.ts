@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
 import { form, FormField } from '@angular/forms/signals';
 import { AuthService } from '@core/services/auth/auth-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
-import { CreatePlaylistInput } from '@shared/models/firestore.model';
 import { Button } from '@shared/components/button/button';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { PlaylistFormData } from '@shared/models/playlist.model';
@@ -70,7 +69,7 @@ export class PlaylistCreate {
     if (!uid) return;
     const { name, description } = data;
     this.isLoading.set(true);
-    const newPlaylistData: CreatePlaylistInput = {
+    const newPlaylistData = {
       name: name.trim(),
       description: description?.trim() || undefined,
       trackIds: [],
