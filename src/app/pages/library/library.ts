@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component, signal, inject } from '@angular/cor
 import { Router, RouterOutlet, NavigationEnd } from '@angular/router';
 import { toSignal } from '@angular/core/rxjs-interop';
 import { filter, map } from 'rxjs';
+import { Dialog } from '@shared/components/dialog/dialog';
 import { PlaylistCreate } from './components/playlist-create/playlist-create';
-import { Dialog } from '@app/shared/components/dialog/dialog';
 
 @Component({
   selector: 'player-library',

@@ -11,6 +11,5 @@ import { TuiDialog } from '@taiga-ui/core';
 export class Dialog {
   isOpen = input.required<boolean>();
   protected title = input('');
-
   protected closeDialog = output<void>();
 }
