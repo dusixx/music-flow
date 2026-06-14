@@ -16,7 +16,6 @@ export class Library {
   private router = inject(Router);
   protected isModalOpen = signal(false);
 
-  // protected isChildRouteActive = computed(() => !this.router.url.includes('playlist'));
   protected isChildRouteActive = toSignal(
     this.router.events.pipe(
       filter((event): event is NavigationEnd => event instanceof NavigationEnd),

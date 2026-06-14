@@ -14,17 +14,3 @@ tui-dialog [data-appearance~='icon'] {
     color: var(--color-text);
   }
 }
-
-// tui-dialog [tuiButtonX] {
-//   --t-bg: transparent !important;
-//   background: transparent !important;
-//   color: var(--color-text-muted) !important;
-//   top: var(--space-l) !important;
-//   right: var(--space-l) !important;
-//   @include mix.main-transition('color');
-//   @include mix.hover {
-//     color: var(--color-text) !important;
-//     --t-bg: transparent !important;
-//     background: transparent !important;
-//   }
-// }
