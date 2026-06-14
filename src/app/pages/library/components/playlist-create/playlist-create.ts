@@ -8,25 +8,19 @@ import {
   output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { form, FormField, maxLength, required } from '@angular/forms/signals';
+import { form, FormField } from '@angular/forms/signals';
 import { AuthService } from '@core/services/auth/auth-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { CreatePlaylistInput } from '@shared/models/firestore.model';
 import { Button } from '@shared/components/button/button';
-import { Sprite } from '@app/shared/components/sprite/sprite';
-
-interface PlaylistFormData {
-  name: string;
-  description: string;
-}
-
-const PLAYLIST_INIT_MODEL: PlaylistFormData = { name: '', description: '' };
-const MAX_LENGTH = 20;
-const SHOW_COUNTER_AT = 30;
-const MESSAGES = {
-  FIELD_REQUIRED: 'Playlist name is required.',
-  MAX_CHARS: `Name cannot be longer than ${MAX_LENGTH} characters`,
-} as const;
+import { Sprite } from '@shared/components/sprite/sprite';
+import { PlaylistFormData } from '@shared/models/playlist.model';
+import {
+  MAX_LENGTH,
+  SHOW_COUNTER_AT,
+  playlistInitModel,
+} from '@shared/constants/playlist-validation.const';
+import { playlistSchemaFn } from './playlist-create.schema';
 
 @Component({
   selector: 'player-playlist-create',
@@ -41,14 +35,15 @@ export class PlaylistCreate {
   private authService = inject(AuthService);
   private playlistApiService = inject(PlaylistApiService);
 
+  title = input('New Playlist');
+  submitText = input('Create');
+  closeForm = output<void>();
+
   protected readonly maxLength = MAX_LENGTH;
   protected readonly showCounterAt = SHOW_COUNTER_AT;
 
-  protected playlistModel = signal(PLAYLIST_INIT_MODEL);
-  protected playlistForm = form(this.playlistModel, (schemaPath) => {
-    required(schemaPath.name, { message: MESSAGES.FIELD_REQUIRED });
-    maxLength(schemaPath.name, MAX_LENGTH, { message: MESSAGES.MAX_CHARS });
-  });
+  protected playlistModel = signal(playlistInitModel);
+  protected playlistForm = form(this.playlistModel, playlistSchemaFn);
 
   protected isLoading = signal(false);
 
@@ -61,10 +56,14 @@ export class PlaylistCreate {
 
   protected nameLength = computed(() => this.playlistForm.name().value().length);
 
-  title = input('New Playlist');
-  submitText = input('Create');
-
-  closeForm = output<void>();
+  protected async onSubmit(event: Event) {
+    event.preventDefault();
+    if (!this.playlistForm().valid()) {
+      this.playlistForm().markAsTouched();
+      return;
+    }
+    this.createNewPlaylist(this.playlistModel());
+  }
 
   private async createNewPlaylist(data: PlaylistFormData) {
     const uid = this.authService.user()?.uid;
@@ -79,7 +78,7 @@ export class PlaylistCreate {
     };
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
-      this.playlistModel.set(PLAYLIST_INIT_MODEL);
+      this.playlistModel.set(playlistInitModel);
       this.closeForm.emit();
       await this.router.navigate(['/library/playlist', newPlaylistId]);
     } catch (error) {
@@ -87,14 +86,5 @@ export class PlaylistCreate {
     } finally {
       this.isLoading.set(false);
     }
-  }
-
-  protected async onSubmit(event: Event) {
-    event.preventDefault();
-    if (!this.playlistForm().valid()) {
-      this.playlistForm().markAsTouched();
-      return;
-    }
-    this.createNewPlaylist(this.playlistModel());
   }
 }
