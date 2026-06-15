@@ -14,6 +14,7 @@ import { PlaylistApiService } from '@core/services/playlist/playlist-api-service
 import { Button } from '@shared/components/button/button';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { PlaylistFormData } from '@shared/models/playlist.model';
+import { CreatePlaylistInput } from '@shared/models/firestore.model';
 import {
   MAX_LENGTH,
   SHOW_COUNTER_AT,
@@ -69,17 +70,19 @@ export class PlaylistCreate {
     if (!uid) return;
     const { name, description } = data;
     this.isLoading.set(true);
-    const newPlaylistData = {
+    const newPlaylistData: CreatePlaylistInput = {
       name: name.trim(),
-      description: description?.trim() || undefined,
       trackIds: [],
       uid,
     };
+    if (description?.trim()) {
+      newPlaylistData.description = description.trim();
+    }
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
       this.playlistModel.set(playlistInitModel);
       this.closeForm.emit();
-      await this.router.navigate(['/library/playlist', newPlaylistId]);
+      await this.router.navigate(['/playlists', newPlaylistId]);
     } catch (error) {
       console.error('PlaylistCreate]', error);
     } finally {
