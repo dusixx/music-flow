@@ -13,12 +13,12 @@ export const routes: Routes = [
     loadComponent: () => import('@pages/library/library').then((m) => m.Library),
     canActivate: [authGuard],
     data: { [REQUIRES_AUTH]: true },
-    children: [
-      {
-        path: 'playlist/:id',
-        loadComponent: () => import('@pages/playlist/playlist').then((m) => m.Playlist),
-      },
-    ],
+  },
+  {
+    path: 'playlists/:id',
+    loadComponent: () => import('@pages/playlist/playlist').then((m) => m.Playlist),
+    canActivate: [authGuard],
+    data: { [REQUIRES_AUTH]: true },
   },
   {
     path: 'about',

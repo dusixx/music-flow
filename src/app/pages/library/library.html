@@ -1,29 +1,26 @@
-@if (isChildRouteActive()) {
-  <section class="library-section">
-    <h2 class="section-title">Playlists</h2>
-    <div class="playlists-grid">
-      <div
-        class="create-playlist-card"
-        (click)="openCreateForm()"
-        tabindex="0"
-        (keydown.enter)="openCreateForm()"
-      >
-        <div class="icon-wrapper">+</div>
-        <div class="card-info">
-          <span class="title">Create Playlist</span>
-          <span class="subtitle">Click to add new</span>
-        </div>
+<section class="library-section">
+  <h2 class="section-title">Playlists</h2>
+  <div class="playlists-grid">
+    <div
+      class="create-playlist-card"
+      (click)="openCreateForm()"
+      tabindex="0"
+      (keydown.enter)="openCreateForm()"
+    >
+      <div class="icon-wrapper">+</div>
+      <div class="card-info">
+        <span class="title">Create Playlist</span>
+        <span class="subtitle">Click to add new</span>
       </div>
     </div>
-  </section>
-  <section class="library-section">
-    <h2 class="section-title">Recently Played</h2>
-    <div class="history-list">
-      <p class="empty-state">Your listening history will appear here.</p>
-    </div>
-  </section>
-  <player-dialog [isOpen]="isModalOpen()" (closeDialog)="closeCreateForm()">
-    <player-playlist-create (closeForm)="closeCreateForm()" />
-  </player-dialog>
-}
-<router-outlet />
+  </div>
+</section>
+<section class="library-section">
+  <h2 class="section-title">Recently Played</h2>
+  <div class="history-list">
+    <p class="empty-state">Your listening history will appear here.</p>
+  </div>
+</section>
+<player-dialog [isOpen]="isModalOpen()" (closeDialog)="closeCreateForm()">
+  <player-playlist-create (closeForm)="closeCreateForm()" />
+</player-dialog>
