@@ -206,7 +206,7 @@
   color: var(--color-warning);
   @include mix.main-transition('background-color, color');
 
-  &.is-maxed {
+  .name-input.ng-invalid ~ .char-counter {
     color: var(--color-text);
     background-color: var(--color-error);
   }
