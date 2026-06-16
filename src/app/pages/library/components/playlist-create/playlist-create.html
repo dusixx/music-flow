@@ -24,7 +24,7 @@
           [formField]="playlistForm.name"
           placeholder="Add a name"
           class="input-field name-input"
-          [class.is-invalid]="nameError()"
+          [class.ng-invalid]="playlistForm.name().invalid() && playlistForm.name().touched()"
           autocomplete="off"
           id="playlist-name"
         />

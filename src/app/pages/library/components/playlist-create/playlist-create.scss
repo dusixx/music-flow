@@ -149,7 +149,7 @@
     );
   }
 
-  &.is-invalid {
+  &.ng-invalid {
     border-bottom-color: var(--color-error);
     border-bottom-width: 2px;
 
