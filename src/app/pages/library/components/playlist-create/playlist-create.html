@@ -1,9 +1,9 @@
 <form novalidate (submit)="onSubmit($event)" class="form">
   <h3 class="form-title">{{ title() }}</h3>
-  @if (nameError()) {
+  @if (nameError(); as error) {
     <div class="error-stack">
       <player-sprite icon="error-outlined" class="error-icon" />
-      <p class="error-message" [title]="nameError()">{{ nameError() }}</p>
+      <p class="error-message" [title]="error">{{ error }}</p>
     </div>
   }
   <div class="form-content">
