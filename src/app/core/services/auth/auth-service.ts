@@ -1,4 +1,4 @@
-import { Injectable, signal, computed, inject, effect } from '@angular/core';
+import { Service, signal, computed, inject, effect } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   getAuth,
@@ -18,12 +18,9 @@ import { FirebaseError } from 'firebase/app';
 import { firebaseApp } from '@core/firebase/firebase.config';
 import { REQUIRES_AUTH } from '@shared/constants/requires-auth.const';
 import { RegisterInput } from '@shared/models/firestore.model';
+import { AuthState } from '@shared/models/auth.model';
 
-type AuthState = 'loading' | 'auth' | 'guest';
-
-@Injectable({
-  providedIn: 'root',
-})
+@Service()
 export class AuthService {
   private router = inject(Router);
   private readonly auth = getAuth(firebaseApp);
