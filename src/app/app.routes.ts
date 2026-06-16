@@ -15,6 +15,11 @@ export const routes: Routes = [
     data: { [REQUIRES_AUTH]: true },
   },
   {
+    path: 'playlists',
+    redirectTo: 'library',
+    pathMatch: 'full',
+  },
+  {
     path: 'playlists/:id',
     loadComponent: () => import('@pages/playlist/playlist').then((m) => m.Playlist),
     canActivate: [authGuard],
