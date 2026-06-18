@@ -30,7 +30,9 @@
         />
         <label for="playlist-name" class="input-label">Name</label>
         @if (nameLength() >= showCounterAt) {
-          <span class="char-counter"> {{ nameLength() }}/{{ maxLength }} </span>
+          <span class="char-counter" [class.is-maxed]="nameLength() >= maxLength">
+            {{ nameLength() }}/{{ maxLength }}
+          </span>
         }
       </div>
       <div class="input-wrapper">
