@@ -75,8 +75,9 @@ export class PlaylistCreate {
       trackIds: [],
       uid,
     };
-    if (description?.trim()) {
-      newPlaylistData.description = description.trim();
+    const trimmedDesc = description?.trim();
+    if (trimmedDesc) {
+      newPlaylistData.description = trimmedDesc;
     }
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
