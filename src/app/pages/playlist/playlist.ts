@@ -1,5 +1,4 @@
-import { ChangeDetectionStrategy, Component, computed, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 
 @Component({
   selector: 'player-playlist',
@@ -9,7 +8,5 @@ import { ActivatedRoute } from '@angular/router';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Playlist {
-  private activatedRoute = inject(ActivatedRoute);
-
-  protected readonly id = computed(() => this.activatedRoute.snapshot.paramMap.get('id') ?? '');
+  protected id = input.required<string>();
 }
