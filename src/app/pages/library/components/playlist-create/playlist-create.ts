@@ -8,7 +8,7 @@ import {
   output,
 } from '@angular/core';
 import { Router } from '@angular/router';
-import { form, FormField } from '@angular/forms/signals';
+import { form, FormField, FormRoot } from '@angular/forms/signals';
 import { AuthService } from '@core/services/auth/auth-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { Button } from '@shared/components/button/button';
@@ -24,7 +24,7 @@ import { playlistSchemaFn } from './playlist-create.schema';
 
 @Component({
   selector: 'player-playlist-create',
-  imports: [FormField, Button, Sprite],
+  imports: [FormField, Button, Sprite, FormRoot],
   templateUrl: './playlist-create.html',
   styleUrl: './playlist-create.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -56,8 +56,7 @@ export class PlaylistCreate {
 
   protected nameLength = computed(() => this.playlistForm.name().value().length);
 
-  protected async onSubmit(event: Event) {
-    event.preventDefault();
+  protected async onSubmit() {
     if (!this.playlistForm().valid()) {
       this.playlistForm().markAsTouched();
       return;
@@ -82,6 +81,7 @@ export class PlaylistCreate {
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
       this.playlistModel.set(playlistInitModel);
+      this.playlistForm().reset();
       this.closeForm.emit();
       await this.router.navigate(['/playlists', newPlaylistId]);
     } catch (error) {
