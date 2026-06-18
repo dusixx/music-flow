@@ -62,7 +62,7 @@ export class PlaylistCreate {
       this.playlistForm().markAsTouched();
       return;
     }
-    this.createNewPlaylist(this.playlistModel());
+    await this.createNewPlaylist(this.playlistModel());
   }
 
   private async createNewPlaylist(data: PlaylistFormData) {
