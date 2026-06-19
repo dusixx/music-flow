@@ -22,7 +22,7 @@ export class JamendoService {
         .map(([key, val]) =>
           Array.isArray(val) ? [key, val.filter((v) => v != null)] : [key, val]
         )
-        .filter(([_, val]) => val != null)
+        .filter(([_, val]) => (Array.isArray(val) ? val.length !== 0 : val != null))
     );
   }
 
