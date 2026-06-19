@@ -1,0 +1,64 @@
+<form [formRoot]="playlistForm" (submit)="onSubmit()" class="form">
+  <h3 class="form-title">{{ title() }}</h3>
+  @if (nameError(); as error) {
+    <div class="error-stack">
+      <player-sprite icon="error-outlined" class="error-icon" />
+      <p class="error-message" [title]="error">{{ error }}</p>
+    </div>
+  }
+  <div class="form-content">
+    <div class="cover-upload">
+      <div class="cover-placeholder">
+        <player-sprite icon="music" class="music-icon" />
+
+        <div class="cover-hover-overlay">
+          <player-sprite icon="edit" class="edit-icon" />
+          <span>Choose photo</span>
+        </div>
+      </div>
+    </div>
+    <div class="fields-stack">
+      <div class="input-wrapper">
+        <input
+          type="text"
+          [formField]="playlistForm.name"
+          placeholder="Add a name"
+          class="input-field name-input"
+          [class.ng-invalid]="playlistForm.name().invalid() && playlistForm.name().touched()"
+          autocomplete="off"
+          id="playlist-name"
+        />
+        <label for="playlist-name" class="input-label">Name</label>
+        @if (nameLength() >= showCounterAt) {
+          <span class="char-counter" [class.is-maxed]="nameLength() >= maxLength">
+            {{ nameLength() }}/{{ maxLength }}
+          </span>
+        }
+      </div>
+      <div class="input-wrapper">
+        <textarea
+          [formField]="playlistForm.description"
+          placeholder="Add an optional description"
+          class="input-field desc-textarea"
+          id="playlist-desc"
+        ></textarea>
+        <label for="playlist-desc" class="input-label">Description</label>
+      </div>
+    </div>
+  </div>
+  <div class="form-actions">
+    <button
+      playerButton
+      type="submit"
+      variant="secondary"
+      [loading]="isLoading()"
+      [disabled]="isLoading()"
+    >
+      {{ submitText() }}
+    </button>
+  </div>
+  <p class="terms-text">
+    By proceeding, you agree to give MusicFlow access to the image you choose to upload. Please make
+    sure you have the right to upload the image.
+  </p>
+</form>
