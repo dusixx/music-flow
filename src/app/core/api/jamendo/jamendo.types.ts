@@ -7,7 +7,7 @@ export interface JamendoResponse<T> {
     error_message: string;
     warnings: string;
     results_count: number;
-    next: string | null;
+    next?: string;
   };
   results: T[];
 }
