@@ -17,7 +17,13 @@ export class JamendoService {
   }
 
   private normalizeQueryParams(params: QueryParams) {
-    return Object.fromEntries(Object.entries(params).filter(([_, value]) => value != null));
+    return Object.fromEntries(
+      Object.entries(params)
+        .map(([key, val]) =>
+          Array.isArray(val) ? [key, val.filter((v) => v != null)] : [key, val]
+        )
+        .filter(([_, val]) => val != null)
+    );
   }
 
   get<TRawItem>(endpoint: JamendoApiEndpoint, params: QueryParams) {
