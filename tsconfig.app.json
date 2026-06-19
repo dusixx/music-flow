@@ -18,6 +18,7 @@
       "@components/*": ["./src/app/shared/components/*"],
       "@components": ["./src/app/shared/components"],
       "@core/*": ["./src/app/core/*"],
+      "@api/*": ["./src/app/core/api/*"],
       "@services": ["./src/app/core/services"],
       "@services/*": ["./src/app/core/services/*"],
       "@core": ["./src/app/core"],
