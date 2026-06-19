@@ -5,6 +5,9 @@ mkdir -p src/environments
 cat <<EOF > src/environments/environment.ts
 export const environment = {
   production: ${PRODUCTION},
+  jamendo: {
+    clientId: '${JAMENDO_CLIENT_ID}',
+  },
   firebase: {
     apiKey: '${FIREBASE_API_KEY}',
     authDomain: '${FIREBASE_AUTH_DOMAIN}',
