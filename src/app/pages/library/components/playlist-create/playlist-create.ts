@@ -56,6 +56,11 @@ export class PlaylistCreate {
 
   protected nameLength = computed(() => this.playlistForm.name().value().length);
 
+  public resetForm() {
+    this.playlistModel.set({ ...playlistInitModel });
+    this.playlistForm().reset();
+  }
+
   protected async onSubmit() {
     if (!this.playlistForm().valid()) {
       this.playlistForm().markAsTouched();
@@ -80,8 +85,7 @@ export class PlaylistCreate {
     }
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
-      this.playlistModel.set(playlistInitModel);
-      this.playlistForm().reset();
+      this.resetForm();
       this.closeForm.emit();
       await this.router.navigate(['/playlists', newPlaylistId]);
     } catch (error) {
