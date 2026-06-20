@@ -1,2 +1,28 @@
-<p>playlist works!</p>
+@if (playlistResource.isLoading()) {
+  <p>Loading..</p>
+}
 <p>Loaded playlist ID from Firestore: {{ id() }}</p>
+
+@if (playlistResource.value(); as playlist) {
+  <div class="playlist-header">
+    <h1>{{ playlist.name }}</h1>
+    <p>{{ playlist.description ?? '' }}</p>
+    <p>Playlist ID: {{ playlist.id }}</p>
+  </div>
+  <div class="tracks-list">
+    @for (track of tracksResource.value(); track track.id; let index = $index) {
+      <div class="track-card">
+        <span>{{ index + 1 }}</span>
+        <div>
+          <span>{{ track.name }}</span>
+          <span>{{ track.artist.name }}</span>
+        </div>
+        <span>{{ track.duration }} sec</span>
+      </div>
+    } @empty {
+      <p>No tracks</p>
+    }
+  </div>
+} @else if (!playlistResource.isLoading() && !playlistResource.value()) {
+  <p>Playlist not found.</p>
+}
