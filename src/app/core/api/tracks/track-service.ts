@@ -15,4 +15,8 @@ export class TrackService {
   getNewReleases(/* pagination params */) {
     return of(tracks.slice(16, 31).map(mapTrack));
   }
+  getTracksByIds(ids: string[]) {
+    const filteredTracks = tracks.filter((track) => ids.includes(track.id));
+    return of(filteredTracks.map(mapTrack));
+  }
 }
