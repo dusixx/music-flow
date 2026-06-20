@@ -1,12 +1,15 @@
 import { ChangeDetectionStrategy, Component, inject, input, resource } from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
+import { of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
-import { of } from 'rxjs';
+import { TrackRow } from '@shared/components/track-row/track-row/track-row';
+import { DurationPipe } from '@shared/pipes/duration-pipe';
+import { Sprite } from '@shared/components/sprite/sprite';
 
 @Component({
   selector: 'player-playlist',
-  imports: [],
+  imports: [TrackRow, DurationPipe, Sprite],
   templateUrl: './playlist.html',
   styleUrl: './playlist.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -33,4 +36,8 @@ export class Playlist {
       return this.trackService.getTracksByIds(trackIds);
     },
   });
+
+  protected removeTrackById(trackId: string) {
+    console.log('remove track action>>', trackId);
+  }
 }

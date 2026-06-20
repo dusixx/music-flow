@@ -1,0 +1,78 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+.tracks-header-row {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: var(--space-m);
+  padding: var(--space-s) var(--space-m);
+  border-bottom: 1px solid var(--color-border-subtle);
+
+  .header-label {
+    font-size: var(--text-xs);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+}
+
+// FIXME: flex from track-row for cols
+.track-left-side {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: rem(80);
+
+  .track-index {
+    width: rem(24);
+    font-size: var(--text-xs);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+}
+
+.track-main-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.track-album,
+.track-duration {
+  color: var(--color-text-muted);
+}
+
+.track-album {
+  font-size: var(--text-xs);
+}
+
+.track-duration {
+  font-size: var(--text-s);
+}
+
+.track-meta-slot {
+  display: flex;
+  align-items: center;
+  width: rem(150);
+  color: var(--color-text-muted);
+
+  @include mix.mobile {
+    display: none;
+  }
+}
+
+.track-actions-slot {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: flex-end;
+
+  width: rem(100);
+}
+
+.track-remove {
+  width: 40px;
+}

@@ -1,26 +1,35 @@
+<!-- <p>Loaded playlist ID from Firestore: {{ id() }}</p> -->
 @if (playlistResource.isLoading()) {
   <p>Loading..</p>
 }
-<p>Loaded playlist ID from Firestore: {{ id() }}</p>
-
 @if (playlistResource.value(); as playlist) {
   <div class="playlist-header">
     <h1>{{ playlist.name }}</h1>
     <p>{{ playlist.description ?? '' }}</p>
-    <p>Playlist ID: {{ playlist.id }}</p>
   </div>
   <div class="tracks-list">
-    @for (track of tracksResource.value(); track track.id; let index = $index) {
-      <div class="track-card">
-        <span>{{ index + 1 }}</span>
-        <div>
-          <span>{{ track.name }}</span>
-          <span>{{ track.artist.name }}</span>
-        </div>
-        <span>{{ track.duration }} sec</span>
+    <div class="tracks-header-row">
+      <div class="track-left-side">
+        <span class="track-index">#</span>
       </div>
+      <div class="track-main-info">
+        <span class="header-label">Title</span>
+      </div>
+      <div class="track-meta-slot">
+        <span class="header-label">Album</span>
+        <span class="header-label">Duration</span>
+      </div>
+    </div>
+    @for (track of tracksResource.value(); track track.id; let index = $index) {
+      <player-track-row [index]="index" [track]="track">
+        <span row-meta class="track-album">{{ track.album.name }}</span>
+        <span row-meta class="track-duration">{{ track.duration | duration }}</span>
+        <button row-actions class="track-remove" (click)="removeTrackById(track.id)">
+          <player-sprite icon="close" />
+        </button>
+      </player-track-row>
     } @empty {
-      <p>No tracks</p>
+      <p>No tracks yet</p>
     }
   </div>
 } @else if (!playlistResource.isLoading() && !playlistResource.value()) {
