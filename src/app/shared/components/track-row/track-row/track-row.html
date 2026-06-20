@@ -1,0 +1,31 @@
+@let t = track();
+
+<div class="track-row" (mouseenter)="isHovered.set(true)" (mouseleave)="isHovered.set(false)">
+  <!-- TODO: num & cover => add plaing icon ? -->
+  <div class="track-left-side">
+    <span class="track-index">
+      @if (!isPlaying()) {
+        {{ index() + 1 }}
+      }
+    </span>
+    <player-track-cover
+      [track]="t"
+      variant="secondary"
+      [isHovered]="isHovered()"
+      [isPlaying]="isPlaying()"
+      (playClicked)="playClicked.emit($event)"
+    />
+  </div>
+  <div class="track-main-info">
+    <span class="track-title" [title]="t.name">{{ t.name }}</span>
+    <span class="track-artist">{{ t.artist.name }}</span>
+  </div>
+  <div class="track-meta-slot">
+    <ng-content select="[row-meta]" />
+  </div>
+
+  <!-- TODO: 3 dots icon? -->
+  <div class="track-actions-slot">
+    <ng-content select="[row-actions]" />
+  </div>
+</div>
