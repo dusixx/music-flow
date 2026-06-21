@@ -17,7 +17,7 @@
         <h1 class="playlist-title" [title]="playlist.name">{{ playlist.name }}</h1>
         <p class="playlist-description">{{ playlist.description ?? '' }}</p>
         <div class="playlist-stats">
-          <span class="playlist-nickname"> Nickname </span>
+          <span class="playlist-displayname"> {{ displayName() }} </span>
           <span class="playlist-header-separator">•</span>
           <span class="playlist-tracks-count"> {{ playlist.trackIds?.length ?? 0 }} songs, </span>
           <span class="playlist-total-time"> total time </span>
@@ -32,6 +32,7 @@
       [icon]="isPlaying() ? 'pause' : 'play'"
       (click)="playPlaylist()"
       class="playlist-play-btn"
+      aria-label="toggle playback"
     ></button>
     <button class="delete-playlist-btn">...</button>
   </div>

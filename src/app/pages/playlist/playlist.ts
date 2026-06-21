@@ -1,8 +1,17 @@
-import { ChangeDetectionStrategy, Component, inject, input, resource, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  inject,
+  input,
+  resource,
+  signal,
+  computed,
+} from '@angular/core';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
+import { AuthService } from '@core/services/auth/auth-service';
 import { TrackRow } from '@shared/components/track-row/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
 import { Sprite } from '@shared/components/sprite/sprite';
@@ -19,14 +28,20 @@ import { Button } from '@shared/components/button/button';
 export class Playlist {
   private trackService = inject(TrackService);
   private playlistService = inject(PlaylistApiService);
+  private authService = inject(AuthService);
 
   protected id = input.required<string>();
 
   protected isPlaying = signal(false);
 
+  protected displayName = computed(() => {
+    return this.authService.user()?.displayName ?? 'User';
+  });
+
   protected playPlaylist() {
     this.isPlaying.update((value) => !value);
     console.log('Play is clicked>>', this.playlistResource.value()?.trackIds?.length);
+    console.log(this.authService.user()?.displayName);
   }
 
   protected playlistResource = resource({
