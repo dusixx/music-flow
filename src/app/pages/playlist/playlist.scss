@@ -142,7 +142,7 @@
 
   margin-top: var(--space-s);
 
-  font-size: var(--text-s);
+  font-size: var(--text-m);
   font-weight: 500;
   color: var(--color-text);
 
@@ -150,6 +150,20 @@
   .playlist-tracks-count,
   .playlist-header-separator {
     color: var(--color-text-muted);
+  }
+
+  .playlist-header-separator {
+    font-size: var(--text-xs);
+  }
+
+  .playlist-total-time {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  .playlist-total-clock {
+    width: rem(16);
   }
 }
 

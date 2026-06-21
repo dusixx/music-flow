@@ -19,8 +19,11 @@
         <div class="playlist-stats">
           <span class="playlist-displayname"> {{ displayName() }} </span>
           <span class="playlist-header-separator">•</span>
-          <span class="playlist-tracks-count"> {{ playlist.trackIds?.length ?? 0 }} songs, </span>
-          <span class="playlist-total-time"> total time </span>
+          <span class="playlist-tracks-count"> {{ playlist.trackIds?.length ?? 0 }} songs </span>
+          <div class="playlist-total-time">
+            <span class="playlist-total-clock"><player-sprite icon="clock" /></span>
+            <span> {{ totalTime() | duration }} </span>
+          </div>
         </div>
       </div>
     </div>

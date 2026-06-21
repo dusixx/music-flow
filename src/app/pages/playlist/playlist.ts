@@ -38,10 +38,15 @@ export class Playlist {
     return this.authService.user()?.displayName ?? 'User';
   });
 
+  protected totalTime = computed(() => {
+    const tracks = this.tracksResource.value() ?? [];
+    return tracks.reduce((acc, item) => acc + item.duration, 0);
+  });
+
   protected playPlaylist() {
     this.isPlaying.update((value) => !value);
     console.log('Play is clicked>>', this.playlistResource.value()?.trackIds?.length);
-    console.log(this.authService.user()?.displayName);
+    console.log(this.tracksResource.value());
   }
 
   protected playlistResource = resource({
