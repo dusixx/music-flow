@@ -15,6 +15,7 @@ import { PlaylistApiService } from '@core/services/playlist/playlist-api-service
 import { AuthService } from '@core/services/auth/auth-service';
 import { TrackRow } from '@shared/components/track-row/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
+import { DurationTextPipe } from '@shared/pipes/duration-text/duration-text-pipe';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
 import { Dialog } from '@shared/components/dialog/dialog';
@@ -22,7 +23,7 @@ import { PlaylistMenu } from './components/playlist-menu/playlist-menu/playlist-
 
 @Component({
   selector: 'player-playlist',
-  imports: [TrackRow, DurationPipe, Sprite, Button, PlaylistMenu, Dialog],
+  imports: [TrackRow, DurationPipe, DurationTextPipe, Sprite, Button, PlaylistMenu, Dialog],
   templateUrl: './playlist.html',
   styleUrl: './playlist.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,

@@ -12,16 +12,18 @@
         </div>
       </div>
       <div class="playlist-metadata">
+        <p class="playlist-type">Playlist</p>
         <h1 class="playlist-title" [title]="playlist.name">{{ playlist.name }}</h1>
         <p class="playlist-description">{{ playlist.description ?? '' }}</p>
         <div class="playlist-stats">
           <span class="playlist-displayname"> {{ displayName() }} </span>
-          <span class="playlist-header-separator">•</span>
-          <span class="playlist-tracks-count"> {{ playlist.trackIds?.length ?? 0 }} songs </span>
-          <div class="playlist-total-time">
-            <span class="playlist-total-clock"><player-sprite icon="clock" /></span>
-            <span> {{ totalTime() | duration }} </span>
-          </div>
+          @if (playlist.trackIds?.length) {
+            <span class="playlist-header-separator">•</span>
+            <span class="playlist-tracks-count"> {{ playlist.trackIds.length }} songs, </span>
+            <div class="playlist-total-time">
+              <span> {{ totalTime() | durationText }} </span>
+            </div>
+          }
         </div>
       </div>
     </div>
@@ -41,20 +43,22 @@
     />
   </div>
   <div class="track-list">
-    <div class="tracks-header-row">
-      <div class="track-left-side">
-        <span class="track-index">#</span>
+    @if (playlist.trackIds?.length) {
+      <div class="tracks-header-row">
+        <div class="track-left-side">
+          <span class="track-index">#</span>
+        </div>
+        <div class="track-main-info">
+          <span class="header-label">Title</span>
+        </div>
+        <div class="track-meta-slot">
+          <span class="header-label">Album</span>
+        </div>
+        <div class="track-actions-slot">
+          <span class="clock"><player-sprite icon="clock" /></span>
+        </div>
       </div>
-      <div class="track-main-info">
-        <span class="header-label">Title</span>
-      </div>
-      <div class="track-meta-slot">
-        <span class="header-label">Album</span>
-      </div>
-      <div class="track-actions-slot">
-        <span class="clock"><player-sprite icon="clock" /></span>
-      </div>
-    </div>
+    }
     @for (track of tracksResource.value(); track track.id; let index = $index) {
       <player-track-row [index]="index" [track]="track">
         <span row-meta class="track-album">{{ track.album.name }}</span>
@@ -72,7 +76,7 @@
 }
 <player-dialog [isOpen]="isModalOpen()" (closeDialog)="isModalOpen.set(false)">
   <div class="confirm">
-    <p class="confirm-text">This action will completely delete your playlist permanently.</p>
-    <button playerButton variant="secondary" (click)="deletePlaylist()">Delete</button>
+    <p class="confirm-text">Delete from Your Library?</p>
+    <button playerButton variant="primary" (click)="deletePlaylist()">Delete</button>
   </div>
 </player-dialog>

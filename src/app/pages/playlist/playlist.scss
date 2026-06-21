@@ -52,7 +52,7 @@
   justify-content: center;
 
   aspect-ratio: 1;
-  width: rem(192);
+  width: rem(208);
   border-radius: var(--radius-s);
 
   background-color: var(--color-surface);
@@ -145,6 +145,10 @@
   font-size: var(--text-m);
   font-weight: 500;
   color: var(--color-text);
+
+  .playlist-displayname {
+    font-weight: 800;
+  }
 
   .playlist-total-time,
   .playlist-tracks-count,
