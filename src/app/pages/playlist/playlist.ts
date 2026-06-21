@@ -37,7 +37,20 @@ export class Playlist {
     },
   });
 
-  protected removeTrackById(trackId: string) {
-    console.log('remove track action>>', trackId);
+  protected async removeTrackById(trackId: string) {
+    const playlist = this.playlistResource.value();
+    if (!playlist) return;
+    if (playlist.trackIds.length <= 1) {
+      console.log('A playlist must contain at least one track.');
+    }
+    const updatedTrackIds = playlist.trackIds.filter((id) => id !== trackId);
+    try {
+      await this.playlistService.updatePlaylist(playlist.id, {
+        trackIds: updatedTrackIds,
+      });
+      this.playlistResource.reload();
+    } catch (error) {
+      console.error('[Playlist]', error);
+    }
   }
 }
