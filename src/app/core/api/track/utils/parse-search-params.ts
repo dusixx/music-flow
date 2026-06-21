@@ -1,10 +1,6 @@
 import { JamendoSearchParams } from '../../jamendo/jamendo.types';
 import { SearchParams } from '../track-service.types';
 
-// NOTE: When you are searching tracks, for instance with 'tags=rock+pop',
-// and at the same time you want to bring the best tracks of the week in advance,
-// you should absolutely use this parameter instead of 'order'
-
 export const parseSearchParams = ({
   fuzzytags,
   tags,
