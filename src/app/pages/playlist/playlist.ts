@@ -42,6 +42,7 @@ export class Playlist {
     if (!playlist) return;
     if (playlist.trackIds.length <= 1) {
       console.log('A playlist must contain at least one track.');
+      return;
     }
     const updatedTrackIds = playlist.trackIds.filter((id) => id !== trackId);
     try {

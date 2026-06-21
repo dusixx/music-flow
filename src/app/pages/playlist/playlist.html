@@ -1,36 +1,39 @@
-<!-- <p>Loaded playlist ID from Firestore: {{ id() }}</p> -->
 @if (playlistResource.isLoading()) {
   <p>Loading..</p>
 }
 @if (playlistResource.value(); as playlist) {
-  <div class="playlist-header">
-    <h1>{{ playlist.name }}</h1>
-    <p>{{ playlist.description ?? '' }}</p>
-  </div>
-  <div class="tracks-list">
-    <div class="tracks-header-row">
-      <div class="track-left-side">
-        <span class="track-index">#</span>
-      </div>
-      <div class="track-main-info">
-        <span class="header-label">Title</span>
-      </div>
-      <div class="track-meta-slot">
-        <span class="header-label">Album</span>
-        <span class="header-label">Duration</span>
-      </div>
+  <div class="playlist">
+    <div class="playlist-header">
+      <h1>{{ playlist.name }}</h1>
+      <p>{{ playlist.description ?? '' }}</p>
     </div>
-    @for (track of tracksResource.value(); track track.id; let index = $index) {
-      <player-track-row [index]="index" [track]="track">
-        <span row-meta class="track-album">{{ track.album.name }}</span>
-        <span row-meta class="track-duration">{{ track.duration | duration }}</span>
-        <button row-actions class="track-remove" (click)="removeTrackById(track.id)">
-          <player-sprite icon="close" />
-        </button>
-      </player-track-row>
-    } @empty {
-      <p>No tracks yet</p>
-    }
+    <div class="track-list">
+      <div class="tracks-header-row">
+        <div class="track-left-side">
+          <span class="track-index">#</span>
+        </div>
+        <div class="track-main-info">
+          <span class="header-label">Title</span>
+        </div>
+        <div class="track-meta-slot">
+          <span class="header-label">Album</span>
+        </div>
+        <div class="track-actions-slot">
+          <span class="clock"><player-sprite icon="clock" /></span>
+        </div>
+      </div>
+      @for (track of tracksResource.value(); track track.id; let index = $index) {
+        <player-track-row [index]="index" [track]="track">
+          <span row-meta class="track-album">{{ track.album.name }}</span>
+          <span row-actions class="track-duration">{{ track.duration | duration }}</span>
+          <button row-actions class="track-remove" (click)="removeTrackById(track.id)">
+            <player-sprite icon="close" />
+          </button>
+        </player-track-row>
+      } @empty {
+        <p>No tracks yet</p>
+      }
+    </div>
   </div>
 } @else if (!playlistResource.isLoading() && !playlistResource.value()) {
   <p>Playlist not found.</p>
