@@ -2,7 +2,6 @@
   <p>Loading..</p>
 }
 @if (playlistResource.value(); as playlist) {
-  <!-- <div class="playlist"> -->
   <div class="playlist-header-container">
     <div class="playlist-header">
       <div class="playlist-cover-wrapper">
@@ -13,7 +12,6 @@
         </div>
       </div>
       <div class="playlist-metadata">
-        <span class="playlist-type">Playlist</span>
         <h1 class="playlist-title" [title]="playlist.name">{{ playlist.name }}</h1>
         <p class="playlist-description">{{ playlist.description ?? '' }}</p>
         <div class="playlist-stats">
@@ -37,7 +35,10 @@
       class="playlist-play-btn"
       aria-label="toggle playback"
     ></button>
-    <button class="delete-playlist-btn">...</button>
+    <player-playlist-menu
+      (editClicked)="editPlaylistDetails()"
+      (deleteClicked)="confirmDeletePlaylist()"
+    />
   </div>
   <div class="track-list">
     <div class="tracks-header-row">
@@ -66,7 +67,12 @@
       <p>No tracks yet</p>
     }
   </div>
-  <!-- </div> -->
 } @else if (!playlistResource.isLoading() && !playlistResource.value()) {
   <p>Playlist not found.</p>
 }
+<player-dialog [isOpen]="isModalOpen()" (closeDialog)="isModalOpen.set(false)">
+  <div class="confirm">
+    <p class="confirm-text">This action will completely delete your playlist permanently.</p>
+    <button playerButton variant="secondary" (click)="deletePlaylist()">Delete</button>
+  </div>
+</player-dialog>

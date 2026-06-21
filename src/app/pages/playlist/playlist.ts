@@ -7,6 +7,7 @@ import {
   signal,
   computed,
 } from '@angular/core';
+import { Router } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
 import { of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
@@ -16,10 +17,12 @@ import { TrackRow } from '@shared/components/track-row/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
+import { Dialog } from '@shared/components/dialog/dialog';
+import { PlaylistMenu } from './components/playlist-menu/playlist-menu/playlist-menu';
 
 @Component({
   selector: 'player-playlist',
-  imports: [TrackRow, DurationPipe, Sprite, Button],
+  imports: [TrackRow, DurationPipe, Sprite, Button, PlaylistMenu, Dialog],
   templateUrl: './playlist.html',
   styleUrl: './playlist.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -29,10 +32,16 @@ export class Playlist {
   private trackService = inject(TrackService);
   private playlistService = inject(PlaylistApiService);
   private authService = inject(AuthService);
+  private router = inject(Router);
 
   protected id = input.required<string>();
 
   protected isPlaying = signal(false);
+  protected isModalOpen = signal(false);
+
+  protected editPlaylistDetails() {
+    console.log('Action>> Edit details clicked');
+  }
 
   protected displayName = computed(() => {
     return this.authService.user()?.displayName ?? 'User';
@@ -45,8 +54,6 @@ export class Playlist {
 
   protected playPlaylist() {
     this.isPlaying.update((value) => !value);
-    console.log('Play is clicked>>', this.playlistResource.value()?.trackIds?.length);
-    console.log(this.tracksResource.value());
   }
 
   protected playlistResource = resource({
@@ -79,7 +86,25 @@ export class Playlist {
       });
       this.playlistResource.reload();
     } catch (error) {
-      console.error('[Playlist]', error);
+      console.error('[removeTrackById]', error);
+    }
+  }
+
+  protected async confirmDeletePlaylist() {
+    this.isModalOpen.set(true);
+  }
+
+  protected async deletePlaylist() {
+    const playlistId = this.playlistResource.value()?.id;
+    if (!playlistId) return;
+    try {
+      this.isModalOpen.set(false);
+      await this.playlistService.deletePlaylist(playlistId);
+      // TODO: replace with notification
+      console.log('successfully deleted');
+      await this.router.navigate(['/library']);
+    } catch (error) {
+      console.error('[deletePlaylistById]', error);
     }
   }
 }

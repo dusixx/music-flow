@@ -3,14 +3,14 @@
 
 :host {
   // TODO: choose a more appropriate color
-  --playlist-color: var(--color-text-subtle);
+  // --playlist-color: var(--color-text-subtle);
 
-  // --playlist-color: var(--color-accent);
+  --playlist-color: var(--color-accent);
 
   display: flex;
   flex-direction: column;
   gap: var(--space-xl);
-  padding: var(--space-xl);
+  padding: 0 var(--space-xl);
 }
 
 .playlist-header-container {
@@ -193,13 +193,6 @@
       transform: scale(1.05);
     }
   }
-
-  .delete-playlist-btn {
-    border: none;
-    font-size: var(--text-3xl);
-    color: var(--color-text-muted);
-    background: none;
-  }
 }
 
 .tracks-header-row {
@@ -286,6 +279,23 @@
 
   &:hover {
     cursor: pointer;
+    color: var(--color-text);
+  }
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  align-items: center;
+
+  padding: rem(8) 0;
+
+  text-align: center;
+
+  &-text {
+    margin: 0;
+    font-size: 0.875rem;
     color: var(--color-text);
   }
 }
