@@ -17,7 +17,7 @@ const handleJamendoResponse = <TRawItem, TMappedItem>(
   };
 };
 
-export const createJamendoResponseMapper = <TRawItem, TMappedItem>(
+export const createJamendoResponseHandler = <TRawItem, TMappedItem>(
   mapper: (v: TRawItem) => TMappedItem
 ) => {
   return (resp: JamendoResponse<TRawItem>) => handleJamendoResponse(resp, mapper);

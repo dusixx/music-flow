@@ -1,4 +1,4 @@
-export type JamendoApiEndpoint = 'tracks' | 'artists' | 'albums';
+export type JamendoEndpoint = 'tracks' | 'artists' | 'albums';
 
 export interface JamendoResponse<T> {
   headers: {
@@ -15,4 +15,18 @@ export interface JamendoResponse<T> {
 export interface JamendoResult<T> {
   hasMore: boolean;
   results: T[];
+}
+
+export interface JamendoPaginationParams {
+  limit?: number;
+  offset?: number;
+}
+
+export interface JamendoSearchParams extends JamendoPaginationParams {
+  search: string;
+  fuzzytags?: string;
+  tags?: string;
+  durationbetween?: string;
+  order?: string;
+  boost?: string;
 }
