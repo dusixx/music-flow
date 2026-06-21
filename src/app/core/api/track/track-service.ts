@@ -2,10 +2,9 @@ import { inject, Service } from '@angular/core';
 import { JamendoService } from '@api/jamendo/jamendo-service';
 import { TrackCacheService } from '@app/core/api/cache/track-cache';
 import { map, of, tap } from 'rxjs';
-import { QueryParams } from '../common.types';
+import { createCacheKey } from '../cache/cache.utils';
 import { JamendoPaginationParams } from '../jamendo/jamendo.types';
 import { createJamendoResponseHandler } from '../jamendo/utils/handle-jamendo-response';
-import { normalizeQueryParams } from '../jamendo/utils/normalize-query-params';
 import { SearchParams } from './track-service.types';
 import { TrackDto } from './track.dto';
 import { mapTrack } from './track.mapper';
@@ -18,21 +17,14 @@ export class TrackService {
 
   private responseHandler = createJamendoResponseHandler(mapTrack);
 
-  private createCacheKey(params: QueryParams, prefix?: string): string {
-    const pairs = Object.entries(normalizeQueryParams(params)).map(([k, v]) => `${k}=${v}`);
-    if (prefix) {
-      pairs.unshift(prefix);
-    }
-    return pairs.join(':');
-  }
-
   getPopular(params?: JamendoPaginationParams) {
     const queryParams = {
       ...params,
       order: 'popularity_month',
       include: 'stats+musicinfo',
     };
-    const key = this.createCacheKey(queryParams, 'popular');
+    const key = createCacheKey(queryParams, 'popular');
+
     if (this.cache.has(key)) {
       return of(this.cache.get(key)!);
     }
@@ -50,7 +42,8 @@ export class TrackService {
       order: 'releasedate_desc',
       include: 'stats+musicinfo',
     };
-    const key = this.createCacheKey(queryParams, 'releases');
+    const key = createCacheKey(queryParams, 'releases');
+
     if (this.cache.has(key)) {
       return of(this.cache.get(key)!);
     }
@@ -67,7 +60,8 @@ export class TrackService {
       ...parseSearchParams(params),
       include: 'stats+musicinfo',
     };
-    const key = this.createCacheKey(queryParams, 'search');
+    const key = createCacheKey(queryParams, 'search');
+
     if (this.cache.has(key)) {
       return of(this.cache.get(key)!);
     }

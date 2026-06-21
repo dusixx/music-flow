@@ -37,12 +37,11 @@ export abstract class JamendoCacheService<TEntity extends EntityWithId> {
     results.forEach((item) => {
       const { id } = item;
 
-      if (unique.has(id)) {
-        return;
+      if (!unique.has(id)) {
+        unique.add(id);
+        this.items.set(id, item);
+        ids.push(id);
       }
-      this.items.set(id, item);
-      ids.push(id);
-      unique.add(id);
     });
     this.pages.set(pageId, {
       data: { results: ids, hasMore },
