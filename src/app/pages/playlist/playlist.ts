@@ -93,7 +93,7 @@ export class Playlist {
   protected async removeTrackById(trackId: string) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
-    if (playlist.trackIds.length <= 1) {
+    if (playlist.trackIds.length === 1) {
       // TODO: add toast here with message: A playlist must contain at least one track.
       return;
     }
