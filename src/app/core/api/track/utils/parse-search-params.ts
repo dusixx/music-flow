@@ -23,8 +23,8 @@ export const parseSearchParams = ({
     result.fuzzytags = normalizedFuzzyTags.join('+');
   }
 
-  const durFrom = ~~Number(durationFrom);
-  const durTo = ~~Number(durationTo);
+  const durFrom = parseFloat(`${durationFrom}`) || 0;
+  const durTo = parseFloat(`${durationTo}`) || 0;
 
   if (durTo > 0) {
     result.durationbetween = `${durFrom < durTo ? durFrom : 0}_${durTo}`;
