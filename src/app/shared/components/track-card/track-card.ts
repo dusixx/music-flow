@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, Component, inject, input, output, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { Track } from '@app/core/api/track/track.model';
 import { ViewportService } from '@app/core/services/viewport/viewport-service';
-import { Track } from '@app/shared/models/track';
 import { CompactNumberPipe } from '@app/shared/pipes/compact-number-pipe';
 import { DurationPipe } from '@app/shared/pipes/duration-pipe';
 import { TrackCover } from '../track-cover/track-cover';
