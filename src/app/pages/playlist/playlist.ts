@@ -108,7 +108,7 @@ export class Playlist {
     }
   }
 
-  protected async confirmDeletePlaylist() {
+  protected confirmDeletePlaylist() {
     this.isDeleteModalOpen.set(true);
   }
 
