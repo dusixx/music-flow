@@ -15,9 +15,11 @@
 <ng-template #dropdownContent>
   <tui-data-list class="playlist-menu-list">
     <button tuiOption type="button" (click)="onActionClick('edit')">
+      <player-sprite icon="edit" class="menu-icon" />
       <span>Edit details</span>
     </button>
     <button tuiOption type="button" (click)="onActionClick('delete')">
+      <player-sprite icon="delete" class="menu-icon" />
       <span>Delete playlist</span>
     </button>
   </tui-data-list>
