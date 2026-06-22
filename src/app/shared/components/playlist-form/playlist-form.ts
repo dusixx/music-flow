@@ -6,6 +6,7 @@ import {
   inject,
   input,
   output,
+  effect,
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { form, FormField, FormRoot } from '@angular/forms/signals';
@@ -15,22 +16,23 @@ import { Button } from '@shared/components/button/button';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { PlaylistFormData } from '@shared/models/playlist.model';
 import { CreatePlaylistInput } from '@shared/models/firestore.model';
+import { Playlist } from '@shared/models/firestore.model';
 import {
   MAX_LENGTH,
   SHOW_COUNTER_AT,
   playlistInitModel,
 } from '@shared/constants/playlist-validation.const';
-import { playlistSchemaFn } from './playlist-create.schema';
+import { playlistSchemaFn } from './playlist-form.schema';
 
 @Component({
-  selector: 'player-playlist-create',
+  selector: 'player-playlist-form',
   imports: [FormField, Button, Sprite, FormRoot],
-  templateUrl: './playlist-create.html',
-  styleUrl: './playlist-create.scss',
+  templateUrl: './playlist-form.html',
+  styleUrl: './playlist-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [PlaylistApiService],
 })
-export class PlaylistCreate {
+export class PlaylistForm {
   private router = inject(Router);
   private authService = inject(AuthService);
   private playlistApiService = inject(PlaylistApiService);
@@ -38,6 +40,7 @@ export class PlaylistCreate {
   title = input('New Playlist');
   submitText = input('Create');
   closeForm = output<void>();
+  playlistData = input<Playlist | null | undefined>(null);
 
   protected readonly maxLength = MAX_LENGTH;
   protected readonly showCounterAt = SHOW_COUNTER_AT;
@@ -56,12 +59,53 @@ export class PlaylistCreate {
 
   protected nameLength = computed(() => this.playlistForm.name().value().length);
 
+  constructor() {
+    effect(() => {
+      const editData = this.playlistData();
+      if (editData) {
+        this.playlistModel.set({
+          name: editData.name,
+          description: editData.description ?? '',
+        });
+      }
+    });
+  }
+
+  public resetForm() {
+    this.playlistModel.set({ ...playlistInitModel });
+    this.playlistForm().reset();
+  }
+
   protected async onSubmit() {
     if (!this.playlistForm().valid()) {
       this.playlistForm().markAsTouched();
       return;
     }
-    await this.createNewPlaylist(this.playlistModel());
+    // TODO: add notification
+    if (this.playlistData()) {
+      await this.updatePlaylist(this.playlistModel());
+    } else {
+      await this.createNewPlaylist(this.playlistModel());
+    }
+  }
+
+  private async updatePlaylist(data: PlaylistFormData) {
+    const currentPlaylist = this.playlistData();
+    if (!currentPlaylist) return;
+
+    this.isLoading.set(true);
+    try {
+      await this.playlistApiService.updatePlaylist(currentPlaylist.id, {
+        name: data.name.trim(),
+        description: data.description?.trim() ?? '',
+      });
+
+      this.closeForm.emit();
+    } catch (error) {
+      console.error('[PlaylistEdit]', error);
+    } finally {
+      this.isLoading.set(false);
+    }
   }
 
   private async createNewPlaylist(data: PlaylistFormData) {
@@ -80,8 +124,7 @@ export class PlaylistCreate {
     }
     try {
       const newPlaylistId = await this.playlistApiService.createPlaylist(newPlaylistData);
-      this.playlistModel.set(playlistInitModel);
-      this.playlistForm().reset();
+      this.resetForm();
       this.closeForm.emit();
       await this.router.navigate(['/playlists', newPlaylistId]);
     } catch (error) {

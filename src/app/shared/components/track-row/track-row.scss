@@ -1,0 +1,89 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+:host {
+  display: block;
+  width: 100%;
+}
+
+.track-row {
+  cursor: pointer;
+
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+  justify-content: space-between;
+
+  padding: var(--space-s) var(--space-m);
+  border-radius: var(--radius-s);
+
+  @include mix.main-transition('background-color');
+
+  @include mix.hover {
+    background-color: var(--color-surface);
+  }
+
+  &.playing {
+    .track-title {
+      color: var(--color-success);
+    }
+  }
+}
+
+.track-left-side {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-l);
+  align-items: center;
+
+  width: rem(80);
+
+  .track-index {
+    width: rem(16);
+    font-size: var(--text-s);
+    color: var(--color-text-muted);
+    text-align: center;
+  }
+}
+
+.track-main-info {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  min-width: 0;
+
+  .track-title {
+    font-size: var(--text-m);
+    font-weight: 500;
+    color: var(--color-text);
+  }
+
+  .track-artist {
+    font-size: var(--text-s);
+    color: var(--color-text-muted);
+  }
+}
+
+.track-meta-slot {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+
+  width: rem(300);
+
+  font-size: var(--text-s);
+  color: var(--color-text-muted);
+
+  @include mix.mobile {
+    display: none;
+  }
+}
+
+.track-actions-slot {
+  display: flex;
+  flex-shrink: 0;
+  gap: var(--space-s);
+  align-items: center;
+
+  width: rem(100);
+}

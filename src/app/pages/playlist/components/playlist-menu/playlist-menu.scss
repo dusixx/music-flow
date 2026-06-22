@@ -1,0 +1,51 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+.playlist-delete {
+  transform: rotate(90deg);
+
+  width: rem(40);
+  border: none;
+
+  color: var(--color-text-muted);
+
+  background: none;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-text);
+  }
+}
+
+tui-data-list.playlist-menu-list {
+  overflow: hidden;
+  border: none;
+  border-radius: var(--radius-s);
+  background-color: var(--color-bg);
+
+  button[tuiOption] {
+    display: flex;
+    gap: var(--space-m);
+    align-items: center;
+
+    width: 100%;
+    padding: var(--space-s) var(--space-l);
+    border-radius: var(--radius-s);
+
+    font-size: var(--text-s);
+    color: var(--color-text);
+
+    @include mix.main-transition('background-color, color');
+
+    &:hover {
+      cursor: pointer;
+      background-color: var(--color-surface);
+    }
+  }
+}
+
+.menu-icon {
+  width: rem(16);
+  height: rem(16);
+  color: var(--color-text-muted);
+}

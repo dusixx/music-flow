@@ -10,6 +10,10 @@ export class PlaylistApiService {
     return this.firestoreService.getDocsByUid('playlists', uid);
   }
 
+  async getPlaylistById(playlistId: string) {
+    return await this.firestoreService.getData('playlists', playlistId);
+  }
+
   async createPlaylist(input: CreatePlaylistInput) {
     const id = crypto.randomUUID();
     await this.firestoreService.setData('playlists', id, { ...input, id });
