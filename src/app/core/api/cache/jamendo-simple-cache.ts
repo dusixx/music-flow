@@ -57,6 +57,7 @@ export abstract class JamendoSimpleCacheService<TItem extends EntityWithId> {
       this.remove(pageId);
       return null;
     }
+    console.debug(this);
     return {
       results: page.data.results,
       hasMore: page.data.hasMore,
