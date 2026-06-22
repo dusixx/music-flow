@@ -13,17 +13,27 @@ import { of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { AuthService } from '@core/services/auth/auth-service';
-import { TrackRow } from '@shared/components/track-row/track-row/track-row';
+import { TrackRow } from '@shared/components/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
-import { DurationTextPipe } from '@shared/pipes/duration-text/duration-text-pipe';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
 import { Dialog } from '@shared/components/dialog/dialog';
-import { PlaylistMenu } from './components/playlist-menu/playlist-menu/playlist-menu';
+import { PlaylistForm } from '@shared/components/playlist-form/playlist-form';
+import { PlaylistHeader } from './components/playlist-header/playlist-header';
+import { TracksHeader } from './components/tracks-header/tracks-header';
 
 @Component({
   selector: 'player-playlist',
-  imports: [TrackRow, DurationPipe, DurationTextPipe, Sprite, Button, PlaylistMenu, Dialog],
+  imports: [
+    TrackRow,
+    DurationPipe,
+    Sprite,
+    Button,
+    Dialog,
+    PlaylistForm,
+    PlaylistHeader,
+    TracksHeader,
+  ],
   templateUrl: './playlist.html',
   styleUrl: './playlist.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -38,11 +48,9 @@ export class Playlist {
   protected id = input.required<string>();
 
   protected isPlaying = signal(false);
-  protected isModalOpen = signal(false);
+  protected isDeleteModalOpen = signal(false);
 
-  protected editPlaylistDetails() {
-    console.log('Action>> Edit details clicked');
-  }
+  protected isEditModalOpen = signal(false);
 
   protected displayName = computed(() => {
     return this.authService.user()?.displayName ?? 'User';
@@ -50,7 +58,7 @@ export class Playlist {
 
   protected totalTime = computed(() => {
     const tracks = this.tracksResource.value() ?? [];
-    return tracks.reduce((acc, item) => acc + item.duration, 0);
+    return tracks.reduce((acc, item) => acc + (item.duration ?? 0), 0);
   });
 
   protected playPlaylist() {
@@ -73,6 +81,15 @@ export class Playlist {
     },
   });
 
+  protected editPlaylistDetails() {
+    this.isEditModalOpen.set(true);
+  }
+
+  protected closeEditForm() {
+    this.isEditModalOpen.set(false);
+    this.playlistResource.reload();
+  }
+
   protected async removeTrackById(trackId: string) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
@@ -92,14 +109,14 @@ export class Playlist {
   }
 
   protected async confirmDeletePlaylist() {
-    this.isModalOpen.set(true);
+    this.isDeleteModalOpen.set(true);
   }
 
   protected async deletePlaylist() {
     const playlistId = this.playlistResource.value()?.id;
     if (!playlistId) return;
     try {
-      this.isModalOpen.set(false);
+      this.isDeleteModalOpen.set(false);
       await this.playlistService.deletePlaylist(playlistId);
       // TODO: replace with notification
       console.log('successfully deleted');
