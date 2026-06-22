@@ -36,7 +36,7 @@ export abstract class JamendoCacheService<TItem extends EntityWithId> {
 
   set(pageId: string, data: JamendoResult<TItem>) {
     const { results, hasMore } = data;
-    const unique = new Set<string>();
+    const existing = new Set<string>();
     const ids: string[] = [];
 
     this.remove(pageId);
@@ -44,8 +44,8 @@ export abstract class JamendoCacheService<TItem extends EntityWithId> {
     results.forEach((item) => {
       const { id } = item;
 
-      if (!unique.has(id)) {
-        unique.add(id);
+      if (!existing.has(id)) {
+        existing.add(id);
         this.addItem(id, item);
         ids.push(id);
       }

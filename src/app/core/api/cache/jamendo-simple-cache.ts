@@ -27,12 +27,12 @@ export abstract class JamendoSimpleCacheService<TItem extends EntityWithId> {
   }
 
   private dedupe(results: TItem[]) {
-    const unique = new Set<string>();
+    const existing = new Set<string>();
 
     return results.filter(({ id }) => {
-      const isUnique = !unique.has(id);
+      const isUnique = !existing.has(id);
       if (isUnique) {
-        unique.add(id);
+        existing.add(id);
       }
       return isUnique;
     });
