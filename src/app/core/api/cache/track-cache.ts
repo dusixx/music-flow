@@ -1,6 +1,6 @@
 import { Service } from '@angular/core';
 import { Track } from '@api/track/track.model';
-import { JamendoCacheService } from './jamendo-cache';
+import { JamendoSimpleCacheService } from './jamendo-simple-cache';
 
 @Service()
-export class TrackCacheService extends JamendoCacheService<Track> {}
+export class TrackCacheService extends JamendoSimpleCacheService<Track> {}

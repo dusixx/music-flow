@@ -1,6 +1,6 @@
 import { Service } from '@angular/core';
 import { Artist } from '@api/artist/artist.model';
-import { JamendoCacheService } from './jamendo-cache';
+import { JamendoSimpleCacheService } from './jamendo-simple-cache';
 
 @Service()
-export class ArtistCacheService extends JamendoCacheService<Artist> {}
+export class ArtistCacheService extends JamendoSimpleCacheService<Artist> {}
