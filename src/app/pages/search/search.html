@@ -1,0 +1,11 @@
+<div class="results">
+  @for (item of searchStore.results(); track item.id) {
+    <player-track-card [track]="item" class="item" />
+  } @empty {
+    <p>There is nothing here</p>
+  }
+</div>
+@let store = searchStore;
+@if (store.hasMore()) {
+  <button playerButton (click)="store.loadMore()" [loading]="store.loading()">More</button>
+}

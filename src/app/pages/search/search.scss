@@ -1,0 +1,10 @@
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-s);
+}
+
+.item {
+  flex-grow: 0;
+  width: var(--track-card-width-m);
+}
