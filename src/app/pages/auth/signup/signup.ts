@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
@@ -20,9 +20,6 @@ import { signupSchemaFn } from './signup.schema';
 export class Signup {
   private authService = inject(AuthService);
   private router = inject(Router);
-
-  title = input('Sign Up');
-  submitText = input('Register');
 
   protected error = signal('');
   protected loading = signal(false);
