@@ -1,0 +1,59 @@
+@if (playlistResource.value(); as playlist) {
+  <player-playlist-header
+    [playlist]="playlist"
+    [displayName]="displayName()"
+    [totalTime]="totalTime()"
+    [isPlaying]="isPlaying()"
+    (playClicked)="playPlaylist()"
+    (editClicked)="editPlaylistDetails()"
+    (deleteClicked)="isDeleteModalOpen.set(true)"
+  />
+  <div class="track-list">
+    @if (playlist.trackIds?.length) {
+      <player-tracks-header />
+    }
+    @for (track of tracksResource.value(); track track.id; let index = $index) {
+      <player-track-row [index]="index" [track]="track">
+        <span row-meta class="track-album">{{ track.album.name }}</span>
+        <span row-actions class="track-duration">{{ track.duration | duration }}</span>
+        <button row-actions class="track-remove" (click)="removeTrackById(track.id)">
+          <player-sprite icon="close" />
+        </button>
+      </player-track-row>
+    }
+  </div>
+} @else if (playlistResource.isLoading()) {
+  <p class="loading">Loading...</p>
+} @else {
+  <p>Playlist not found.</p>
+}
+<player-dialog [isOpen]="isDeleteModalOpen()" (closeDialog)="isDeleteModalOpen.set(false)">
+  <div class="confirm">
+    <p>Delete playlist?</p>
+    <p class="confirm-text">
+      This action cannot be undone. Your playlist will be permanently deleted.
+    </p>
+    <div class="confirm-actions">
+      <button playerButton variant="base" size="small" (click)="isDeleteModalOpen.set(false)">
+        Cancel
+      </button>
+      <button
+        playerButton
+        variant="base"
+        size="small"
+        (click)="deletePlaylist()"
+        class="confirm-delete"
+      >
+        Delete
+      </button>
+    </div>
+  </div>
+</player-dialog>
+<player-dialog [isOpen]="isEditModalOpen()" (closeDialog)="closeEditForm()">
+  <player-playlist-form
+    title="Edit details"
+    submitText="Save"
+    [playlistData]="playlistResource.value()"
+    (closeForm)="closeEditForm()"
+  />
+</player-dialog>

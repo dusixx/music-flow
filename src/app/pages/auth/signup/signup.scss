@@ -1,0 +1,18 @@
+@use '../form/styles';
+
+.hint {
+  display: flex;
+  gap: var(--space-s);
+  align-items: center;
+  justify-content: center;
+
+  .message {
+    color: var(--color-text-subtle);
+  }
+
+  .link {
+    @extend %link-inverse;
+
+    text-decoration: underline;
+  }
+}

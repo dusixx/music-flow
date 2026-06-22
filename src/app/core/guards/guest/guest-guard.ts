@@ -1,10 +1,4 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
-import { AuthService } from '@app/core/services/auth/auth-service';
+import { CanActivateFn } from '@angular/router';
+import { createAuthGuard } from '../create-auth-guard';
 
-export const guestGuard: CanActivateFn = () => {
-  const router = inject(Router);
-  const authService = inject(AuthService);
-
-  return authService.isAuthenticated() ? router.parseUrl('/') : true;
-};
+export const guestGuard: CanActivateFn = createAuthGuard('guest');

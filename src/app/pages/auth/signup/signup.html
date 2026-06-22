@@ -1,0 +1,48 @@
+<div class="form-wrapper">
+  <h2 class="title">{{ title() }}</h2>
+
+  <form novalidate (submit)="onSubmit($event)" class="form">
+    <player-form-textfield
+      [formField]="signupForm.name"
+      [invalid]="signupForm.name().touched() && signupForm.name().invalid()"
+      placeholder="Name"
+    />
+    <player-form-textfield
+      [formField]="signupForm.email"
+      [invalid]="signupForm.email().touched() && signupForm.email().invalid()"
+      placeholder="Email"
+    />
+    <player-form-textfield
+      type="password"
+      [formField]="signupForm.password"
+      [invalid]="signupForm.password().touched() && signupForm.password().invalid()"
+      placeholder="Password"
+    />
+    <player-form-textfield
+      type="password"
+      [formField]="signupForm.confirmPassword"
+      [invalid]="signupForm.confirmPassword().touched() && signupForm.confirmPassword().invalid()"
+      placeholder="Password again"
+    />
+    @if (error()) {
+      <div class="server-error">
+        <player-sprite icon="error-outlined" class="icon" />
+        <p>{{ error() }}</p>
+      </div>
+    }
+    <button
+      playerButton
+      type="submit"
+      class="submit"
+      variant="secondary"
+      [loading]="loading()"
+      [disabled]="!!error()"
+    >
+      {{ submitText() }}
+    </button>
+  </form>
+  <div class="hint">
+    <span class="message">Already registered?</span>
+    <a class="link" routerLink="/login">Log In</a>
+  </div>
+</div>

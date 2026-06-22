@@ -1,0 +1,39 @@
+@use 'utils';
+
+:host {
+  position: relative;
+  display: flex;
+  width: 100%;
+}
+
+.text-field {
+  --t-shadow: unset;
+
+  width: 100%;
+
+  ::placeholder {
+    color: var(--color-text-subtle);
+  }
+}
+
+.error {
+  position: absolute;
+  bottom: -48%;
+  left: 0;
+
+  display: flex;
+  gap: var(--space-xs);
+
+  width: 100%;
+
+  font-size: var(--text-xs);
+  color: var(--color-error);
+
+  .icon {
+    width: var(--size-l);
+  }
+
+  .message {
+    @extend %ellipsis;
+  }
+}

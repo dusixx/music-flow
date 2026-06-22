@@ -36,8 +36,8 @@ h4 {
 }
 
 %dark-palette {
-  --color-bg: rgb(28 27 34);
-  --color-bg-secondary: rgb(21 20 25);
+  --color-bg: rgb(27 26 34);
+  --color-bg-secondary: rgb(23 22 28);
   --color-surface: rgb(42 42 49);
   --color-surface-secondary: rgb(52 52 60);
   --color-text: rgb(232 232 232);
@@ -47,13 +47,13 @@ h4 {
   --color-text-inverse: var(--color-bg);
   --color-border: rgb(234 234 234 / 10%);
   --color-border-subtle: rgb(234 234 234 / 4%);
-  --color-border-strong: rgb(234 234 234 / 40%);
+  --color-border-strong: rgb(234 234 234 / 50%);
   --color-accent: #5f3bb2;
   --color-accent-secondary: #1ed760;
   --color-accent-tertiary: #b34263;
   --color-success: #1ed760;
   --color-warning: #ffb4ab;
-  --color-error: #810081;
+  --color-error: #d31033;
   --color-info: rgb(106 103 255);
   --color-overlay: rgb(28 27 34 / 40%);
   --color-overlay-secondary: rgb(28 27 34 / 80%);
@@ -116,7 +116,7 @@ h4 {
   --bp-tablet: #{$bp-tablet};
   --bp-desktop: #{$bp-desktop};
   --bp-wide: #{$bp-wide};
-  --wrapper-min-width: 420px;
+  --wrapper-min-width: 380px;
   --wrapper-max-width: 1440px;
   --box-shadow: 0 var(--scale-s) var(--scale-s) var(--color-shadow);
   --border: 1px solid var(--color-border);
@@ -124,13 +124,15 @@ h4 {
   @extend %spacing;
   @extend %radius;
   @extend %text-size;
+  @extend %sizing;
   @extend %z-index;
 }
 
 :root,
 [tuiTheme='dark'] {
   --tui-duration: #{$transition-duration};
-  --tui-radius-l: var(--radius-l);
+  --tui-radius-l: var(--radius-xl);
+  --tui-radius-s: var(--radius-l);
   --tui-height-l: 2.75rem;
   --tui-typography-family-text: 'Nunito Sans', sans-serif;
   --tui-background-base: var(--color-bg);
@@ -139,6 +141,8 @@ h4 {
   --tui-text-tertiary: var(--color-text-subtle);
   --tui-border-normal: var(--color-border);
   --tui-background-accent-1: var(--color-border-strong);
+  --tui-status-negative: var(--color-error);
+  --tui-service-autofill-background: var(--color-surface);
   @extend %vars;
   @extend %dark-palette;
 }

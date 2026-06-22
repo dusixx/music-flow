@@ -1,0 +1,16 @@
+@use 'utils/mixins' as mix;
+
+tui-dialog[data-appearance~='taiga'] {
+  padding: 0;
+  border: var(--border);
+  border-radius: var(--radius-l);
+  background-color: var(--color-bg-secondary);
+}
+
+tui-dialog [data-appearance~='icon'] {
+  color: var(--color-text-muted);
+
+  &:hover {
+    color: var(--color-text);
+  }
+}

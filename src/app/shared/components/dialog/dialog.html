@@ -1,0 +1,5 @@
+<ng-template [tuiDialog]="isOpen()" (tuiDialogChange)="closeDialog.emit()">
+  <div class="dialog-internal-content">
+    <ng-content />
+  </div>
+</ng-template>

@@ -15,17 +15,28 @@ export const routes: Routes = [
     data: { [REQUIRES_AUTH]: true },
   },
   {
+    path: 'playlists',
+    redirectTo: 'library',
+    pathMatch: 'full',
+  },
+  {
+    path: 'playlists/:id',
+    loadComponent: () => import('@pages/playlist/playlist').then((m) => m.Playlist),
+    canActivate: [authGuard],
+    data: { [REQUIRES_AUTH]: true },
+  },
+  {
     path: 'about',
     loadComponent: () => import('@pages/about/about').then((m) => m.About),
   },
   {
     path: 'login',
-    loadComponent: () => import('@pages/login/login').then((m) => m.Login),
+    loadComponent: () => import('@app/pages/auth/login/login').then((m) => m.Login),
     canActivate: [guestGuard],
   },
   {
     path: 'signup',
-    loadComponent: () => import('@pages/signup/signup').then((m) => m.Signup),
+    loadComponent: () => import('@app/pages/auth/signup/signup').then((m) => m.Signup),
     canActivate: [guestGuard],
   },
   {

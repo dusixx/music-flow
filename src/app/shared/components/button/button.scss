@@ -18,9 +18,7 @@ $focused-selector: ':not(#{$loading-selector})';
 }
 
 :host {
-  $height: rem(46);
-
-  --button-height: #{$height};
+  --button-height: #{rem(46)};
   --button-font-size: var(--text-m);
   --button-padding-side: var(--space-xl);
   --button-border-radius: var(--radius-full);
@@ -88,9 +86,7 @@ $focused-selector: ':not(#{$loading-selector})';
   }
 
   &.small {
-    $height: rem(32);
-
-    --button-height: #{$height};
+    --button-height: #{rem(32)};
     --button-font-size: var(--text-s);
     --button-padding-side: var(--space-l);
     --button-icon-size: var(--text-s);

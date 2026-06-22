@@ -1,0 +1,38 @@
+@let data = playlist();
+<div class="playlist-header-container">
+  <div class="playlist-header">
+    <div class="playlist-cover-wrapper">
+      <player-sprite icon="music" class="playlist-cover-icon" />
+      <div class="cover-hover-overlay">
+        <player-sprite icon="edit" class="edit-icon" />
+        <span>Choose photo</span>
+      </div>
+    </div>
+    <div class="playlist-metadata">
+      <p class="playlist-type">Playlist</p>
+      <h1 class="playlist-title" [title]="data.name">{{ data.name }}</h1>
+      <p class="playlist-description">{{ data.description ?? '' }}</p>
+      <div class="playlist-stats">
+        <span class="playlist-displayname"> {{ displayName() }} </span>
+        @if (data.trackIds?.length) {
+          <span class="playlist-header-separator">•</span>
+          <span class="playlist-tracks-count"> {{ data.trackIds.length }} songs, </span>
+          <div class="playlist-total-time">
+            <span> {{ totalTime() | durationText }} </span>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+<div class="palylist-header-actions">
+  <button
+    variant="primary"
+    playerButton="playlist-header-play-btn"
+    [icon]="isPlaying() ? 'pause' : 'play'"
+    (click)="playClicked.emit()"
+    class="playlist-play-btn"
+    aria-label="toggle playback"
+  ></button>
+  <player-playlist-menu (editClicked)="editClicked.emit()" (deleteClicked)="deleteClicked.emit()" />
+</div>
