@@ -3,7 +3,7 @@ import { Playlist } from '@shared/models/firestore.model';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
 import { DurationTextPipe } from '@shared/pipes/duration-text/duration-text-pipe';
-import { PlaylistMenu } from '../../playlist-menu/playlist-menu/playlist-menu';
+import { PlaylistMenu } from '../playlist-menu/playlist-menu';
 
 @Component({
   selector: 'player-playlist-header',
