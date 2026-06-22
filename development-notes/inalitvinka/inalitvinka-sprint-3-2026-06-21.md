@@ -7,8 +7,7 @@
 ### What was done:
 
 - Added `resetForm()` method inside the playlist creation form using spread operator to avoid object mutation
-- Integrated `viewChild` to get a direct reference to the form from `Library` component to ensure that every time modal opens, the form data is completely cleared
-- Built a custom, universal `TrackRow` component to show track details in a flexible row layou
+- Built a custom, universal `TrackRow` component to show track details in a flexible row layout
 - Created a separate `PlaylistTracksHeader` component for the track table header to match the Spotify look and keep the code clean
 - Made `DurationPipe` to format the total time of the playlist into a friendly text style like `23 min 34 sec`
 - Refactored `PlaylistCreate` component into a universal `PlaylistForm` component and moved it to `shared/`so it can handle both creating and editing
@@ -24,10 +23,10 @@
 ### Problems:
 - **Data Mutation Bug => Object Reference Sharing:** Passing `playlistInitModel` object directly into the signal created a shared link in memory. Because of this link, whenever user typed any text into the form input fields, it accidentally changed the original default constant itself
 - **UI Stale States => Resource Reloading:** After deleting a track or saving an updated playlist name in database, the screen didn't re-render automatically. The UI became stale because inner resources were holding old data cached in the Angular memory
+- **Hidden Dialog Caching:** The library modal dialog keeps the form component alive in the background instead of destroying it when closed, which leaves old text or errors messages inside the inputs
 - **Messy HTML Code:** Putting playlist header, track table, and two different modal dialogs into a single HTML file made the template too large and very hard to read
 - **Severe Dropdown Border Overrides:** Taiga UI dropdown forced stiff borders through inner `:where()` selectors. Even disabling view encapsulation and targeting data-appearance attributes didn't fully remove border lines
 - **Component Access Control:** Restricting service injections to private prevented HTML template from reading the current user details directly
-
 
 ---
 
@@ -36,7 +35,7 @@
 - Fixing Stale UI with Resource API => Resolved the frozen screen states by `.reload()` method on `playlistResource`. Since the `tracksResource` reactively monitors the list of IDs from the first resource, triggering a reload on the parent automatically forces a chain-reaction update of the track views on the screen
 - Fixed ONLY the background color of the dropdown box and applied custom hover animations to the buttons inside the list by targeting `tui-data-list.playlist-menu-list` and `button[tuiOption]`. However, borders remained unchanged, that leaves this as a room for future investigation to understand the root of the problem
 - Cleared out template mess by moving playlist header layout and table header into their own components
-- Resolved issue of old input data sticking inside the modal form by applying `viewChild<PlaylistForm>('playlistFormRef')`. This allows `Library` component to call the public `resetForm()` method exactly at the moment a user clicks the `Create Playlist` card
+- Resolved issue of old input data sticking inside the modal form by applying `viewChild<PlaylistForm>('playlistFormRef')`. This allows `Library` component to get a reference to the form and call the public `resetForm()` method exactly at the moment a user clicks the `Create Playlist` card - every time the modal opens
 - Solved the service visibility problem by creating a local `computed` signal that reads data from the private service and safely shares it with the template
 
 ---
