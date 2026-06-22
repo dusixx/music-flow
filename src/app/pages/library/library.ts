@@ -32,7 +32,7 @@ export class Library {
     loader: async () => {
       const uid = this.authService.user()?.uid;
       if (!uid) return [];
-      return await this.playlistApiService.getUserPlaylists(uid);
+      return this.playlistApiService.getUserPlaylists(uid);
     },
   });
 

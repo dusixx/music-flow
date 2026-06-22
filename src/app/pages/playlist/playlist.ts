@@ -66,8 +66,8 @@ export class Playlist {
   }
 
   protected playlistResource = resource({
-    loader: async () => {
-      return await this.playlistService.getPlaylistById(this.id());
+    loader: () => {
+      return this.playlistService.getPlaylistById(this.id());
     },
   });
 
@@ -118,8 +118,7 @@ export class Playlist {
     try {
       this.isDeleteModalOpen.set(false);
       await this.playlistService.deletePlaylist(playlistId);
-      // TODO: replace with notification
-      console.log('successfully deleted');
+      // TODO: add notification successfully deleted
       await this.router.navigate(['/library']);
     } catch (error) {
       console.error('[deletePlaylistById]', error);
