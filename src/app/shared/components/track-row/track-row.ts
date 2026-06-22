@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, Component, input, output, signal } from '@angular/core';
 import { Track } from '@shared/models/track';
-import { TrackCover } from '../../track-cover/track-cover';
+import { TrackCover } from '../track-cover/track-cover';
 
 @Component({
   selector: 'player-track-row',

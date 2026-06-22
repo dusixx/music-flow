@@ -22,17 +22,17 @@ import {
   SHOW_COUNTER_AT,
   playlistInitModel,
 } from '@shared/constants/playlist-validation.const';
-import { playlistSchemaFn } from './playlist-create.schema';
+import { playlistSchemaFn } from './playlist-form.schema';
 
 @Component({
-  selector: 'player-playlist-create',
+  selector: 'player-playlist-form',
   imports: [FormField, Button, Sprite, FormRoot],
-  templateUrl: './playlist-create.html',
-  styleUrl: './playlist-create.scss',
+  templateUrl: './playlist-form.html',
+  styleUrl: './playlist-form.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [PlaylistApiService],
 })
-export class PlaylistCreate {
+export class PlaylistForm {
   private router = inject(Router);
   private authService = inject(AuthService);
   private playlistApiService = inject(PlaylistApiService);
