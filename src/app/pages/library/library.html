@@ -36,5 +36,5 @@
   </div>
 </section>
 <player-dialog [isOpen]="isModalOpen()" (closeDialog)="closeCreateForm()">
-  <player-playlist-create #playlistFormRef (closeForm)="closeCreateForm()" />
+  <player-playlist-form #playlistFormRef (closeForm)="closeCreateForm()" />
 </player-dialog>

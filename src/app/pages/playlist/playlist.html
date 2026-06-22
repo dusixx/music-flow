@@ -50,7 +50,7 @@
   </div>
 </player-dialog>
 <player-dialog [isOpen]="isEditModalOpen()" (closeDialog)="closeEditForm()">
-  <player-playlist-create
+  <player-playlist-form
     title="Edit details"
     submitText="Save"
     [playlistData]="playlistResource.value()"

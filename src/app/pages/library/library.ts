@@ -11,11 +11,11 @@ import { Dialog } from '@shared/components/dialog/dialog';
 import { AuthService } from '@core/services/auth/auth-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { Sprite } from '@shared/components/sprite/sprite';
-import { PlaylistCreate } from './components/playlist-create/playlist-create';
+import { PlaylistForm } from '@shared/components/playlist-form/playlist-form';
 
 @Component({
   selector: 'player-library',
-  imports: [PlaylistCreate, Dialog, RouterLink, Sprite],
+  imports: [PlaylistForm, Dialog, RouterLink, Sprite],
   templateUrl: './library.html',
   styleUrl: './library.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -26,7 +26,7 @@ export class Library {
   private playlistApiService = inject(PlaylistApiService);
   protected isModalOpen = signal(false);
 
-  private playlistForm = viewChild<PlaylistCreate>('playlistFormRef');
+  private playlistForm = viewChild<PlaylistForm>('playlistFormRef');
 
   protected playlistsResource = resource({
     loader: async () => {
