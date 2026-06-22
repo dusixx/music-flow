@@ -76,7 +76,23 @@
 }
 <player-dialog [isOpen]="isModalOpen()" (closeDialog)="isModalOpen.set(false)">
   <div class="confirm">
-    <p class="confirm-text">Delete from Your Library?</p>
-    <button playerButton variant="primary" (click)="deletePlaylist()">Delete</button>
+    <p>Delete playlist?</p>
+    <p class="confirm-text">
+      This action cannot be undone. Your playlist will be permanently deleted.
+    </p>
+    <div class="confirm-actions">
+      <button playerButton variant="base" size="small" (click)="isModalOpen.set(false)">
+        Cancel
+      </button>
+      <button
+        playerButton
+        variant="base"
+        size="small"
+        (click)="deletePlaylist()"
+        class="confirm-delete"
+      >
+        Delete
+      </button>
+    </div>
   </div>
 </player-dialog>
