@@ -1,14 +1,14 @@
 import { inject, Service } from '@angular/core';
 import { JamendoService } from '@api/jamendo/jamendo-service';
-import { TrackCacheService } from '@app/core/api/cache/track-cache';
 import { map, of, tap } from 'rxjs';
-import { createCacheKey } from '../cache/cache.utils';
-import { JamendoPaginationParams } from '../jamendo/jamendo.types';
+import { createCacheKey } from '../cache/jamendo-cache.utils';
+import { JamendoPaginationParams, JamendoSearchParams } from '../jamendo/jamendo.types';
 import { createJamendoResponseHandler } from '../jamendo/utils/handle-jamendo-response';
-import { SearchParams } from './track-service.types';
+// import { SearchParams } from './track-service.types';
+import { TrackCacheService } from '../cache/entity-cache';
 import { TrackDto } from './track.dto';
 import { mapTrack } from './track.mapper';
-import { parseSearchParams } from './utils/parse-search-params';
+// import { parseSearchParams } from './utils/parse-search-params';
 
 @Service()
 export class TrackService {
@@ -55,9 +55,9 @@ export class TrackService {
     );
   }
 
-  search(params: SearchParams) {
+  search(params: JamendoSearchParams) {
     const queryParams = {
-      ...parseSearchParams(params),
+      ...params,
       include: 'stats+musicinfo',
     };
     const key = createCacheKey(queryParams, 'search');
