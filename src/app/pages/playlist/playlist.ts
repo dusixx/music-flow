@@ -13,7 +13,7 @@ import { of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { AuthService } from '@core/services/auth/auth-service';
-import { TrackRow } from '@shared/components/track-row/track-row';
+import { TrackRow } from '@app/shared/components/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
