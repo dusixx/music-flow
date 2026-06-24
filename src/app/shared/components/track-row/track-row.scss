@@ -24,10 +24,6 @@
   @include mix.hover {
     cursor: pointer;
     background-color: var(--color-surface);
-
-    .track-actions-slot [row-actions] {
-      opacity: 1;
-    }
   }
 
   @include mix.tablet {
@@ -103,10 +99,4 @@
   gap: var(--space-s);
   align-items: center;
   justify-content: flex-end;
-
-  [row-actions] {
-    flex-shrink: 0;
-    opacity: 0;
-    @include mix.main-transition('opacity');
-  }
 }
