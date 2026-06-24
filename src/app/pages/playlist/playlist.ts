@@ -9,7 +9,7 @@ import {
 } from '@angular/core';
 import { Router } from '@angular/router';
 import { rxResource } from '@angular/core/rxjs-interop';
-import { of } from 'rxjs';
+import { map, of } from 'rxjs';
 import { TrackService } from '@core/api/tracks/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { AuthService } from '@core/services/auth/auth-service';
@@ -71,8 +71,13 @@ export class Playlist {
     },
   });
 
+  protected trackIds = computed(() => {
+    return this.playlistResource.value()?.trackIds ?? [];
+  });
+
   protected tracksResource = rxResource({
-    params: () => this.playlistResource.value()?.trackIds ?? [],
+    // params: () => this.playlistResource.value()?.trackIds ?? [],
+    params: () => this.trackIds(),
     stream: ({ params: trackIds }) => {
       if (!trackIds.length) {
         return of([]);
@@ -80,6 +85,31 @@ export class Playlist {
       return this.trackService.getTracksByIds(trackIds);
     },
   });
+
+  protected recommendedTracksResource = rxResource({
+    params: () => this.trackIds(),
+    stream: ({ params: trackIds }) => {
+      return this.trackService.getPopular().pipe(
+        map((allTracks) => {
+          const idSet = new Set(trackIds);
+          return allTracks.filter((track) => !idSet.has(track.id));
+        })
+      );
+    },
+  });
+
+  protected async addToPlaylist(id: string) {
+    // console.log(this.recommendedTracksResource.value())
+    const playlist = this.playlistResource.value();
+    if (!playlist) return;
+    const updatedTrackIds = [...playlist.trackIds, id];
+    try {
+      await this.playlistService.updatePlaylist(playlist.id, { trackIds: updatedTrackIds });
+      this.playlistResource.reload();
+    } catch (error) {
+      console.error('[addToPlaylist]', error);
+    }
+  }
 
   protected editPlaylistDetails() {
     this.isEditModalOpen.set(true);

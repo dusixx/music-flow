@@ -36,14 +36,25 @@
   }
 }
 
-.track-remove {
-  width: rem(30);
+.track-remove,
+.track-add {
   border: none;
   background: none;
+}
 
-  &:hover {
+.track-remove {
+  width: rem(26);
+  @include mix.hover {
     cursor: pointer;
-    color: var(--color-text);
+    color: var(--color-warning);
+  }
+}
+
+.track-add {
+  width: rem(32);
+  @include mix.hover {
+    cursor: pointer;
+    color: var(--color-success);
   }
 }
 

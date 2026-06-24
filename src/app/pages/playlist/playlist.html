@@ -22,6 +22,23 @@
       </player-track-row>
     }
   </div>
+  <h2>Recommended</h2>
+  <div class="recommend-list">
+    @for (track of recommendedTracksResource.value(); track track.id; let index = $index) {
+      <player-track-row [index]="index" [track]="track">
+        <span row-meta class="track-album">{{ track.album.name }}</span>
+        <button row-actions class="track-add" (click)="addToPlaylist(track.id)">
+          <player-sprite icon="add-track" />
+        </button>
+      </player-track-row>
+    } @empty {
+      @if (recommendedTracksResource.isLoading()) {
+        <p class="loading">Loading recommendations...</p>
+      } @else {
+        <p>No new recommendations available</p>
+      }
+    }
+  </div>
 } @else if (playlistResource.isLoading()) {
   <p class="loading">Loading...</p>
 } @else {
