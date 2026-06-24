@@ -17,9 +17,9 @@
         @if (data.trackIds?.length) {
           <span class="playlist-header-separator">•</span>
           <span class="playlist-tracks-count"> {{ data.trackIds.length }} songs, </span>
-          <div class="playlist-total-time">
+          <span class="playlist-total-time">
             <span> {{ totalTime() | durationText }} </span>
-          </div>
+          </span>
         }
       </div>
     </div>

@@ -1,5 +1,6 @@
 @use 'utils/funcs' as *;
 @use 'utils/mixins' as mix;
+@use 'utils/placeholders';
 
 :host {
   // TODO: choose a more appropriate color
@@ -10,12 +11,34 @@
   flex-direction: column;
   gap: var(--space-xl);
   padding: 0 var(--space-xl);
+
+  @include mix.tablet {
+    padding: 0 var(--space-2xs);
+  }
+
+  @include mix.mobile {
+    padding: 0 var(--space-2xs);
+  }
+}
+
+.track-album {
+  @extend %ellipsis;
+  @media (width <= 710px) {
+    display: none;
+  }
+}
+
+.track-duration,
+.track-remove {
+  color: var(--color-text-muted);
+  @media (width <= 425.9px) {
+    font-size: var(--text-2xs);
+  }
 }
 
 .track-remove {
   width: rem(30);
   border: none;
-  color: var(--color-text-muted);
   background: none;
 
   &:hover {
@@ -30,7 +53,7 @@
   gap: var(--space-s);
   align-items: center;
 
-  padding: rem(8) 0;
+  padding: var(--space-s) 0;
 
   &-text {
     margin: 0 0 rem(10);
