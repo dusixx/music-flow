@@ -92,11 +92,18 @@ export class Playlist {
       return this.trackService.getPopular().pipe(
         map((allTracks) => {
           const idSet = new Set(trackIds);
-          return allTracks.filter((track) => !idSet.has(track.id));
+          return allTracks
+            .filter((t) => !idSet.has(t.id))
+            .sort(() => Math.random() - 0.5)
+            .slice(0, 3);
         })
       );
     },
   });
+
+  protected refreshRecommendations() {
+    this.recommendedTracksResource.reload();
+  }
 
   protected async addToPlaylist(id: string) {
     // console.log(this.recommendedTracksResource.value())
