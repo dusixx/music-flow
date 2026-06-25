@@ -19,8 +19,13 @@ import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
 import { Dialog } from '@shared/components/dialog/dialog';
 import { PlaylistForm } from '@shared/components/playlist-form/playlist-form';
+import { Track } from '@shared/models/track';
+import { UpdatePlaylistInput } from '@shared/models/firestore.model';
 import { PlaylistHeader } from './components/playlist-header/playlist-header';
 import { TracksHeader } from './components/tracks-header/tracks-header';
+
+const RECOMMENDATIONS_LIMIT = 3;
+const MOSAIC_COVERS_COUNT = 4;
 
 @Component({
   selector: 'player-playlist',
@@ -95,7 +100,7 @@ export class Playlist {
           return allTracks
             .filter((t) => !idSet.has(t.id))
             .sort(() => Math.random() - 0.5)
-            .slice(0, 3);
+            .slice(0, RECOMMENDATIONS_LIMIT);
         })
       );
     },
@@ -105,13 +110,34 @@ export class Playlist {
     this.recommendedTracksResource.reload();
   }
 
-  protected async addToPlaylist(id: string) {
+  protected async addToPlaylist(track: Track) {
     // console.log(this.recommendedTracksResource.value())
     const playlist = this.playlistResource.value();
     if (!playlist) return;
-    const updatedTrackIds = [...playlist.trackIds, id];
+
+    const updatedTrackIds = [...playlist.trackIds, track.id];
+    const updates: UpdatePlaylistInput = { trackIds: updatedTrackIds };
+
+    if (updatedTrackIds.length >= MOSAIC_COVERS_COUNT) {
+      // console.log(this.tracksResource.value())
+      const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
+      const images: string[] = [];
+      for (const id of firstFourIds) {
+        if (id === track.id) {
+          images.push(track.album.image);
+        } else {
+          const existingTrack = this.tracksResource.value()?.find((track) => track.id === id);
+          if (existingTrack) {
+            images.push(existingTrack.album.image);
+          }
+        }
+      }
+      updates.coverUrl = images;
+    } else if (!playlist.trackIds.length) {
+      updates.coverUrl = [track.album.image];
+    }
     try {
-      await this.playlistService.updatePlaylist(playlist.id, { trackIds: updatedTrackIds });
+      await this.playlistService.updatePlaylist(playlist.id, updates);
       this.playlistResource.reload();
     } catch (error) {
       console.error('[addToPlaylist]', error);
@@ -127,18 +153,38 @@ export class Playlist {
     this.playlistResource.reload();
   }
 
-  protected async removeTrackById(trackId: string) {
+  protected async removeFromPlaylist(track: Track) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
     if (playlist.trackIds.length === 1) {
       // TODO: add toast here with message: A playlist must contain at least one track.
       return;
     }
-    const updatedTrackIds = playlist.trackIds.filter((id) => id !== trackId);
+    const updatedTrackIds = playlist.trackIds.filter((id) => id !== track.id);
+
+    const updates: UpdatePlaylistInput = {
+      trackIds: updatedTrackIds,
+    };
+    if (updatedTrackIds.length < MOSAIC_COVERS_COUNT) {
+      const firstTrackId = updatedTrackIds[0];
+      const firstTrack = this.tracksResource.value()?.find((track) => track.id === firstTrackId);
+      if (firstTrack) {
+        updates.coverUrl = [firstTrack.album.image];
+      }
+    } else {
+      const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
+      const images: string[] = [];
+      for (const id of firstFourIds) {
+        const existingTrack = this.tracksResource.value()?.find((t) => t.id === id);
+        if (existingTrack) {
+          images.push(existingTrack.album.image);
+        }
+      }
+      updates.coverUrl = images;
+    }
+    // console.log('data>>', updates);
     try {
-      await this.playlistService.updatePlaylist(playlist.id, {
-        trackIds: updatedTrackIds,
-      });
+      await this.playlistService.updatePlaylist(playlist.id, updates);
       this.playlistResource.reload();
     } catch (error) {
       console.error('[removeTrackById]', error);
