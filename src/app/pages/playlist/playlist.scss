@@ -40,22 +40,18 @@
 .track-add {
   border: none;
   background: none;
-}
-
-.track-remove {
-  width: rem(26);
-  @include mix.hover {
-    cursor: pointer;
-    color: var(--color-warning);
-  }
-}
-
-.track-add {
-  width: rem(32);
   @include mix.hover {
     cursor: pointer;
     color: var(--color-success);
   }
+}
+
+.track-remove {
+  width: rem(26);
+}
+
+.track-add {
+  width: rem(34);
 }
 
 .recommended-refresh {

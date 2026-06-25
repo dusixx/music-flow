@@ -16,7 +16,7 @@
       <player-track-row [index]="index" [track]="track">
         <span row-meta class="track-album">{{ track.album.name }}</span>
         <span row-actions class="track-duration">{{ track.duration | duration }}</span>
-        <button row-actions class="track-remove" (click)="removeTrackById(track.id)">
+        <button row-actions class="track-remove" (click)="removeFromPlaylist(track)">
           <player-sprite icon="close" />
         </button>
       </player-track-row>
@@ -27,7 +27,7 @@
     @for (track of recommendedTracksResource.value(); track track.id; let index = $index) {
       <player-track-row [track]="track">
         <span row-meta class="track-album">{{ track.album.name }}</span>
-        <button row-actions class="track-add" (click)="addToPlaylist(track.id)">
+        <button row-actions class="track-add" (click)="addToPlaylist(track)">
           <player-sprite icon="add-track" />
         </button>
       </player-track-row>
