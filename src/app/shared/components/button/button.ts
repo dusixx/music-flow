@@ -1,9 +1,8 @@
 /* eslint-disable @angular-eslint/component-selector */
 import { ChangeDetectionStrategy, Component, ElementRef, inject, input } from '@angular/core';
+import { ComponentSize, ComponentVariant } from '@app/shared/models/types/ui.types';
 import { Sprite } from '../sprite/sprite';
 
-type ButtonVariant = 'base' | 'primary' | 'secondary';
-type ButtonSize = 'small' | 'medium';
 type ButtonType = HTMLButtonElement['type'];
 
 @Component({
@@ -34,8 +33,8 @@ export class Button {
   private type = this.host.nativeElement.getAttribute('type');
   protected buttonType: ButtonType = this.type ? (this.type as ButtonType) : 'button';
 
-  variant = input<ButtonVariant>('primary');
-  size = input<ButtonSize>('medium');
+  variant = input<ComponentVariant>('primary');
+  size = input<ComponentSize>('medium');
   disabled = input(false);
   loading = input(false);
   icon = input('');
