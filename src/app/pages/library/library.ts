@@ -12,10 +12,11 @@ import { AuthService } from '@core/services/auth/auth-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { PlaylistForm } from '@shared/components/playlist-form/playlist-form';
+import { PluralTextPipe } from '@shared/pipes/plural-text/plural-text-pipe';
 
 @Component({
   selector: 'player-library',
-  imports: [PlaylistForm, Dialog, RouterLink, Sprite],
+  imports: [PlaylistForm, Dialog, RouterLink, Sprite, PluralTextPipe],
   templateUrl: './library.html',
   styleUrl: './library.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
