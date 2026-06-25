@@ -1,11 +1,78 @@
-<div class="results">
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<div class="header" [class.disabled]="searchStore.loading()">
+  <player-toggle-group [labels]="genreValues" size="small" class="genres" [(checked)]="genres" />
+  <div class="sort-group">
+    <!-- duration -->
+    @let dur = durationRange;
+    <div class="range-wrapper">
+      <span class="range-value"
+        >{{ (dur()[0] | duration) || `00:00` }} — {{ dur()[1] | duration }}</span
+      >
+      <tui-range
+        [style.--tui-thumb-size.rem]="1"
+        [ngModel]="dur()"
+        (ngModelChange)="dur.set($event)"
+        class="range"
+        [min]="minDuration"
+        [max]="maxDuration"
+      />
+    </div>
+    <!-- sort by -->
+    <label class="filed-label"
+      ><span class="label-text">Sort by</span>
+      <tui-textfield tuiChevron tuiTextfieldSize="s" class="sort-by" [tuiTextfieldCleaner]="false">
+        @if (sortBy()) {
+          <button tabindex="-1" tuiButtonX (click)="sortBy.set(null)"></button>
+        }
+        <button
+          playerButton
+          [icon]="ascOrder() ? 'sort-asc-2' : 'sort-desc-2'"
+          variant="base"
+          size="small"
+          class="sort-btn"
+          [disabled]="!sortBy()"
+          (click)="ascOrder.update((v) => !v)"
+        ></button>
+        <input tuiSelect [(ngModel)]="sortBy" placeholder="field..." />
+        <tui-data-list-wrapper *tuiDropdown [items]="sortByValues" />
+      </tui-textfield>
+    </label>
+    <!-- popularity -->
+    <label class="filed-label"
+      ><span class="label-text">Popularity</span>
+      <tui-textfield
+        tuiChevron
+        tuiTextfieldSize="s"
+        class="sort-by popularity"
+        [tuiTextfieldCleaner]="false"
+      >
+        @if (popularityPeriod()) {
+          <button tabindex="-1" tuiButtonX (click)="popularityPeriod.set(null)"></button>
+        }
+        <input tuiSelect [(ngModel)]="popularityPeriod" placeholder="period..." />
+        <tui-data-list-wrapper *tuiDropdown [items]="popularityPeriodValues" />
+      </tui-textfield>
+    </label>
+  </div>
+</div>
+<!-- results -->
+<div class="results" [class.disabled]="searchStore.loading()">
   @for (item of searchStore.results(); track item.id) {
-    <player-track-card [track]="item" class="item" />
+    <div class="card-wrapper" #card>
+      <player-track-card [track]="item" class="item" />
+    </div>
   } @empty {
-    <p>There is nothing here</p>
+    <p class="empty">{{ emptyMessage() }}</p>
   }
 </div>
-@let store = searchStore;
-@if (store.hasMore()) {
-  <button playerButton (click)="store.loadMore()" [loading]="store.loading()">More</button>
+@if (shouldShowLoadMore()) {
+  <button
+    playerButton
+    (click)="searchStore.loadMore()"
+    [loading]="searchStore.loading()"
+    class="more"
+    variant="secondary"
+  >
+    Load more...
+  </button>
 }
