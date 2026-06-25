@@ -1,0 +1,62 @@
+import { inject, Injectable, signal } from '@angular/core';
+import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+import { SearchQuery } from '@app/shared/models/types/common.types';
+import { delay, distinctUntilChanged, filter, map, of, startWith, switchMap } from 'rxjs';
+
+const DEBOUNCE_DELAY = 350;
+
+@Injectable()
+export class SearchService {
+  private readonly router = inject(Router);
+
+  readonly query = signal('');
+
+  constructor() {
+    this.syncQueryWithUrl();
+    this.watchSearchQuery();
+  }
+
+  private syncQueryWithUrl() {
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        map(() => this.getQueryFromUrl()),
+        startWith(this.getQueryFromUrl()),
+        takeUntilDestroyed()
+      )
+      .subscribe((q) => {
+        if (this.query().trim() !== q) {
+          this.query.set(q);
+        }
+      });
+  }
+
+  private watchSearchQuery() {
+    toObservable(this.query)
+      .pipe(
+        map((query) => query.trim()),
+        filter((query) => query !== this.getQueryFromUrl()),
+        distinctUntilChanged(),
+        switchMap((query) => of(query).pipe(delay(query.trim() ? DEBOUNCE_DELAY : 0))),
+        takeUntilDestroyed()
+      )
+      .subscribe((query) => {
+        this.navigateOnQueryChange(query);
+      });
+  }
+
+  private getQueryFromUrl() {
+    const params = this.router.parseUrl(this.router.url).queryParams as SearchQuery;
+    return params.q ?? '';
+  }
+
+  private navigateOnQueryChange(query: string) {
+    this.router.navigate(['/search'], {
+      queryParams: {
+        q: query.trim() || null,
+      } satisfies SearchQuery,
+      queryParamsHandling: 'merge',
+    });
+  }
+}

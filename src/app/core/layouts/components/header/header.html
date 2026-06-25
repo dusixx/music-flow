@@ -1,13 +1,9 @@
 <!-- eslint-disable @angular-eslint/template/elements-content -->
 <header class="header">
   <div class="wrapper">
-    <tui-textfield iconStart="@tui.search" class="search-bar">
-      <input
-        placeholder="Search for tracks..."
-        tuiInput
-        [ngModel]="searchService.query()"
-        (ngModelChange)="searchService.query.set($event)"
-      />
+    <tui-textfield iconStart="@tui.search" [tuiTextfieldCleaner]="false" class="search-bar">
+      <input placeholder="Search for tracks..." tuiInput [(ngModel)]="searchService.query" />
+      <button tuiButtonX size="xl" (click)="searchService.query.set('')"></button>
     </tui-textfield>
     @if (viewportService.isMobile()) {
       <button

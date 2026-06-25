@@ -9,15 +9,16 @@ import {
 } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterLink, RouterLinkActive } from '@angular/router';
+import { SearchService } from '@app/core/layouts/components/header/search-service/search-service';
 import { AuthService } from '@app/core/services/auth/auth-service';
 import { ViewportService } from '@app/core/services/viewport/viewport-service';
 import { Button } from '@app/shared/components/button/button';
-import { TuiInput } from '@taiga-ui/core';
-import { SearchService } from '../../../services/search/search-service';
+import { TuiButtonX, TuiInput } from '@taiga-ui/core';
 
 @Component({
   selector: 'player-header',
-  imports: [Button, FormsModule, TuiInput, RouterLink, RouterLinkActive],
+  imports: [Button, FormsModule, TuiInput, RouterLink, RouterLinkActive, TuiButtonX],
+  providers: [SearchService],
   templateUrl: './header.html',
   styleUrl: './header.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
