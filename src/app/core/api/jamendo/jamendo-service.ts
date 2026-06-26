@@ -1,9 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Service } from '@angular/core';
-import { QueryParams } from '../common.types';
+import { QueryParams } from '@app/shared/models/types/common.types';
+import { normalizeQueryParams } from '@app/shared/utils/object.utils';
 import { JAMENDO_API_CONFIG } from './jamendo.provider';
 import { JamendoEndpoint, JamendoResponse } from './jamendo.types';
-import { normalizeQueryParams } from './utils/normalize-query-params';
 
 @Service()
 export class JamendoService {
