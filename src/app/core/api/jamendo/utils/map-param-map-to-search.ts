@@ -56,16 +56,21 @@ const mapLimitOffset = ({
   };
 };
 
-export const mapParamMapToSearchParams = (paramMap: ParamMap): SearchParams => {
-  const { q, order, boost, ...rest } = paramMapToPlainObject<SearchQueryParams>(paramMap);
-
+const mapSortParams = ({ order, boost }: { order?: string[]; boost?: string[] }): SearchParams => {
   const [sortBy, sortOrder] = order?.[0].split(PAIR_SEP) ?? [];
   const [, popularityPeriod] = boost?.[0].split(PAIR_SEP) ?? [];
   return {
-    query: q?.[0] ?? null,
     sortBy: isJamendoSortField(sortBy) ? sortBy : null,
     sortOrder: isJamendoSortOrder(sortOrder) ? sortOrder : null,
     popularityPeriod: isJamendoPopularityPeriod(popularityPeriod) ? popularityPeriod : null,
+  };
+};
+
+export const mapParamMapToSearchParams = (paramMap: ParamMap): SearchParams => {
+  const { q, ...rest } = paramMapToPlainObject<SearchQueryParams>(paramMap);
+  return {
+    query: q?.[0] ?? null,
+    ...mapSortParams(rest),
     ...mapLimitOffset(rest),
     ...mapGenres(rest),
     ...mapDuration(rest),
