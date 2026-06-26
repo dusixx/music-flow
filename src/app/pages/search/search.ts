@@ -30,8 +30,6 @@ type Duration = NonNullable<SearchParams['durationRange']>;
 type SortField = SearchParams['sortBy'];
 type PopularityPeriod = SearchParams['popularityPeriod'];
 
-// TODO: handle error correctly, show toast
-
 @Component({
   selector: 'player-search',
   imports: [

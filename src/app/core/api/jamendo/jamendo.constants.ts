@@ -4,7 +4,7 @@ export const JAMENDO_MULTI_VALUES_SEPARATOR = '+';
 export const JAMENDO_PAIR_VALUES_SEPARATOR = '_';
 
 export const JAMENDO_SORT_ORDER = ['asc', 'desc'] as const;
-export const JAMENDO_POPULARITY_PERIODS = ['week', 'month', 'total', 'error'] as const;
+export const JAMENDO_POPULARITY_PERIODS = ['week', 'month', 'total'] as const;
 export const JAMENDO_SORT_FIELDS = ['name', 'releasedate'] as const;
 
 export const JAMENDO_MAIN_GENRES = [
