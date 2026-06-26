@@ -69,7 +69,7 @@ export class Search {
     } else if (!totalCount()) {
       return 'Nothing found. Please try different settings...';
     }
-    return "There's nothing here yet";
+    return "There's nothing here yet...";
   });
 
   private searchParamsFromUrl = this.searchStore.searchParams();

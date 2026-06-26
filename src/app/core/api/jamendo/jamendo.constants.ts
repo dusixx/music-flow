@@ -1,5 +1,7 @@
 export const JAMENDO_DEFAULT_LIMIT = 10;
+export const JAMENDO_MAX_LIMIT = 200;
 export const JAMENDO_MIN_LIMIT = 1;
+
 export const JAMENDO_MULTI_VALUES_SEPARATOR = '+';
 export const JAMENDO_PAIR_VALUES_SEPARATOR = '_';
 
