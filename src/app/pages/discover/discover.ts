@@ -4,7 +4,6 @@ import { JAMENDO_MAIN_GENRES } from '@app/core/api/jamendo/jamendo.constants';
 import { JamendoSearchParams } from '@app/core/api/jamendo/jamendo.types';
 import { mockTracks } from '@app/core/api/track/mock/track.mock';
 import { mapTrack } from '@app/core/api/track/track.mapper';
-import { Button } from '@app/shared/components/button/button';
 import { CarouselItem } from '@app/shared/components/carousel/carousel-item/carousel-item';
 import { TrackCard } from '@app/shared/components/track-card/track-card';
 import { CarouselSection } from './components/carousel-section/carousel-section';
@@ -17,7 +16,7 @@ const RELEASES_COUNT = 15;
 
 @Component({
   selector: 'player-discover',
-  imports: [TrackCard, CarouselItem, RouterLink, CarouselSection, Button],
+  imports: [TrackCard, CarouselItem, RouterLink, CarouselSection],
   providers: [],
   templateUrl: './discover.html',
   styleUrl: './discover.scss',
