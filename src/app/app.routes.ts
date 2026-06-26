@@ -42,7 +42,6 @@ export const routes: Routes = [
   {
     path: 'search',
     loadComponent: () => import('@app/pages/search/search').then((m) => m.Search),
-    canActivate: [guestGuard],
   },
   {
     path: '**',
