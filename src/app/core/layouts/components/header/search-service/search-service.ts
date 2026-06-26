@@ -1,10 +1,13 @@
 import { inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed, toObservable } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router } from '@angular/router';
+import { JamendoPaginationParams } from '@app/core/api/jamendo/jamendo.types';
 import { SearchQuery } from '@app/shared/models/types/common.types';
 import { delay, distinctUntilChanged, filter, map, of, startWith, switchMap } from 'rxjs';
 
 const DEBOUNCE_DELAY = 350;
+
+type QueryAndPagination = SearchQuery & JamendoPaginationParams;
 
 @Injectable()
 export class SearchService {
@@ -42,7 +45,7 @@ export class SearchService {
         takeUntilDestroyed()
       )
       .subscribe((query) => {
-        this.navigateOnQueryChange(query);
+        this.navigate(query);
       });
   }
 
@@ -51,11 +54,12 @@ export class SearchService {
     return params.q ?? '';
   }
 
-  private navigateOnQueryChange(query: string) {
+  private navigate(query: string) {
     this.router.navigate(['/search'], {
       queryParams: {
         q: query.trim() || null,
-      } satisfies SearchQuery,
+        offset: null,
+      } satisfies QueryAndPagination,
       queryParamsHandling: 'merge',
     });
   }

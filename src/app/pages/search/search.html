@@ -6,14 +6,14 @@
     @let dur = durationRange;
     <div class="range-wrapper">
       <span class="range-value"
-        >{{ (dur()[0] | duration) || `00:00` }} — {{ dur()[1] | duration }}</span
+        >{{ (dur()[0] | duration) || `00:00` }} — {{ (dur()[1] | duration) || `00:00` }}</span
       >
       <tui-range
         [style.--tui-thumb-size.rem]="1"
         [ngModel]="dur()"
         (ngModelChange)="dur.set($event)"
         class="range"
-        [min]="minDuration"
+        [min]="0"
         [max]="maxDuration"
       />
     </div>
@@ -53,6 +53,19 @@
         <tui-data-list-wrapper *tuiDropdown [items]="popularityPeriodValues" />
       </tui-textfield>
     </label>
+    <!-- per page -->
+    <label class="filed-label"
+      ><span class="label-text">Per page</span>
+      <tui-textfield
+        tuiChevron
+        tuiTextfieldSize="s"
+        class="sort-by per-page"
+        [tuiTextfieldCleaner]="false"
+      >
+        <input tuiSelect [(ngModel)]="perPage" placeholder="items..." />
+        <tui-data-list-wrapper *tuiDropdown [items]="perPageValues" />
+      </tui-textfield>
+    </label>
   </div>
 </div>
 <!-- results -->
@@ -65,7 +78,7 @@
     <p class="empty">{{ emptyMessage() }}</p>
   }
 </div>
-@if (shouldShowLoadMore()) {
+@if (this.searchStore.hasMore()) {
   <button
     playerButton
     (click)="searchStore.loadMore()"
@@ -76,3 +89,7 @@
     Load more...
   </button>
 }
+<!-- TODO: show spinner overlay ? -->
+<!-- <div [class.loader]="searchStore.loading()">
+  <img src="assets/images/spinner.gif" alt="loader" width="20" height="20" class="spinner" />
+</div> -->
