@@ -1,0 +1,188 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+.playlist-header-container {
+  position: relative;
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+
+  margin-bottom: var(--space-s);
+  padding: var(--space-xl) var(--space-xl) var(--space-2xl);
+  border-radius: var(--radius-m);
+
+  background-color: var(--color-bg-primary);
+  background-image: linear-gradient(to bottom, var(--playlist-color), transparent);
+}
+
+.playlist-header {
+  display: flex;
+  gap: var(--space-xl);
+  align-items: flex-end;
+
+  @include mix.mobile {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+.playlist-cover-wrapper {
+  cursor: pointer;
+
+  position: relative;
+
+  overflow: hidden;
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+
+  aspect-ratio: 1;
+  width: rem(208);
+  border-radius: var(--radius-s);
+
+  background-color: var(--color-surface);
+
+  .playlist-cover-icon {
+    width: rem(64);
+    height: rem(64);
+    color: var(--color-text-muted);
+    @include mix.main-transition('opacity');
+  }
+
+  .cover-hover-overlay {
+    position: absolute;
+    inset: 0;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-s);
+    align-items: center;
+    justify-content: center;
+
+    // FIXME: replace with project base color
+    background-color: rgb(0 0 0 / 5%);
+
+    @include mix.hidden(true);
+    @include mix.main-transition('opacity, visibility');
+    @include mix.non-interactive;
+
+    .edit-icon {
+      width: rem(48);
+      height: rem(48);
+      color: var(--color-text);
+    }
+
+    span {
+      font-size: var(--text-s);
+      color: var(--color-text);
+    }
+  }
+
+  @include mix.hover {
+    .cover-hover-overlay {
+      @include mix.hidden(false);
+    }
+
+    .playlist-cover-icon {
+      opacity: 0;
+    }
+  }
+}
+
+.playlist-metadata {
+  display: flex;
+  flex-direction: column;
+  flex-grow: 1;
+  gap: var(--space-m);
+
+  min-width: 0;
+
+  .playlist-type {
+    font-size: var(--text-s);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+  }
+
+  .playlist-title {
+    margin: 0;
+
+    font-size: rem(48);
+    font-weight: 900;
+    line-height: 1.1;
+    color: var(--color-text);
+  }
+
+  .playlist-description {
+    margin: var(--space-xs) 0 0 0;
+    font-size: var(--text-s);
+    color: var(--color-text-muted);
+  }
+}
+
+.playlist-stats {
+  display: flex;
+  gap: var(--space-xs);
+  align-items: center;
+
+  margin-top: var(--space-s);
+
+  font-size: var(--text-m);
+  font-weight: 500;
+  color: var(--color-text);
+
+  .playlist-displayname {
+    font-weight: 800;
+  }
+
+  .playlist-total-time,
+  .playlist-tracks-count,
+  .playlist-header-separator {
+    color: var(--color-text-muted);
+  }
+
+  .playlist-header-separator {
+    font-size: var(--text-xs);
+  }
+
+  .playlist-total-time {
+    display: flex;
+    gap: var(--space-xs);
+    align-items: center;
+  }
+
+  .playlist-total-clock {
+    width: rem(16);
+  }
+}
+
+.palylist-header-actions {
+  display: flex;
+  gap: var(--space-l);
+  align-items: center;
+  padding: 0 var(--space-l);
+
+  .playlist-header-play-btn {
+    --button-bg: var(--color-success);
+    --button-bg-focus: var(--color-success);
+    --button-color: var(--color-text-inverse);
+    --button-color-focus: var(--color-text-inverse);
+    --button-height: #{rem(56)};
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    width: rem(56);
+    padding: 0;
+    border-radius: var(--radius-full, 50%);
+    @include mix.main-transition('transform, background-color');
+
+    @include mix.hover {
+      transform: scale(1.05);
+    }
+  }
+}

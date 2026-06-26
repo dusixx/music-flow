@@ -1,0 +1,76 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+.tracks-header-row {
+  display: flex;
+  gap: var(--space-m);
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: var(--space-m);
+  padding: var(--space-s) var(--space-m);
+  border-bottom: 2px solid var(--color-border-subtle);
+
+  .header-label {
+    font-size: var(--text-s);
+    font-weight: 700;
+    color: var(--color-text-muted);
+    letter-spacing: 1px;
+  }
+
+  .clock {
+    width: rem(16);
+    color: var(--color-text-muted);
+  }
+}
+
+.track-left-side {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+  width: rem(80);
+
+  .track-index {
+    width: rem(16);
+    font-size: var(--text-s);
+    color: var(--color-text-muted);
+  }
+}
+
+.track-main-info {
+  flex-grow: 1;
+  min-width: 0;
+}
+
+.track-album,
+.track-duration {
+  color: var(--color-text-muted);
+}
+
+.track-album {
+  font-size: var(--text-s);
+}
+
+.track-duration {
+  font-size: var(--text-s);
+}
+
+.track-meta-slot {
+  display: flex;
+  align-items: center;
+  width: rem(300);
+  color: var(--color-text-muted);
+
+  @include mix.mobile {
+    display: none;
+  }
+}
+
+.track-actions-slot {
+  display: flex;
+  flex-shrink: 0;
+  align-items: center;
+
+  width: rem(100);
+  padding-left: rem(10);
+}

@@ -1,0 +1,50 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+
+:host {
+  // TODO: choose a more appropriate color
+  // --playlist-color: var(--color-text-subtle);
+  --playlist-color: var(--color-accent);
+
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xl);
+  padding: 0 var(--space-xl);
+}
+
+.track-remove {
+  width: rem(30);
+  border: none;
+  color: var(--color-text-muted);
+  background: none;
+
+  &:hover {
+    cursor: pointer;
+    color: var(--color-text);
+  }
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-s);
+  align-items: center;
+
+  padding: rem(8) 0;
+
+  &-text {
+    margin: 0 0 rem(10);
+    font-size: 0.875rem;
+    color: var(--color-text);
+  }
+
+  &-actions {
+    display: flex;
+    gap: var(--space-s);
+    margin-top: var(--space-m);
+  }
+
+  &-delete {
+    background-color: var(--color-error);
+  }
+}
