@@ -17,33 +17,57 @@ type SearchQueryParams = Omit<JamendoSearchParams, 'search'> & SearchQuery;
 
 const isPositiveNum = (s: string) => /^\d+$/.test(s);
 
-export const mapParamMapToSearchParams = (paramMap: ParamMap): SearchParams => {
-  const { q, fuzzytags, tags, durationbetween, order, boost, limit, offset } =
-    paramMapToPlainObject<SearchQueryParams>(paramMap);
-
+const mapGenres = ({
+  fuzzytags,
+  tags,
+}: {
+  fuzzytags?: string[];
+  tags?: string[];
+}): SearchParams => {
   const normTags = (tags?.[0] ?? '').split(MULTI_SEP).filter(isJamendoGenre);
   const normFuzzytags = (fuzzytags?.[0] ?? '').split(MULTI_SEP).filter(isJamendoGenre);
-  const fuzzy = normFuzzytags.length > 0;
   const genres = normFuzzytags.length ? normFuzzytags : normTags;
+  return {
+    fuzzy: normFuzzytags.length > 0,
+    genres: genres.length ? genres : null,
+  };
+};
 
+const mapDuration = ({ durationbetween }: { durationbetween?: string[] }): SearchParams => {
   const [from, to] = durationbetween?.[0].split(PAIR_SEP) ?? [];
   const isValidDurationRange = isPositiveNum(from) && isPositiveNum(to) && +from <= +to;
+  return {
+    durationRange: isValidDurationRange ? [+from, +to] : null,
+  };
+};
 
+const mapLimitOffset = ({
+  limit,
+  offset,
+}: {
+  limit?: string[];
+  offset?: string[];
+}): SearchParams => {
   const limitNum = isPositiveNum(limit?.[0] ?? '') ? Number(limit?.[0]) : 0;
   const offsetNum = isPositiveNum(offset?.[0] ?? '') ? Number(offset?.[0]) : 0;
+  return {
+    limit: limitNum || null,
+    offset: offsetNum || null,
+  };
+};
+
+export const mapParamMapToSearchParams = (paramMap: ParamMap): SearchParams => {
+  const { q, order, boost, ...rest } = paramMapToPlainObject<SearchQueryParams>(paramMap);
 
   const [sortBy, sortOrder] = order?.[0].split(PAIR_SEP) ?? [];
   const [, popularityPeriod] = boost?.[0].split(PAIR_SEP) ?? [];
-
   return {
     query: q?.[0] ?? null,
-    fuzzy,
-    genres: genres.length ? genres : null,
-    durationRange: isValidDurationRange ? [+from, +to] : null,
     sortBy: isJamendoSortField(sortBy) ? sortBy : null,
     sortOrder: isJamendoSortOrder(sortOrder) ? sortOrder : null,
     popularityPeriod: isJamendoPopularityPeriod(popularityPeriod) ? popularityPeriod : null,
-    limit: limitNum || null,
-    offset: offsetNum || null,
+    ...mapLimitOffset(rest),
+    ...mapGenres(rest),
+    ...mapDuration(rest),
   };
 };
