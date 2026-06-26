@@ -143,6 +143,9 @@ h4 {
   --tui-background-accent-1: var(--color-border-strong);
   --tui-status-negative: var(--color-error);
   --tui-service-autofill-background: var(--color-surface);
+  --tui-status-positive: var(--color-success);
+  --tui-status-info: var(--color-info);
+  --tui-status-warning: var(--color-warning);
   @extend %vars;
   @extend %dark-palette;
 }
