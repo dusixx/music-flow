@@ -6,9 +6,16 @@ import { mapParamMapToSearchParams } from '@app/core/api/jamendo/utils/map-param
 import { mapSearchParamsToJamendoSearchParams } from '@app/core/api/jamendo/utils/map-search-params-to-jamendo';
 import { TrackService } from '@app/core/api/track/track-service';
 import { Track } from '@app/core/api/track/track.model';
+import { getErrorMessage } from '@app/shared/utils/error.utils';
 import { dedupeById } from '@app/shared/utils/object.utils';
 
-const DEFAULT_LIMIT = 40;
+const OFFSET_MIN = 0;
+const LIMIT_MIN = 1;
+
+interface NavigatePpops {
+  params?: JamendoSearchParams;
+  loadMore?: boolean;
+}
 
 @Injectable()
 export class SearchStore {
@@ -16,38 +23,69 @@ export class SearchStore {
   private route = inject(ActivatedRoute);
   private router = inject(Router);
 
-  private shouldAppend = true;
+  private shouldAppend = false;
 
   private queryParamMap = toSignal(this.route.queryParamMap, {
     initialValue: this.route.snapshot.queryParamMap,
   });
-
-  searchParams = computed(() => mapParamMapToSearchParams(this.queryParamMap()));
-
-  jamendoSearchParams = computed(() => mapSearchParamsToJamendoSearchParams(this.searchParams()));
-
-  private offset = this.jamendoSearchParams().offset ?? 0;
-  private limit = this.jamendoSearchParams().limit ?? DEFAULT_LIMIT;
+  searchParams = computed(() => {
+    return mapParamMapToSearchParams(this.queryParamMap());
+  });
+  jamendoSearchParams = computed(() => {
+    return mapSearchParamsToJamendoSearchParams(this.searchParams());
+  });
 
   private readonly resource = rxResource({
     params: () => this.jamendoSearchParams(),
 
     stream: ({ params }) => {
-      return this.trackService.search({
+      return this.trackService.searchRaw({
         ...params,
-        limit: this.limit,
-        offset: this.offset,
+        limit: this.searchParams().limit,
+        offset: this.searchParams().offset,
       });
     },
   });
-  results = signal<Track[]>([]);
   error = this.resource.error;
   loading = this.resource.isLoading;
-  hasMore = computed(() => this.resource.value()?.hasMore ?? false);
-  totalCount = computed(() => this.resource.value()?.total ?? 0);
+
+  results = signal<Track[]>([]);
+  hasMore = signal(false);
+  totalCount = signal(0);
 
   constructor() {
+    this.syncState();
+    this.syncResults();
+    this.handleError();
+  }
+
+  private handleError() {
     effect(() => {
+      if (this.error()) {
+        // TODO: show toast
+        console.debug(getErrorMessage(this.error()));
+      }
+    });
+  }
+
+  private syncState() {
+    effect(() => {
+      if (!this.resource.hasValue()) {
+        return;
+      }
+      const value = this.resource.value();
+      if (value) {
+        this.hasMore.set(value.hasMore);
+        this.totalCount.set(value.total ?? 0);
+      }
+    });
+  }
+
+  private syncResults() {
+    effect(() => {
+      if (!this.resource.hasValue()) {
+        return;
+      }
       const currentPageResults = this.resource.value()?.results;
       if (!currentPageResults) {
         return;
@@ -56,7 +94,6 @@ export class SearchStore {
         this.results.update((v) => dedupeById([...v, ...currentPageResults]));
         this.shouldAppend = false;
       } else {
-        this.resetOffset();
         this.results.set(dedupeById(currentPageResults));
       }
     });
@@ -64,28 +101,21 @@ export class SearchStore {
 
   loadMore() {
     this.shouldAppend = true;
-    this.offset += this.limit;
-    this.navigate();
+    this.navigate({ loadMore: true });
   }
 
-  // FIX: double request - with current offset and next with 0
-  resetOffset() {
-    this.offset = 0;
-    this.router.navigate([], {
-      queryParams: {
-        offset: null,
-      } satisfies JamendoSearchParams,
-      queryParamsHandling: 'merge',
-      replaceUrl: true,
-    });
-  }
+  navigate({ params, loadMore }: NavigatePpops) {
+    const limit = this.searchParams().limit ?? LIMIT_MIN;
+    let offset = this.searchParams().offset ?? OFFSET_MIN;
 
-  navigate(params?: JamendoSearchParams) {
+    if (loadMore) {
+      offset += limit;
+    }
     this.router.navigate(['/search'], {
       queryParams: {
+        limit,
+        offset,
         ...params,
-        limit: this.limit,
-        offset: this.offset || null,
       } satisfies JamendoSearchParams,
       queryParamsHandling: 'merge',
     });
