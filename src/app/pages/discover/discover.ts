@@ -1,41 +1,39 @@
 import { ChangeDetectionStrategy, Component, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { mapTrack } from '@app/core/api/track/track.mapper';
+import { JAMENDO_MAIN_GENRES } from '@app/core/api/jamendo/jamendo.constants';
+import { JamendoSearchParams } from '@app/core/api/jamendo/jamendo.types';
 import { mockTracks } from '@app/core/api/track/mock/track.mock';
+import { mapTrack } from '@app/core/api/track/track.mapper';
 import { Button } from '@app/shared/components/button/button';
 import { CarouselItem } from '@app/shared/components/carousel/carousel-item/carousel-item';
 import { TrackCard } from '@app/shared/components/track-card/track-card';
-import { JAMENDO_GENRES } from '@app/shared/constants';
 import { CarouselSection } from './components/carousel-section/carousel-section';
-import { PopularStore } from './store/popular-store';
-import { ReleasesStore } from './store/realeases-store';
 
 const POPULAR_COUNT = 15;
 const RELEASES_COUNT = 15;
 
+// TODO: add show more button - navigate to /search?order=releases_desc[popularity_total]
+// Outlined button
+
 @Component({
   selector: 'player-discover',
   imports: [TrackCard, CarouselItem, RouterLink, CarouselSection, Button],
-  providers: [PopularStore, ReleasesStore],
+  providers: [],
   templateUrl: './discover.html',
   styleUrl: './discover.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class Discover {
-  // protected popular = inject(PopularStore);
-  // protected releases = inject(ReleasesStore);
+  protected getGenreQueryParams = (genre: string): Partial<JamendoSearchParams> => ({
+    fuzzytags: genre,
+  });
 
   protected popular = { results: signal(mockTracks.slice(0, POPULAR_COUNT).map(mapTrack)) };
   protected releases = {
     results: signal(mockTracks.slice(0, RELEASES_COUNT).map(mapTrack)),
   };
 
-  // constructor() {
-  //   this.popular.load({ limit: POPULAR_COUNT });
-  //   this.releases.load({ limit: RELEASES_COUNT });
-  // }
-
-  protected genresList = JAMENDO_GENRES;
+  protected genresList = JAMENDO_MAIN_GENRES;
 
   protected tracksData = [
     {

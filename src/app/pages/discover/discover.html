@@ -10,15 +10,13 @@
 <player-carousel-section class="carousel">
   <div class="genres-list">
     @for (genre of genresList; track genre) {
-      <a playerCarouselItem="carousel-item genre" routerLink="/search" [queryParams]="{ genre }">
+      <a
+        playerCarouselItem="carousel-item genre"
+        routerLink="/search"
+        [queryParams]="getGenreQueryParams(genre)"
+      >
         {{ genre }}
       </a>
     }
   </div>
 </player-carousel-section>
-<!-- <div class="releases">
-  @for (item of releases.results(); track item.id) {
-    <player-track-card [track]="item" class="card" />
-  }
-</div>
-<button playerButton (click)="releases.loadMore()" [loading]="releases.loading()">More</button> -->
