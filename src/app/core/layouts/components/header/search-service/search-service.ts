@@ -41,7 +41,7 @@ export class SearchService {
         map((query) => query.trim()),
         filter((query) => query !== this.getQueryFromUrl()),
         distinctUntilChanged(),
-        switchMap((query) => of(query).pipe(delay(query.trim() ? DEBOUNCE_DELAY : 0))),
+        switchMap((query) => of(query).pipe(delay(query ? DEBOUNCE_DELAY : 0))),
         takeUntilDestroyed()
       )
       .subscribe((query) => {
@@ -57,7 +57,7 @@ export class SearchService {
   private navigate(query: string) {
     this.router.navigate(['/search'], {
       queryParams: {
-        q: query.trim() || null,
+        q: query || null,
         offset: null,
       } satisfies QueryAndPagination,
       queryParamsHandling: 'merge',
