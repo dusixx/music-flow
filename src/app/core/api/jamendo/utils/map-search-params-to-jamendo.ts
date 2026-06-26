@@ -1,7 +1,9 @@
 import { JAMENDO_MULTI_VALUES_SEPARATOR as MULTI_SEP } from '../jamendo.constants';
 import { JamendoSearchParams, SearchParams } from '../jamendo.types';
 
-const getOrder = ({ sortBy, sortOrder }: Pick<SearchParams, 'sortBy' | 'sortOrder'>) => {
+type SortParams = Pick<SearchParams, 'sortBy' | 'sortOrder'>;
+
+const getOrder = ({ sortBy, sortOrder }: SortParams) => {
   const result = sortBy && sortOrder === 'desc' ? `${sortBy}_${sortOrder}` : sortBy;
   return result ?? null;
 };

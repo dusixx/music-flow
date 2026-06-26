@@ -6,7 +6,7 @@
     @let dur = durationRange;
     <div class="range-wrapper">
       <span class="range-value"
-        >{{ (dur()[0] | duration) || `00:00` }} — {{ (dur()[1] | duration) || `00:00` }}</span
+        >{{ dur()[0] | duration: '00:00' }} — {{ dur()[1] | duration: '00:00' }}</span
       >
       <tui-range
         [style.--tui-thumb-size.rem]="1"

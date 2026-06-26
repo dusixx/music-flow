@@ -5,7 +5,7 @@ import {
   JAMENDO_MULTI_VALUES_SEPARATOR as MULTI_SEP,
   JAMENDO_PAIR_VALUES_SEPARATOR as PAIR_SEP,
 } from '../jamendo.constants';
-import { JamendoSearchParams, SearchParams } from '../jamendo.types';
+import { JamendoGenre, JamendoSearchParams, SearchParams } from '../jamendo.types';
 import {
   isJamendoGenre,
   isJamendoPopularityPeriod,
@@ -14,18 +14,22 @@ import {
 } from './type-guards';
 
 type SearchQueryParams = Omit<JamendoSearchParams, 'search'> & SearchQuery;
+type ParamObject = Record<string, string[] | undefined>;
 
-const isPositiveNum = (s: string) => /^\d+$/.test(s);
+const isPositiveInt = (s: string) => /^\d+$/.test(s);
 
-const mapGenres = ({
-  fuzzytags,
-  tags,
-}: {
-  fuzzytags?: string[];
-  tags?: string[];
-}): SearchParams => {
-  const normTags = (tags?.[0] ?? '').split(MULTI_SEP).filter(isJamendoGenre);
-  const normFuzzytags = (fuzzytags?.[0] ?? '').split(MULTI_SEP).filter(isJamendoGenre);
+const getGenres = (v?: string[]): JamendoGenre[] => {
+  return (v?.[0] ?? '').split(MULTI_SEP).filter(isJamendoGenre);
+};
+
+const getLimitOffset = (v?: string[]): number | null => {
+  const num = isPositiveInt(v?.[0] ?? '') ? Number(v?.[0]) : 0;
+  return num || null;
+};
+
+const mapGenres = ({ fuzzytags, tags }: ParamObject): SearchParams => {
+  const normTags = getGenres(tags);
+  const normFuzzytags = getGenres(fuzzytags);
   const genres = normFuzzytags.length ? normFuzzytags : normTags;
   return {
     fuzzy: normFuzzytags.length > 0,
@@ -33,26 +37,18 @@ const mapGenres = ({
   };
 };
 
-const mapDuration = ({ durationbetween }: { durationbetween?: string[] }): SearchParams => {
+const mapDuration = ({ durationbetween }: ParamObject): SearchParams => {
   const [from, to] = durationbetween?.[0].split(PAIR_SEP) ?? [];
-  const isValidDurationRange = isPositiveNum(from) && isPositiveNum(to) && +from <= +to;
+  const isValidRange = isPositiveInt(from) && isPositiveInt(to) && Number(from) <= Number(to);
   return {
-    durationRange: isValidDurationRange ? [+from, +to] : null,
+    durationRange: isValidRange ? [Number(from), Number(to)] : null,
   };
 };
 
-const mapLimitOffset = ({
-  limit,
-  offset,
-}: {
-  limit?: string[];
-  offset?: string[];
-}): SearchParams => {
-  const limitNum = isPositiveNum(limit?.[0] ?? '') ? Number(limit?.[0]) : 0;
-  const offsetNum = isPositiveNum(offset?.[0] ?? '') ? Number(offset?.[0]) : 0;
+const mapLimitOffset = ({ limit, offset }: ParamObject): SearchParams => {
   return {
-    limit: limitNum || null,
-    offset: offsetNum || null,
+    limit: getLimitOffset(limit),
+    offset: getLimitOffset(offset),
   };
 };
 

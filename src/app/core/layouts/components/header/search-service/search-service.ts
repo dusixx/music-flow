@@ -51,7 +51,7 @@ export class SearchService {
 
   private getQueryFromUrl() {
     const params = this.router.parseUrl(this.router.url).queryParams as SearchQuery;
-    return params.q ?? '';
+    return params.q?.trim() ?? '';
   }
 
   private navigate(query: string) {
