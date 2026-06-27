@@ -24,8 +24,7 @@
 .carousel-item {
   display: flex;
   flex-shrink: 0;
-  width: rem(180);
-
+  width: var(--track-card-width-m);
   @include align-vertically(false);
 }
 
@@ -42,4 +41,14 @@
   color: var(--color-text);
   text-decoration: none;
   text-transform: uppercase;
+}
+
+.releases {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.card {
+  flex-grow: 0;
+  width: var(--track-card-width-m);
 }

@@ -1,4 +1,4 @@
-import { EntityWithId } from '../common.types';
+import { EntityWithId } from '@app/shared/models/types/common.types';
 
 export interface Track extends EntityWithId {
   id: string;
@@ -10,6 +10,7 @@ export interface Track extends EntityWithId {
   album: {
     id: string;
     image: string;
+    name: string;
   };
   releaseDate: string;
   image: string;

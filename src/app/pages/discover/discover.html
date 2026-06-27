@@ -10,7 +10,11 @@
 <player-carousel-section class="carousel">
   <div class="genres-list">
     @for (genre of genresList; track genre) {
-      <a playerCarouselItem="carousel-item genre" routerLink="/search" [queryParams]="{ genre }">
+      <a
+        playerCarouselItem="carousel-item genre"
+        routerLink="/search"
+        [queryParams]="getGenreQueryParams(genre)"
+      >
         {{ genre }}
       </a>
     }

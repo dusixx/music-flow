@@ -1,0 +1,42 @@
+<!-- eslint-disable @angular-eslint/template/elements-content -->
+<button
+  playerButton
+  class="control"
+  size="small"
+  variant="base"
+  icon="chevron-left"
+  (click)="carousel.prev()"
+  [disabled]="carousel.atStart()"
+></button>
+<player-carousel #carousel class="carousel">
+  @for (label of uniqueLabels(); track label) {
+    <label playerCarouselItem="carousel-item">
+      <input
+        #ref
+        type="checkbox"
+        [id]="label"
+        (change)="onItemChange(label, ref.checked)"
+        [checked]="checkedSet().has(label)"
+      />
+      <span class="label">{{ label }}</span>
+    </label>
+  }
+  @if (checkedSet().size) {
+    <button
+      playerButton
+      icon="close"
+      size="small"
+      variant="base"
+      (click)="checked.set([])"
+    ></button>
+  }
+</player-carousel>
+<button
+  playerButton
+  class="control"
+  size="small"
+  variant="base"
+  icon="chevron-right"
+  (click)="carousel.next()"
+  [disabled]="carousel.atEnd()"
+></button>

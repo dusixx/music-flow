@@ -4,5 +4,6 @@ export class JamendoError extends Error {
     public code?: number
   ) {
     super(message);
+    this.name = 'JamendoError';
   }
 }

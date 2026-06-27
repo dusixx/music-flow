@@ -5,7 +5,7 @@ const handleJamendoResponse = <TRawItem, TMappedItem>(
   resp: JamendoResponse<TRawItem>,
   mapper: (raw: TRawItem) => TMappedItem
 ): JamendoResult<TMappedItem> => {
-  const { error_message, code, next } = resp.headers;
+  const { error_message, code, next, results_fullcount } = resp.headers;
 
   if (code) {
     // TODO: remove error message prefix
@@ -13,6 +13,7 @@ const handleJamendoResponse = <TRawItem, TMappedItem>(
   }
   return {
     hasMore: !!next,
+    total: results_fullcount,
     results: resp.results.map(mapper),
   };
 };

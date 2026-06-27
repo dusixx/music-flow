@@ -121,6 +121,7 @@ h4 {
   --box-shadow: 0 var(--scale-s) var(--scale-s) var(--color-shadow);
   --border: 1px solid var(--color-border);
   --main-padding: var(--space-2xl) var(--space-xl);
+  --track-card-width-m: #{rem(200)};
   @extend %spacing;
   @extend %radius;
   @extend %text-size;
@@ -143,6 +144,9 @@ h4 {
   --tui-background-accent-1: var(--color-border-strong);
   --tui-status-negative: var(--color-error);
   --tui-service-autofill-background: var(--color-surface);
+  --tui-background-elevation-3: var(--color-surface);
+  --tui-background-neutral-1: var(--color-surface-secondary);
+  --tui-text-action: var(--color-text-muted);
   @extend %vars;
   @extend %dark-palette;
 }
