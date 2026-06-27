@@ -7,24 +7,31 @@
     (playClicked)="playPlaylist()"
     (editClicked)="editPlaylistDetails()"
     (deleteClicked)="isDeleteModalOpen.set(true)"
+    (coverLoaded)="extractColor($event)"
   />
-  <div class="track-list">
+  <div cdkDropList class="track-list" (cdkDropListDropped)="dropTrack($event)">
     @if (playlist.trackIds?.length) {
       <player-tracks-header />
     }
-    @for (track of tracksResource.value(); track track.id; let index = $index) {
-      <player-track-row [index]="index" [track]="track">
+    @for (track of stableTracks(); track track.id; let index = $index) {
+      <player-track-row [index]="index" [track]="track" cdkDrag>
+        <div *cdkDragPreview class="custom-drag-preview">
+          {{ track.name }} • {{ track.artist.name }}
+        </div>
         <span row-meta class="track-album">{{ track.album.name }}</span>
         <span row-actions class="track-duration">{{ track.duration | duration }}</span>
-        <button row-actions class="track-remove" (click)="removeFromPlaylist(track)">
-          <player-sprite icon="close" />
-        </button>
+        <player-context-menu row-actions>
+          <button tuiOption type="button" (click)="removeFromPlaylist(track)">
+            <player-sprite icon="delete" />
+            <span>Remove from playlist</span>
+          </button>
+        </player-context-menu>
       </player-track-row>
     }
   </div>
   <h2>Recommended</h2>
   <div class="recommend-list">
-    @for (track of recommendedTracksResource.value(); track track.id; let index = $index) {
+    @for (track of stableRecommendedTracks(); track track.id; let index = $index) {
       <player-track-row [track]="track">
         <span row-meta class="track-album">{{ track.album.name }}</span>
         <button row-actions class="track-add" (click)="addToPlaylist(track)">
@@ -33,17 +40,15 @@
       </player-track-row>
     }
   </div>
-  <div class="recommended-refresh">
-    <button
-      playerButton
-      variant="base"
-      (click)="refreshRecommendations()"
-      [loading]="recommendedTracksResource.isLoading()"
-      class="refresh-button"
-    >
-      Refresh
-    </button>
-  </div>
+  <button
+    playerButton
+    variant="base"
+    (click)="refreshRecommendations()"
+    [loading]="recommendedTracksResource.isLoading()"
+    class="refresh-button"
+  >
+    Refresh
+  </button>
 } @else if (playlistResource.isLoading()) {
   <p class="loading">Loading...</p>
 } @else {
@@ -79,3 +84,6 @@
     (closeForm)="closeEditForm()"
   />
 </player-dialog>
+<!-- <button row-actions class="track-remove" (click)="removeFromPlaylist(track)">
+          <player-sprite icon="close" />
+        </button> -->
