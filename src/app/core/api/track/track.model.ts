@@ -10,6 +10,7 @@ export interface Track extends EntityWithId {
   album: {
     id: string;
     image: string;
+    name: string;
   };
   releaseDate: string;
   image: string;

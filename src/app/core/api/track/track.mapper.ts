@@ -12,6 +12,7 @@ export const mapTrack = (dto: TrackDto): Track => {
     album: {
       id: dto.album_id,
       image: dto.album_image,
+      name: dto.album_name,
     },
     releaseDate: dto.releasedate,
     image: dto.image,
