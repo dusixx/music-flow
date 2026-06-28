@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { form } from '@angular/forms/signals';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '@app/core/services/auth/auth-service';
@@ -6,9 +6,9 @@ import { Button } from '@app/shared/components/button/button';
 import { FormTextfield } from '@app/shared/components/form-textfield/form-textfield';
 import { Sprite } from '@app/shared/components/sprite/sprite';
 import { getErrorMessage } from '@app/shared/utils/error.utils';
+import { LOGIN_INITIAL_MODEL, LoginFormData } from '../form/models/login.model';
 import { useServerErrorResetter } from '../form/utils/server-error-resetter';
 import { loginSchemaFn } from './login.schema';
-import { LoginFormData, LOGIN_INITIAL_MODEL } from '../form/models/login.model';
 
 @Component({
   selector: 'player-login',
@@ -20,9 +20,6 @@ import { LoginFormData, LOGIN_INITIAL_MODEL } from '../form/models/login.model';
 export class Login {
   protected authService = inject(AuthService);
   private readonly router = inject(Router);
-
-  title = input('Sign In');
-  submitText = input('Login');
 
   protected error = signal('');
   protected loading = signal(false);

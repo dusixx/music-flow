@@ -1,4 +1,4 @@
-import { EntityWithId } from '@app/core/api/common.types';
+import { EntityWithId } from '@app/shared/models/types/common.types';
 
 export interface Artist extends EntityWithId {
   id: string;

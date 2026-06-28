@@ -1,0 +1,153 @@
+@use 'utils/funcs' as *;
+@use 'utils/mixins' as mix;
+@use '@taiga-ui/styles/utils' as taiga;
+@use 'utils/vars' as *;
+
+:host {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
+
+  .sort-btn {
+    --button-icon-size: var(--text-xl);
+  }
+}
+
+.header {
+  container-name: header;
+  container-type: inline-size;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-xl);
+  align-items: end;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.disabled {
+  opacity: 0.6;
+  @include mix.non-interactive;
+}
+
+.results {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-m);
+}
+
+.item {
+  flex-grow: 0;
+  width: var(--track-card-width-m);
+}
+
+.empty {
+  width: 100%;
+  margin-top: var(--space-xl);
+
+  font-size: var(--text-m);
+  color: var(--color-text-muted);
+  text-align: center;
+}
+
+@container header (width < #{$bp-tablet}) {
+  .genres {
+    width: 100%;
+  }
+}
+
+.sort-by {
+  --tui-text-secondary: var(--color-text);
+  --tui-height-s: #{rem(32)};
+  --t-padding: var(--space-m);
+
+  width: 10%;
+  min-width: rem(180);
+  border-radius: var(--radius-xl);
+  background-color: var(--color-surface);
+
+  ::placeholder {
+    color: var(--color-text-subtle);
+  }
+  @include taiga.appearance-hover {
+    background-color: var(--color-surface-secondary);
+  }
+  @include taiga.appearance-focus {
+    background-color: var(--color-surface-secondary);
+
+    &::before {
+      color: var(--color-text);
+    }
+  }
+}
+
+.popularity {
+  min-width: rem(120);
+}
+
+.range-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+  align-items: center;
+}
+
+.range {
+  cursor: pointer;
+  min-width: rem(140);
+  color: var(--color-text);
+  background-color: var(--color-text-subtle);
+}
+
+.range-value {
+  font-size: var(--text-xs);
+  color: var(--color-text-muted);
+}
+
+.sort-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-l);
+  align-items: end;
+}
+
+.label-text {
+  display: flex;
+  padding-left: var(--space-xs);
+  font-size: var(--text-xs);
+  color: var(--color-text-subtle);
+}
+
+.card-wrapper {
+  display: flex;
+}
+
+.more {
+  width: fit-content;
+  margin: 0 auto;
+}
+
+.loader {
+  position: absolute;
+  z-index: var(--mobile-menu-z-index);
+  inset: 0;
+
+  display: flex;
+
+  background-color: transparent;
+}
+
+.spinner {
+  position: absolute;
+  inset: 0;
+
+  display: block;
+
+  width: var(--size-2xl);
+  margin: rem(100) auto auto;
+}
+
+.per-page {
+  min-width: rem(76);
+}

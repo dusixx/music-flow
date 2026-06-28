@@ -1,5 +1,5 @@
 import { Track } from '@app/shared/models/track';
-import { TrackDto } from './track.dto';
+import { TrackDto } from '../track/track.dto';
 
 export const mapTrack = (dto: TrackDto): Track => {
   return {

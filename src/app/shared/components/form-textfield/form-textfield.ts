@@ -1,7 +1,7 @@
 import { Component, computed, input } from '@angular/core';
 import { FieldTree, FormField } from '@angular/forms/signals';
 import { TaigaInvalidModeOverride } from '@app/shared/directives/taiga-overrides/invalid-mode-override';
-import { TuiButtonX, TuiDropdown, TuiError, TuiIcon, TuiInput } from '@taiga-ui/core';
+import { TuiButtonX, TuiDropdown, TuiIcon, TuiInput } from '@taiga-ui/core';
 import { TuiPassword } from '@taiga-ui/kit';
 import { Sprite } from '../sprite/sprite';
 
@@ -13,7 +13,6 @@ import { Sprite } from '../sprite/sprite';
     TuiIcon,
     TuiPassword,
     TuiButtonX,
-    TuiError,
     TaigaInvalidModeOverride,
     TuiDropdown,
     Sprite,

@@ -1,4 +1,4 @@
-import { EntityWithId } from '../common.types';
+import { EntityWithId } from '@app/shared/models/types/common.types';
 import { JamendoResult } from '../jamendo/jamendo.types';
 
 export interface CachePage<TItem = EntityWithId> {
@@ -57,6 +57,7 @@ export abstract class JamendoSimpleCacheService<TItem extends EntityWithId> {
       this.remove(pageId);
       return null;
     }
+
     return {
       results: page.data.results,
       hasMore: page.data.hasMore,

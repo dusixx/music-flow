@@ -1,5 +1,5 @@
 <div class="form-wrapper">
-  <h2 class="title">{{ title() }}</h2>
+  <h2 class="title">Sign In</h2>
 
   <form novalidate (submit)="onSubmit($event)" class="form">
     <player-form-textfield
@@ -27,7 +27,7 @@
       [loading]="loading()"
       [disabled]="!!error()"
     >
-      {{ submitText() }}
+      Login
     </button>
   </form>
   <a class="hint" routerLink="/signup">Create Account</a>

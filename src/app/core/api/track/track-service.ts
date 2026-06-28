@@ -1,15 +1,17 @@
 import { inject, Service } from '@angular/core';
 import { JamendoService } from '@api/jamendo/jamendo-service';
-import { TrackCacheService } from '@app/core/api/cache/track-cache';
+import { createKeyByQueryParams } from '@app/shared/utils/object.utils';
 import { map, of, tap } from 'rxjs';
-import { createCacheKey } from '../cache/cache.utils';
-import { JamendoPaginationParams, JamendoResult } from '../jamendo/jamendo.types';
+import { TrackCacheService } from '../cache/entity-cache';
+import {
+  JamendoPaginationParams,
+  JamendoSearchParams,
+  SearchParams,
+} from '../jamendo/jamendo.types';
 import { createJamendoResponseHandler } from '../jamendo/utils/handle-jamendo-response';
-import { SearchParams } from './track-service.types';
+import { mapSearchParamsToJamendoSearchParams } from '../jamendo/utils/map-search-params-to-jamendo';
 import { TrackDto } from './track.dto';
 import { mapTrack } from './track.mapper';
-import { parseSearchParams } from './utils/parse-search-params';
-import { Track } from './track.model';
 
 @Service()
 export class TrackService {
@@ -22,46 +24,30 @@ export class TrackService {
     const queryParams = {
       ...params,
       order: 'popularity_month',
-      include: 'stats+musicinfo',
     };
-    const key = createCacheKey(queryParams, 'popular');
-
-    if (this.cache.has(key)) {
-      return of(this.cache.get(key)!);
-    }
-    return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
-      map(this.responseHandler),
-      tap((resp) => {
-        this.cache.set(key, resp);
-      })
-    );
+    return this.searchRaw(queryParams);
   }
 
   getNewReleases(params?: JamendoPaginationParams) {
     const queryParams = {
       ...params,
       order: 'releasedate_desc',
-      include: 'stats+musicinfo',
     };
-    const key = createCacheKey(queryParams, 'releases');
-
-    if (this.cache.has(key)) {
-      return of(this.cache.get(key)!);
-    }
-    return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
-      map(this.responseHandler),
-      tap((resp) => {
-        this.cache.set(key, resp);
-      })
-    );
+    return this.searchRaw(queryParams);
   }
 
   search(params: SearchParams) {
+    const jamendoParams = mapSearchParamsToJamendoSearchParams(params);
+    return this.searchRaw(jamendoParams);
+  }
+
+  searchRaw(params: JamendoSearchParams) {
     const queryParams = {
-      ...parseSearchParams(params),
+      ...params,
+      fullcount: true,
       include: 'stats+musicinfo',
     };
-    const key = createCacheKey(queryParams, 'search');
+    const key = createKeyByQueryParams(queryParams, 'search');
 
     if (this.cache.has(key)) {
       return of(this.cache.get(key)!);
@@ -74,25 +60,25 @@ export class TrackService {
     );
   }
 
-  getTracksByIds(ids: string[]) {
-    if (!ids.length) return of([]);
-    const queryParams = {
-      id: ids.join('+'),
-      include: 'stats+musicinfo',
-    };
-    const key = createCacheKey(queryParams, 'tracks-by-ids');
-    if (this.cache.has(key)) {
-      // return of(this.cache.get(key)!);
-    }
-    return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
-      map(this.responseHandler),
-      tap((resp) => {
-        this.cache.set(key, resp);
-      }),
-      map((resp: JamendoResult<Track>) => {
-        const tracks = resp.results;
-        return [...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id));
-      })
-    );
-  }
+  // getTracksByIds(ids: string[]) {
+  //   if (!ids.length) return of([]);
+  //   const queryParams = {
+  //     id: ids.join('+'),
+  //     include: 'stats+musicinfo',
+  //   };
+  //   const key = createCacheKey(queryParams, 'tracks-by-ids');
+  //   if (this.cache.has(key)) {
+  //     // return of(this.cache.get(key)!);
+  //   }
+  //   return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
+  //     map(this.responseHandler),
+  //     tap((resp) => {
+  //       this.cache.set(key, resp);
+  //     }),
+  //     map((resp: JamendoResult<Track>) => {
+  //       const tracks = resp.results;
+  //       return [...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id));
+  //     })
+  //   );
+  // }
 }

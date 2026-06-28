@@ -1,4 +1,4 @@
-import { EntityWithId } from '../common.types';
+import { EntityWithId } from '@app/shared/models/types/common.types';
 
 export interface Track extends EntityWithId {
   id: string;

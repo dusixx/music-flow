@@ -1,0 +1,81 @@
+@use 'utils/mixins' as mix;
+@use 'utils/funcs' as *;
+
+$small-height: rem(32);
+$medium-height: rem(40);
+
+:host {
+  --item-height: #{$medium-height};
+  --item-padding: 0 var(--space-l);
+  --item-radius: var(--radius-xl);
+  --gap: var(--space-m);
+
+  position: relative;
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+
+  &.small {
+    --item-height: #{$small-height};
+    --item-padding: 0 var(--space-m);
+    --item-radius: var(--radius-l);
+    --gap: var(--space-s);
+
+    .control {
+      --button-height: #{$small-height};
+    }
+  }
+
+  &.no-controls {
+    .control {
+      display: none;
+    }
+  }
+}
+
+input[type='checkbox'] {
+  appearance: unset;
+}
+
+.control {
+  --button-height: #{$medium-height};
+  @include mix.no-hover {
+    display: none;
+  }
+}
+
+.carousel {
+  display: flex;
+  gap: var(--gap);
+  align-items: center;
+}
+
+.label {
+  line-height: 0;
+}
+
+.carousel-item {
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  height: var(--item-height);
+  padding: var(--item-padding);
+  border: var(--border);
+  border-radius: var(--item-radius);
+
+  background-color: var(--color-surface);
+
+  &:has(:checked) {
+    color: var(--color-text-inverse);
+    background-color: var(--color-text);
+  }
+
+  @include mix.main-transition('border-color, background-color');
+
+  @include mix.hover(':not(:has(:checked))') {
+    background-color: var(--color-surface-secondary);
+  }
+}

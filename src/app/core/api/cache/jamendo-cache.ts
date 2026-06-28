@@ -1,5 +1,5 @@
 import { JamendoResult } from '@api/jamendo/jamendo.types';
-import { EntityWithId } from '@app/core/api/common.types';
+import { EntityWithId } from '@app/shared/models/types/common.types';
 
 interface CachePage {
   data: JamendoResult<string>;

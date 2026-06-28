@@ -40,6 +40,10 @@ export const routes: Routes = [
     canActivate: [guestGuard],
   },
   {
+    path: 'search',
+    loadComponent: () => import('@app/pages/search/search').then((m) => m.Search),
+  },
+  {
     path: '**',
     loadComponent: () => import('@pages/not-found/not-found').then((m) => m.NotFound),
   },
