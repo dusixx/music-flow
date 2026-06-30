@@ -1,7 +1,6 @@
 @if (playlistResource.value(); as playlist) {
   <player-playlist-header
     [playlist]="playlist"
-    [displayName]="displayName()"
     [totalTime]="totalTime()"
     [isPlaying]="isPlaying()"
     (playClicked)="playPlaylist()"

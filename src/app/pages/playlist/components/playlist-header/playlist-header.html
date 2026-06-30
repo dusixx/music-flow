@@ -2,7 +2,7 @@
 <div class="playlist-header">
   <div class="playlist-header-container">
     <div class="playlist-cover">
-      @if (data.coverUrl?.length === 4) {
+      @if (data.coverUrl?.length === MOSAIC_COVERS_COUNT) {
         <div class="playlist-cover-mosaic">
           @for (imgUrl of data.coverUrl; track imgUrl; let isFirst = $first) {
             @if (isFirst) {
@@ -41,14 +41,11 @@
       <h1 class="playlist-title" [title]="data.name">{{ data.name }}</h1>
       <p class="playlist-description">{{ data.description ?? '' }}</p>
       <div class="playlist-stats">
-        <span class="playlist-displayname"> {{ displayName() }} </span>
         @if (data.trackIds?.length) {
           @let count = data.trackIds.length;
+          <span class="playlist-tracks-count"> {{ count }} {{ count | pluralText: 'song' }}</span>
           <span class="playlist-header-separator">•</span>
-          <span class="playlist-tracks-count"> {{ count }} {{ count | pluralText: 'song' }}, </span>
-          <span class="playlist-total-time">
-            <span> {{ totalTime() | durationText }} </span>
-          </span>
+          <span class="playlist-total-time">{{ totalTime() | durationText }}</span>
         }
       </div>
     </div>

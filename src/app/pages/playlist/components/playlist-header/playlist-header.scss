@@ -150,6 +150,7 @@
     font-size: var(--text-s);
     font-weight: 700;
     color: var(--color-text-muted);
+    text-align: start;
     letter-spacing: 1px;
   }
 
@@ -188,31 +189,18 @@
 
   font-size: var(--text-m);
   font-weight: 500;
-  color: var(--color-text);
+  color: var(--color-text-muted);
 
   @include mix.tablet {
     font-size: var(--text-s);
   }
 
-  .playlist-displayname {
-    font-weight: 800;
-  }
-
-  .playlist-total-time,
-  .playlist-tracks-count,
-  .playlist-header-separator {
-    color: var(--color-text-muted);
+  @include mix.mobile {
+    justify-content: center;
   }
 
   .playlist-header-separator {
     font-size: var(--text-xs);
-  }
-
-  .playlist-total-time {
-    display: flex;
-    gap: var(--space-xs);
-    align-items: center;
-    white-space: nowrap;
   }
 }
 

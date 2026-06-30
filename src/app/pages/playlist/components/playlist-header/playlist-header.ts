@@ -5,6 +5,7 @@ import { Button } from '@shared/components/button/button';
 import { DurationTextPipe } from '@shared/pipes/duration-text/duration-text-pipe';
 import { PluralTextPipe } from '@shared/pipes/plural-text/plural-text-pipe';
 import { PlaylistMenu } from '../playlist-menu/playlist-menu';
+import { MOSAIC_COVERS_COUNT } from '../../playlist.const';
 
 @Component({
   selector: 'player-playlist-header',
@@ -14,7 +15,6 @@ import { PlaylistMenu } from '../playlist-menu/playlist-menu';
 })
 export class PlaylistHeader {
   playlist = input.required<Playlist>();
-  displayName = input.required<string>();
   totalTime = input.required<number>();
   isPlaying = input(false);
 
@@ -22,4 +22,5 @@ export class PlaylistHeader {
   editClicked = output();
   deleteClicked = output();
   protected coverLoaded = output<HTMLImageElement>();
+  protected MOSAIC_COVERS_COUNT = MOSAIC_COVERS_COUNT;
 }
