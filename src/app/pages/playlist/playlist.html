@@ -29,26 +29,39 @@
       </player-track-row>
     }
   </div>
-  <h2>Recommended</h2>
-  <div class="recommend-list">
-    @for (track of stableRecommendedTracks(); track track.id; let index = $index) {
-      <player-track-row [track]="track">
-        <span row-meta class="track-album">{{ track.album.name }}</span>
-        <button row-actions class="track-add" (click)="addToPlaylist(track)">
-          <player-sprite icon="add-track" />
-        </button>
-      </player-track-row>
-    }
-  </div>
-  <button
-    playerButton
-    variant="base"
-    (click)="refreshRecommendations()"
-    [loading]="recommendedTracksResource.isLoading()"
-    class="refresh-button"
-  >
-    Refresh
-  </button>
+  @if (isSearchOpen()) {
+    <player-playlist-search
+      [tracks]="filteredSearchResults()"
+      [isLoading]="searchResultResource.isLoading()"
+      (queryChange)="searchQuery.set($event)"
+      (trackAdd)="addToPlaylist($event)"
+      (closeSearch)="toggleFindButton()"
+    />
+  } @else {
+    <button playerButton variant="base" (click)="toggleFindButton()" class="search-open">
+      Find more
+    </button>
+    <h2>Recommended</h2>
+    <div class="recommend-list">
+      @for (track of stableRecommendedTracks(); track track.id) {
+        <player-track-row [track]="track">
+          <span row-meta class="track-album">{{ track.album.name }}</span>
+          <button row-actions class="track-add" (click)="addToPlaylist(track)">
+            <player-sprite icon="add-track" />
+          </button>
+        </player-track-row>
+      }
+    </div>
+    <button
+      playerButton
+      variant="base"
+      (click)="refreshRecommendations()"
+      [loading]="recommendedTracksResource.isLoading()"
+      class="refresh-button"
+    >
+      Refresh
+    </button>
+  }
 } @else if (playlistResource.isLoading()) {
   <p class="loading">Loading...</p>
 } @else {
@@ -84,6 +97,3 @@
     (closeForm)="closeEditForm()"
   />
 </player-dialog>
-<!-- <button row-actions class="track-remove" (click)="removeFromPlaylist(track)">
-          <player-sprite icon="close" />
-        </button> -->

@@ -1,11 +1,11 @@
 @use 'utils/funcs' as *;
 @use 'utils/mixins' as mix;
 @use 'utils/placeholders';
+@use '@taiga-ui/styles/utils' as taiga;
 
 :host {
-  // TODO: choose a more appropriate color
-  // --playlist-color: var(--color-text-subtle);
   --playlist-color: var(--color-accent);
+  --tui-border-normal: none;
 
   display: flex;
   flex-direction: column;
@@ -19,6 +19,11 @@
   @include mix.mobile {
     padding: 0 var(--space-2xs);
   }
+}
+
+.search-open {
+  margin-left: auto;
+  font-weight: 700;
 }
 
 .track-album {
@@ -54,8 +59,7 @@
   width: rem(34);
 }
 
-.refresh-button,
-.search-open {
+.refresh-button {
   margin-left: auto;
   font-weight: 700;
 }
