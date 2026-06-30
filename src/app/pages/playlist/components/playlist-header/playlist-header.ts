@@ -16,9 +16,10 @@ export class PlaylistHeader {
   playlist = input.required<Playlist>();
   displayName = input.required<string>();
   totalTime = input.required<number>();
-  isPlaying = input<boolean>(false);
+  isPlaying = input(false);
 
-  playClicked = output<void>();
-  editClicked = output<void>();
-  deleteClicked = output<void>();
+  playClicked = output();
+  editClicked = output();
+  deleteClicked = output();
+  protected coverLoaded = output<HTMLImageElement>();
 }
