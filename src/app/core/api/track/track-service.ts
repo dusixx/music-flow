@@ -74,7 +74,6 @@ export class TrackService {
       const cachedResponse = this.cache.get(key) as JamendoResult<Track>;
       const tracks = cachedResponse.results ?? [];
       return of(this.sortTracksByIds(tracks, ids));
-      // return of([...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id)));
     }
     return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
       map(this.responseHandler),
@@ -82,11 +81,6 @@ export class TrackService {
         this.cache.set(key, resp);
       }),
       map((resp: JamendoResult<Track>) => this.sortTracksByIds(resp.results ?? [], ids))
-      // {
-      // const tracks = resp.results ?? [];
-
-      // return [...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id));
-      // }
     );
   }
 
