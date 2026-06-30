@@ -41,26 +41,12 @@
     <button playerButton variant="base" (click)="toggleFindButton()" class="search-open">
       Find more
     </button>
-    <h2>Recommended</h2>
-    <div class="recommend-list">
-      @for (track of stableRecommendedTracks(); track track.id) {
-        <player-track-row [track]="track">
-          <span row-meta class="track-album">{{ track.album.name }}</span>
-          <button row-actions class="track-add" (click)="addToPlaylist(track)">
-            <player-sprite icon="add-track" />
-          </button>
-        </player-track-row>
-      }
-    </div>
-    <button
-      playerButton
-      variant="base"
-      (click)="refreshRecommendations()"
-      [loading]="recommendedTracksResource.isLoading()"
-      class="refresh-button"
-    >
-      Refresh
-    </button>
+    <player-playlist-recommended
+      [tracks]="stableRecommendedTracks()"
+      [isLoading]="recommendedTracksResource.isLoading()"
+      (trackAdd)="addToPlaylist($event)"
+      (refresh)="refreshRecommendations()"
+    />
   }
 } @else if (playlistResource.isLoading()) {
   <p class="loading">Loading...</p>
