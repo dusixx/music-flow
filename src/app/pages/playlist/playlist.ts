@@ -115,7 +115,6 @@ export class Playlist {
   });
 
   protected tracksResource = rxResource({
-    // params: () => this.playlistResource.value()?.trackIds ?? [],
     params: () => this.trackIds(),
     stream: ({ params: trackIds }) => {
       if (!trackIds.length) {
@@ -124,11 +123,7 @@ export class Playlist {
       return this.trackService.getTracksByIds(trackIds);
     },
   });
-  // params: () => ({
-  //   trackIds: this.trackIds(),
-  //   offset: this.recommendationsOffset(),
-  // }),
-  // const seed = JAMENDO_MAIN_GENRES[Math.floor(Math.random() * JAMENDO_MAIN_GENRES.length)];
+
   protected recommendedTracksResource = rxResource({
     params: () => {
       const offset = this.recommendOffset();
@@ -197,33 +192,12 @@ export class Playlist {
   }
 
   protected refreshRecommendations() {
-    // this.recommendedTracksResource.reload();
-    // this.recommendationsOffset.update((current) => current + 20);
     this.recommendOffset.update((current) => {
       if (current >= RECOMMEND_MAX_OFFSET) return 0;
       return current + RECOMMEND_REQUEST_LIMIT;
     });
   }
 
-  // protected stableTracks = computed(() => {
-  //   const current = this.tracksResource.value();
-  //   if (current && current.length) {
-  //     this.lastValidTracks = current; // FIXME: mutation!!
-  //     return current;
-  //   }
-  //   return this.lastValidTracks;
-  // });
-
-  // protected stableRecommendedTracks = computed(() => {
-  //   const current = this.recommendedTracksResource.value();
-  //   if (Array.isArray(current)) {
-  //     this.lastValidRecommended = current; // FIXME: burn it
-  //     return current;
-  //   }
-  //   return this.lastValidRecommended;
-  // });
-
-  // cover mosaic logic
   @HostBinding('style.--playlist-color')
   protected get hostPlaylistColor() {
     return this.playlistColor();
@@ -239,13 +213,11 @@ export class Playlist {
     }
   }
 
-  // reorder logic
   protected async dropTrack(event: CdkDragDrop<string[]>) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
     if (event.previousIndex === event.currentIndex) return;
     const updatedTrackIds = [...playlist.trackIds];
-    // console.log('track was moved>>', event.previousIndex, event.currentIndex)
     moveItemInArray(updatedTrackIds, event.previousIndex, event.currentIndex);
     const updates: UpdatePlaylistInput = {
       trackIds: updatedTrackIds,
