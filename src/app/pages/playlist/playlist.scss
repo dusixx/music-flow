@@ -1,7 +1,6 @@
 @use 'utils/funcs' as *;
 @use 'utils/mixins' as mix;
 @use 'utils/placeholders';
-@use '@taiga-ui/styles/utils' as taiga;
 
 :host {
   --playlist-color: var(--color-accent);
@@ -57,11 +56,6 @@
 
 .track-add {
   width: rem(34);
-}
-
-.refresh-button {
-  margin-left: auto;
-  font-weight: 700;
 }
 
 .confirm {
