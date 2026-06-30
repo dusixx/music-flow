@@ -36,7 +36,7 @@
       </button>
     </player-track-row>
   } @empty {
-    @if (searchQuery().length >= 2 && !isLoading()) {
+    @if (searchQuery().length >= MIN_SEARCH_LENGTH) {
       <p>No tracks found for "{{ searchQuery() }}"</p>
     }
   }

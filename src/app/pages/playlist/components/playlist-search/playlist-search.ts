@@ -5,6 +5,8 @@ import { Button } from '@shared/components/button/button';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Track } from '@shared/models/track';
 
+const MIN_SEARCH_LENGTH = 2;
+
 @Component({
   selector: 'player-playlist-search',
   imports: [TuiInput, TuiButtonX, TrackRow, Button, Sprite],
@@ -17,6 +19,8 @@ export class PlaylistSearch {
   queryChange = output<string>();
   trackAdd = output<Track>();
   closeSearch = output<void>();
+
+  protected readonly MIN_SEARCH_LENGTH = MIN_SEARCH_LENGTH;
 
   protected searchQuery = signal('');
 
