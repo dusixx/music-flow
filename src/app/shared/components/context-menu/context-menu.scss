@@ -25,15 +25,14 @@
 
 /* stylelint-disable-next-line selector-pseudo-element-no-unknown */
 ::ng-deep [data-appearance='menu-dropdown'] {
+  --tui-border-normal: none;
+
   overflow: hidden;
-  border: none;
   border-radius: var(--radius-s);
   background-color: var(--color-bg);
 
   tui-data-list.menu-list {
     overflow: hidden;
-    border: none;
-    border-radius: var(--radius-s);
     background-color: var(--color-bg);
 
     button[tuiOption] {
