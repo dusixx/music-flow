@@ -7,11 +7,13 @@ import {
   JamendoPaginationParams,
   JamendoSearchParams,
   SearchParams,
+  JamendoResult,
 } from '../jamendo/jamendo.types';
 import { createJamendoResponseHandler } from '../jamendo/utils/handle-jamendo-response';
 import { mapSearchParamsToJamendoSearchParams } from '../jamendo/utils/map-search-params-to-jamendo';
 import { TrackDto } from './track.dto';
 import { mapTrack } from './track.mapper';
+import { Track } from './track.model';
 
 @Service()
 export class TrackService {
@@ -60,25 +62,35 @@ export class TrackService {
     );
   }
 
-  // getTracksByIds(ids: string[]) {
-  //   if (!ids.length) return of([]);
-  //   const queryParams = {
-  //     id: ids.join('+'),
-  //     include: 'stats+musicinfo',
-  //   };
-  //   const key = createCacheKey(queryParams, 'tracks-by-ids');
-  //   if (this.cache.has(key)) {
-  //     // return of(this.cache.get(key)!);
-  //   }
-  //   return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
-  //     map(this.responseHandler),
-  //     tap((resp) => {
-  //       this.cache.set(key, resp);
-  //     }),
-  //     map((resp: JamendoResult<Track>) => {
-  //       const tracks = resp.results;
-  //       return [...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id));
-  //     })
-  //   );
-  // }
+  getTracksByIds(ids: string[]) {
+    if (!ids.length) return of([]);
+    const queryParams = {
+      id: ids.join('+'),
+      include: 'stats+musicinfo',
+      limit: 100,
+    };
+    const key = createKeyByQueryParams(queryParams, 'search');
+    if (this.cache.has(key)) {
+      const cachedResponse = this.cache.get(key) as JamendoResult<Track>;
+      const tracks = cachedResponse.results ?? [];
+      return of(this.sortTracksByIds(tracks, ids));
+      // return of([...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id)));
+    }
+    return this.jamendoService.get<TrackDto>('tracks', queryParams).pipe(
+      map(this.responseHandler),
+      tap((resp) => {
+        this.cache.set(key, resp);
+      }),
+      map((resp: JamendoResult<Track>) => this.sortTracksByIds(resp.results ?? [], ids))
+      // {
+      // const tracks = resp.results ?? [];
+
+      // return [...tracks].sort((a: Track, b: Track) => ids.indexOf(a.id) - ids.indexOf(b.id));
+      // }
+    );
+  }
+
+  private sortTracksByIds(tracks: Track[], ids: string[]): Track[] {
+    return [...tracks].sort((a, b) => ids.indexOf(a.id) - ids.indexOf(b.id));
+  }
 }
