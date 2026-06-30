@@ -7,6 +7,12 @@
         <player-sprite icon="add-track" />
       </button>
     </player-track-row>
+  } @empty {
+    @if (isLoading()) {
+      <p>Looking for more songs...</p>
+    } @else {
+      <p>No new recommendations available. Try hitting Refresh!</p>
+    }
   }
 </div>
 <button
