@@ -14,7 +14,7 @@
 
   margin-bottom: var(--space-m);
   padding: var(--space-s) var(--space-m);
-  border-bottom: 2px solid var(--color-border-subtle);
+  border-bottom: 1px solid var(--color-surface);
 
   @include mix.tablet {
     padding: var(--space-xs) var(--space-xs);
