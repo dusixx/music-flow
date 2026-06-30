@@ -4,12 +4,30 @@
     <div class="playlist-cover">
       @if (data.coverUrl?.length === 4) {
         <div class="playlist-cover-mosaic">
-          @for (imgUrl of data.coverUrl; track imgUrl) {
-            <img [src]="imgUrl" alt="Playlist cover" class="playlist-cover-img" />
+          @for (imgUrl of data.coverUrl; track imgUrl; let isFirst = $first) {
+            @if (isFirst) {
+              <img
+                #coverImg
+                [src]="imgUrl"
+                alt="Playlist cover"
+                class="playlist-cover-img"
+                (load)="coverLoaded.emit(coverImg)"
+                crossOrigin="anonymous"
+              />
+            } @else {
+              <img [src]="imgUrl" alt="Playlist cover" class="playlist-cover-img" />
+            }
           }
         </div>
       } @else if (data.coverUrl?.length === 1) {
-        <img [src]="data.coverUrl[0]" alt="Playlist cover" class="playlist-cover-img" />
+        <img
+          #coverImg
+          [src]="data.coverUrl[0]"
+          alt="Playlist cover"
+          class="playlist-cover-img"
+          (load)="coverLoaded.emit(coverImg)"
+          crossOrigin="anonymous"
+        />
       } @else {
         <player-sprite icon="music" class="playlist-cover-icon" />
       }
@@ -36,7 +54,7 @@
     </div>
   </div>
 </div>
-<div class="palylist-header-actions">
+<div class="playlist-header-actions">
   <button
     variant="primary"
     playerButton="playlist-header-play-btn"
