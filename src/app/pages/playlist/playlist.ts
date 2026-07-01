@@ -257,16 +257,6 @@ export class Playlist {
     } catch (error) {
       console.error('[dropTrack]', error);
     }
-    // const updates: UpdatePlaylistInput = {
-    //   trackIds: nextTracks.map((t) => t.id),
-    //   coverUrl: this.buildCover(nextTracks),
-    // };
-    // try {
-    //   await this.playlistService.updatePlaylist(playlist.id, updates);
-    //   this.playlistResource.reload();
-    // } catch (error) {
-    //   console.error('[dropTrack]', error);
-    // }
   }
 
   protected async addToPlaylist(track: Track) {
@@ -276,15 +266,8 @@ export class Playlist {
     const currentTracks = this.stableTracks();
     const nextTracks = [...currentTracks, track];
 
-    // const updates: UpdatePlaylistInput = {
-    //   trackIds: nextTracks.map((t) => t.id),
-    //   coverUrl: this.buildCover(nextTracks),
-    // };
-
     try {
       await this.saveTracks(playlist.id, nextTracks);
-      // await this.playlistService.updatePlaylist(playlist.id, updates);
-      // this.playlistResource.reload();
     } catch (error) {
       console.error('[addToPlaylist]', error);
     }
@@ -303,15 +286,8 @@ export class Playlist {
 
     const nextTracks = currentTracks.filter((t) => t.id !== track.id);
 
-    // const updates: UpdatePlaylistInput = {
-    //   trackIds: nextTracks.map((t) => t.id),
-    //   coverUrl: this.buildCover(nextTracks),
-    // };
-
     try {
       await this.saveTracks(playlist.id, nextTracks);
-      // await this.playlistService.updatePlaylist(playlist.id, updates);
-      // this.playlistResource.reload();
     } catch (error) {
       console.error('[removeFromPlaylist]', error);
     }
