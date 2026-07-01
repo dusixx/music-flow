@@ -20,7 +20,6 @@ import { PluralTextPipe } from '@shared/pipes/plural-text/plural-text-pipe';
   templateUrl: './library.html',
   styleUrl: './library.scss',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  providers: [PlaylistApiService],
 })
 export class Library {
   private authService = inject(AuthService);
