@@ -53,15 +53,17 @@
 
 .track-main-info {
   display: flex;
+  flex: 1 2 var(--track-text-min-width);
   flex-direction: column;
-  flex-grow: 1;
-  flex-shrink: 2;
 
-  min-width: var(--track-text-min-width);
+  // min-width: var(--track-text-min-width);
+  min-width: 0;
 
   .track-title,
   .track-artist {
     @extend %ellipsis;
+
+    width: 100%;
   }
 
   .track-title {
@@ -78,15 +80,25 @@
 
 .track-meta-slot {
   display: flex;
-  flex: 0 1 rem(300);
+  flex: 1 1 rem(200);
   gap: var(--space-m);
   align-items: center;
 
-  min-width: rem(110);
+  // min-width: rem(110);
+  min-width: 0;
 
   font-size: var(--text-s);
   color: var(--color-text-muted);
 
+  /* stylelint-disable selector-pseudo-element-no-unknown */
+  ::ng-deep [row-meta],
+  ::ng-deep .track-album {
+    @extend %ellipsis;
+
+    width: 100%;
+  }
+
+  /* stylelint-enable selector-pseudo-element-no-unknown */
   @include mix.mobile {
     display: none;
   }
