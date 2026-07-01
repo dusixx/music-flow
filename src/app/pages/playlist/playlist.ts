@@ -235,9 +235,22 @@ export class Playlist {
       trackIds: tracks.map((t) => t.id),
       coverUrl: this.buildCover(tracks),
     };
-
     await this.playlistService.updatePlaylist(playlistId, updates);
     this.playlistResource.reload();
+  }
+
+  private addTracks(tracks: Track[], track: Track) {
+    return [...tracks, track];
+  }
+
+  private removeTrack(tracks: Track[], track: Track) {
+    return tracks.filter((t) => t.id !== track.id);
+  }
+
+  private reorderTracks(tracks: Track[], from: number, to: number) {
+    const copy = [...tracks];
+    moveItemInArray(copy, from, to);
+    return copy;
   }
 
   // THINK ABOUT: dropTrack/addToPlaylist/removeFromPlaylist are three diff ways to get the new Track[] => SSOT
@@ -248,9 +261,7 @@ export class Playlist {
     if (event.previousIndex === event.currentIndex) return;
 
     const currentTracks = this.stableTracks();
-    const nextTracks = [...currentTracks];
-
-    moveItemInArray(nextTracks, event.previousIndex, event.currentIndex);
+    const nextTracks = this.reorderTracks(currentTracks, event.previousIndex, event.currentIndex);
 
     try {
       await this.saveTracks(playlist.id, nextTracks);
@@ -264,7 +275,7 @@ export class Playlist {
     if (!playlist) return;
 
     const currentTracks = this.stableTracks();
-    const nextTracks = [...currentTracks, track];
+    const nextTracks = this.addTracks(currentTracks, track);
 
     try {
       await this.saveTracks(playlist.id, nextTracks);
@@ -284,7 +295,7 @@ export class Playlist {
       return;
     }
 
-    const nextTracks = currentTracks.filter((t) => t.id !== track.id);
+    const nextTracks = this.removeTrack(currentTracks, track);
 
     try {
       await this.saveTracks(playlist.id, nextTracks);
