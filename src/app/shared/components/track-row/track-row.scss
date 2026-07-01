@@ -55,8 +55,6 @@
   display: flex;
   flex: 1 2 var(--track-text-min-width);
   flex-direction: column;
-
-  // min-width: var(--track-text-min-width);
   min-width: 0;
 
   .track-title,
@@ -84,7 +82,6 @@
   gap: var(--space-m);
   align-items: center;
 
-  // min-width: rem(110);
   min-width: 0;
 
   font-size: var(--text-s);
