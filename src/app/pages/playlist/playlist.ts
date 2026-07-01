@@ -22,11 +22,11 @@ import {
 import { FastAverageColor } from 'fast-average-color';
 import { TrackService } from '@core/api/track/track-service';
 import { PlaylistApiService } from '@core/services/playlist/playlist-api-service';
-import { JamendoResult } from '@core/api/jamendo/jamendo.types';
 import { ToastService } from '@core/services/toast/toast-service';
+import { JamendoResult } from '@core/api/jamendo/jamendo.types';
 import { JAMENDO_MAIN_GENRES } from '@core/api/jamendo/jamendo.constants';
-import { TrackRow } from '@shared/components/track-row/track-row';
 import { DurationPipe } from '@shared/pipes/duration-pipe';
+import { TrackRow } from '@shared/components/track-row/track-row';
 import { Sprite } from '@shared/components/sprite/sprite';
 import { Button } from '@shared/components/button/button';
 import { Dialog } from '@shared/components/dialog/dialog';
@@ -126,12 +126,14 @@ export class Playlist {
 
   protected recommendedTracksResource = rxResource({
     params: () => {
-      const offset = this.recommendOffset();
+      const initOffset = this.recommendOffset();
       const trackIds = this.trackIds();
 
-      const pageIndex = offset / RECOMMEND_REQUEST_LIMIT;
+      const pageIndex = initOffset / RECOMMEND_REQUEST_LIMIT;
       const genreIndex = pageIndex % JAMENDO_MAIN_GENRES.length;
+
       const seed = JAMENDO_MAIN_GENRES[genreIndex];
+      const offset = initOffset + trackIds.length;
 
       return {
         seed,
