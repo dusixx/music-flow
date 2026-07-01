@@ -234,29 +234,18 @@ export class Playlist {
   protected async dropTrack(event: CdkDragDrop<string[]>) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
+
     if (event.previousIndex === event.currentIndex) return;
-    const updatedTrackIds = [...playlist.trackIds];
-    moveItemInArray(updatedTrackIds, event.previousIndex, event.currentIndex);
+
+    const currentTracks = this.stableTracks();
+    const nextTracks = [...currentTracks];
+
+    moveItemInArray(nextTracks, event.previousIndex, event.currentIndex);
+
     const updates: UpdatePlaylistInput = {
-      trackIds: updatedTrackIds,
+      trackIds: nextTracks.map((t) => t.id),
+      coverUrl: this.buildCover(nextTracks),
     };
-    if (updatedTrackIds.length >= MOSAIC_COVERS_COUNT) {
-      const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
-      const images: string[] = [];
-      for (const id of firstFourIds) {
-        const existingTrack = this.tracksResource.value()?.find((track) => track.id === id);
-        if (existingTrack) {
-          images.push(existingTrack.album.image);
-        }
-      }
-      updates.coverUrl = images;
-    } else if (updatedTrackIds.length > 0) {
-      const firstTrackId = updatedTrackIds[0];
-      const firstTrack = this.tracksResource.value()?.find((track) => track.id === firstTrackId);
-      if (firstTrack) {
-        updates.coverUrl = [firstTrack.album.image];
-      }
-    }
     try {
       await this.playlistService.updatePlaylist(playlist.id, updates);
       this.playlistResource.reload();
@@ -264,6 +253,40 @@ export class Playlist {
       console.error('[dropTrack]', error);
     }
   }
+
+  // protected async dropTrack(event: CdkDragDrop<string[]>) {
+  //   const playlist = this.playlistResource.value();
+  //   if (!playlist) return;
+  //   if (event.previousIndex === event.currentIndex) return;
+  //   const updatedTrackIds = [...playlist.trackIds];
+  //   moveItemInArray(updatedTrackIds, event.previousIndex, event.currentIndex);
+  //   const updates: UpdatePlaylistInput = {
+  //     trackIds: updatedTrackIds,
+  //   };
+  //   if (updatedTrackIds.length >= MOSAIC_COVERS_COUNT) {
+  //     const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
+  //     const images: string[] = [];
+  //     for (const id of firstFourIds) {
+  //       const existingTrack = this.tracksResource.value()?.find((track) => track.id === id);
+  //       if (existingTrack) {
+  //         images.push(existingTrack.album.image);
+  //       }
+  //     }
+  //     updates.coverUrl = images;
+  //   } else if (updatedTrackIds.length > 0) {
+  //     const firstTrackId = updatedTrackIds[0];
+  //     const firstTrack = this.tracksResource.value()?.find((track) => track.id === firstTrackId);
+  //     if (firstTrack) {
+  //       updates.coverUrl = [firstTrack.album.image];
+  //     }
+  //   }
+  //   try {
+  //     await this.playlistService.updatePlaylist(playlist.id, updates);
+  //     this.playlistResource.reload();
+  //   } catch (error) {
+  //     console.error('[dropTrack]', error);
+  //   }
+  // }
 
   protected async addToPlaylist(track: Track) {
     const playlist = this.playlistResource.value();
