@@ -230,6 +230,16 @@ export class Playlist {
     return [tracks[0].album.image];
   }
 
+  private async saveTracks(playlistId: string, tracks: Track[]) {
+    const updates: UpdatePlaylistInput = {
+      trackIds: tracks.map((t) => t.id),
+      coverUrl: this.buildCover(tracks),
+    };
+
+    await this.playlistService.updatePlaylist(playlistId, updates);
+    this.playlistResource.reload();
+  }
+
   // THINK ABOUT: dropTrack/addToPlaylist/removeFromPlaylist are three diff ways to get the new Track[] => SSOT
   protected async dropTrack(event: CdkDragDrop<string[]>) {
     const playlist = this.playlistResource.value();
@@ -242,15 +252,68 @@ export class Playlist {
 
     moveItemInArray(nextTracks, event.previousIndex, event.currentIndex);
 
-    const updates: UpdatePlaylistInput = {
-      trackIds: nextTracks.map((t) => t.id),
-      coverUrl: this.buildCover(nextTracks),
-    };
     try {
-      await this.playlistService.updatePlaylist(playlist.id, updates);
-      this.playlistResource.reload();
+      await this.saveTracks(playlist.id, nextTracks);
     } catch (error) {
       console.error('[dropTrack]', error);
+    }
+    // const updates: UpdatePlaylistInput = {
+    //   trackIds: nextTracks.map((t) => t.id),
+    //   coverUrl: this.buildCover(nextTracks),
+    // };
+    // try {
+    //   await this.playlistService.updatePlaylist(playlist.id, updates);
+    //   this.playlistResource.reload();
+    // } catch (error) {
+    //   console.error('[dropTrack]', error);
+    // }
+  }
+
+  protected async addToPlaylist(track: Track) {
+    const playlist = this.playlistResource.value();
+    if (!playlist) return;
+
+    const currentTracks = this.stableTracks();
+    const nextTracks = [...currentTracks, track];
+
+    // const updates: UpdatePlaylistInput = {
+    //   trackIds: nextTracks.map((t) => t.id),
+    //   coverUrl: this.buildCover(nextTracks),
+    // };
+
+    try {
+      await this.saveTracks(playlist.id, nextTracks);
+      // await this.playlistService.updatePlaylist(playlist.id, updates);
+      // this.playlistResource.reload();
+    } catch (error) {
+      console.error('[addToPlaylist]', error);
+    }
+  }
+
+  protected async removeFromPlaylist(track: Track) {
+    const playlist = this.playlistResource.value();
+    if (!playlist) return;
+
+    const currentTracks = this.stableTracks();
+
+    if (currentTracks.length === 1) {
+      this.toast.info('A playlist must contain at least one track.');
+      return;
+    }
+
+    const nextTracks = currentTracks.filter((t) => t.id !== track.id);
+
+    // const updates: UpdatePlaylistInput = {
+    //   trackIds: nextTracks.map((t) => t.id),
+    //   coverUrl: this.buildCover(nextTracks),
+    // };
+
+    try {
+      await this.saveTracks(playlist.id, nextTracks);
+      // await this.playlistService.updatePlaylist(playlist.id, updates);
+      // this.playlistResource.reload();
+    } catch (error) {
+      console.error('[removeFromPlaylist]', error);
     }
   }
 
@@ -288,33 +351,6 @@ export class Playlist {
   //   }
   // }
 
-  protected async addToPlaylist(track: Track) {
-    const playlist = this.playlistResource.value();
-    if (!playlist) return;
-
-    const currentTracks = this.stableTracks();
-    const nextTracks = [...currentTracks, track];
-
-    const updates: UpdatePlaylistInput = {
-      trackIds: nextTracks.map((t) => t.id),
-      coverUrl: this.buildCover(nextTracks),
-    };
-    // if (nextTracks.length >= MOSAIC_COVERS_COUNT) {
-    //   updates.coverUrl = nextTracks
-    //     .slice(0, MOSAIC_COVERS_COUNT)
-    //     .map(t => t.album.image)
-    // } else if (nextTracks.length === 1) {
-    //   updates.coverUrl = [track.album.image]
-    // }
-
-    try {
-      await this.playlistService.updatePlaylist(playlist.id, updates);
-      this.playlistResource.reload();
-    } catch (error) {
-      console.error('[addToPlaylist]', error);
-    }
-  }
-
   // protected async addToPlaylist(track: Track) {
   //   const playlist = this.playlistResource.value();
   //   if (!playlist) return;
@@ -347,31 +383,6 @@ export class Playlist {
   //   }
   // }
 
-  protected async removeFromPlaylist(track: Track) {
-    const playlist = this.playlistResource.value();
-    if (!playlist) return;
-
-    const currentTracks = this.stableTracks();
-
-    if (currentTracks.length === 1) {
-      this.toast.info('A playlist must contain at least one track.');
-      return;
-    }
-
-    const nextTracks = currentTracks.filter((t) => t.id !== track.id);
-
-    const updates: UpdatePlaylistInput = {
-      trackIds: nextTracks.map((t) => t.id),
-      coverUrl: this.buildCover(nextTracks),
-    };
-
-    try {
-      await this.playlistService.updatePlaylist(playlist.id, updates);
-      this.playlistResource.reload();
-    } catch (error) {
-      console.error('[removeFromPlaylist]', error);
-    }
-  }
   // protected async removeFromPlaylist(track: Track) {
   //   const playlist = this.playlistResource.value();
   //   if (!playlist) return;
