@@ -215,6 +215,22 @@ export class Playlist {
     }
   }
 
+  protected toggleFindButton() {
+    this.isSearchOpen.update((open) => !open);
+    if (!this.isSearchOpen()) {
+      this.searchQuery.set('');
+    }
+  }
+
+  private buildCover(tracks: Track[]) {
+    if (!tracks.length) return [];
+    if (tracks.length >= MOSAIC_COVERS_COUNT) {
+      return tracks.slice(0, MOSAIC_COVERS_COUNT).map((t) => t.album.image);
+    }
+    return [tracks[0].album.image];
+  }
+
+  // THINK ABOUT: dropTrack/addToPlaylist/removeFromPlaylist are three diff ways to get the new Track[] => SSOT
   protected async dropTrack(event: CdkDragDrop<string[]>) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
@@ -249,37 +265,25 @@ export class Playlist {
     }
   }
 
-  protected toggleFindButton() {
-    this.isSearchOpen.update((open) => !open);
-    if (!this.isSearchOpen()) {
-      this.searchQuery.set('');
-    }
-  }
-
   protected async addToPlaylist(track: Track) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
 
-    const updatedTrackIds = [...playlist.trackIds, track.id];
-    const updates: UpdatePlaylistInput = { trackIds: updatedTrackIds };
+    const currentTracks = this.stableTracks();
+    const nextTracks = [...currentTracks, track];
 
-    if (updatedTrackIds.length >= MOSAIC_COVERS_COUNT) {
-      const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
-      const images: string[] = [];
-      for (const id of firstFourIds) {
-        if (id === track.id) {
-          images.push(track.album.image);
-        } else {
-          const existingTrack = this.tracksResource.value()?.find((track) => track.id === id);
-          if (existingTrack) {
-            images.push(existingTrack.album.image);
-          }
-        }
-      }
-      updates.coverUrl = images;
-    } else if (!playlist.trackIds.length) {
-      updates.coverUrl = [track.album.image];
-    }
+    const updates: UpdatePlaylistInput = {
+      trackIds: nextTracks.map((t) => t.id),
+      coverUrl: this.buildCover(nextTracks),
+    };
+    // if (nextTracks.length >= MOSAIC_COVERS_COUNT) {
+    //   updates.coverUrl = nextTracks
+    //     .slice(0, MOSAIC_COVERS_COUNT)
+    //     .map(t => t.album.image)
+    // } else if (nextTracks.length === 1) {
+    //   updates.coverUrl = [track.album.image]
+    // }
+
     try {
       await this.playlistService.updatePlaylist(playlist.id, updates);
       this.playlistResource.reload();
@@ -288,42 +292,99 @@ export class Playlist {
     }
   }
 
+  // protected async addToPlaylist(track: Track) {
+  //   const playlist = this.playlistResource.value();
+  //   if (!playlist) return;
+
+  //   const updatedTrackIds = [...playlist.trackIds, track.id];
+  //   const updates: UpdatePlaylistInput = { trackIds: updatedTrackIds };
+
+  //   if (updatedTrackIds.length >= MOSAIC_COVERS_COUNT) {
+  //     const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
+  //     const images: string[] = [];
+  //     for (const id of firstFourIds) {
+  //       if (id === track.id) {
+  //         images.push(track.album.image);
+  //       } else {
+  //         const existingTrack = this.tracksResource.value()?.find((track) => track.id === id);
+  //         if (existingTrack) {
+  //           images.push(existingTrack.album.image);
+  //         }
+  //       }
+  //     }
+  //     updates.coverUrl = images;
+  //   } else if (!playlist.trackIds.length) {
+  //     updates.coverUrl = [track.album.image];
+  //   }
+  //   try {
+  //     await this.playlistService.updatePlaylist(playlist.id, updates);
+  //     this.playlistResource.reload();
+  //   } catch (error) {
+  //     console.error('[addToPlaylist]', error);
+  //   }
+  // }
+
   protected async removeFromPlaylist(track: Track) {
     const playlist = this.playlistResource.value();
     if (!playlist) return;
-    if (playlist.trackIds.length === 1) {
+
+    const currentTracks = this.stableTracks();
+
+    if (currentTracks.length === 1) {
       this.toast.info('A playlist must contain at least one track.');
       return;
     }
-    const updatedTrackIds = playlist.trackIds.filter((id) => id !== track.id);
+
+    const nextTracks = currentTracks.filter((t) => t.id !== track.id);
 
     const updates: UpdatePlaylistInput = {
-      trackIds: updatedTrackIds,
+      trackIds: nextTracks.map((t) => t.id),
+      coverUrl: this.buildCover(nextTracks),
     };
-    if (updatedTrackIds.length < MOSAIC_COVERS_COUNT) {
-      const firstTrackId = updatedTrackIds[0];
-      const firstTrack = this.tracksResource.value()?.find((track) => track.id === firstTrackId);
-      if (firstTrack) {
-        updates.coverUrl = [firstTrack.album.image];
-      }
-    } else {
-      const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
-      const images: string[] = [];
-      for (const id of firstFourIds) {
-        const existingTrack = this.tracksResource.value()?.find((t) => t.id === id);
-        if (existingTrack) {
-          images.push(existingTrack.album.image);
-        }
-      }
-      updates.coverUrl = images;
-    }
+
     try {
       await this.playlistService.updatePlaylist(playlist.id, updates);
       this.playlistResource.reload();
     } catch (error) {
-      console.error('[removeTrackById]', error);
+      console.error('[removeFromPlaylist]', error);
     }
   }
+  // protected async removeFromPlaylist(track: Track) {
+  //   const playlist = this.playlistResource.value();
+  //   if (!playlist) return;
+  //   if (playlist.trackIds.length === 1) {
+  //     this.toast.info('A playlist must contain at least one track.');
+  //     return;
+  //   }
+  //   const updatedTrackIds = playlist.trackIds.filter((id) => id !== track.id);
+
+  //   const updates: UpdatePlaylistInput = {
+  //     trackIds: updatedTrackIds,
+  //   };
+  //   if (updatedTrackIds.length < MOSAIC_COVERS_COUNT) {
+  //     const firstTrackId = updatedTrackIds[0];
+  //     const firstTrack = this.tracksResource.value()?.find((track) => track.id === firstTrackId);
+  //     if (firstTrack) {
+  //       updates.coverUrl = [firstTrack.album.image];
+  //     }
+  //   } else {
+  //     const firstFourIds = updatedTrackIds.slice(0, MOSAIC_COVERS_COUNT);
+  //     const images: string[] = [];
+  //     for (const id of firstFourIds) {
+  //       const existingTrack = this.tracksResource.value()?.find((t) => t.id === id);
+  //       if (existingTrack) {
+  //         images.push(existingTrack.album.image);
+  //       }
+  //     }
+  //     updates.coverUrl = images;
+  //   }
+  //   try {
+  //     await this.playlistService.updatePlaylist(playlist.id, updates);
+  //     this.playlistResource.reload();
+  //   } catch (error) {
+  //     console.error('[removeTrackById]', error);
+  //   }
+  // }
 
   protected playPlaylist() {
     this.isPlaying.update((value) => !value);
